@@ -38,24 +38,22 @@ export default class RestaurantsDAO {
         query = { 'address.zipcode': { $eq: filters['zipcode'] } }
       }
     }
-  
+
     try {
-      const restaurantsList = await Restaurant
-        .find(query)
+      const restaurantsList = await Restaurant.find(query)
         .limit(restaurantsPerPage)
         .skip(restaurantsPerPage * page)
         .lean()
         .exec()
-  
+
       const totalNumRestaurants = await Restaurant.countDocuments(query)
-  
+
       return { restaurantsList, totalNumRestaurants }
     } catch (e) {
       console.error(`Unable to get restaurants, ${e}`)
       return { restaurantsList: [], totalNumRestaurants: 0 }
     }
   }
-  
 
   static async getRestaurantByID(id) {
     try {
@@ -94,8 +92,8 @@ export default class RestaurantsDAO {
           }
         }
       ]
-
-      return await Restaurant.aggregate(pipeline).exec()
+      const result = await Restaurant.aggregate(pipeline).exec()
+      return result.length ? result[0] : null;
     } catch (e) {
       console.error(`Something went wrong in getRestaurantByID: ${e}`)
       throw e
