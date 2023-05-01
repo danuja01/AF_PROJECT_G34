@@ -8,8 +8,8 @@ const connectDB = async () => {
   mongoose
     .connect(process.env.MONGO_URI, { connectTimeoutMS: 3000 })
     .then(async (client) => {
-      // await RestaurantsDAO.injectDB(client)
-      // await ReviewsDAO.injectDB(client)
+      await RestaurantsDAO.injectDB(client)
+      await ReviewsDAO.injectDB(client)
     })
     .catch((error) => {
       consola.error(`Error connecting to MongoDB: ${error}`)

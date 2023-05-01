@@ -1,20 +1,34 @@
 import mongoose from 'mongoose'
-let restaurants
+
+const restaurantSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  address: {
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zipcode: { type: String, required: true }
+  },
+  cuisine: { type: String, required: true },
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+})
+
+const Restaurant = mongoose.model('Destination', restaurantSchema)
 
 export default class RestaurantsDAO {
   static async injectDB(conn) {
-    if (restaurants) {
+    if (Restaurant.db) {
       return
     }
+
     try {
-      restaurants = await conn.db(process.env.RESTREVIEWS_NS).collection('restaurants')
+      await conn.connect()
     } catch (e) {
-      console.error(`Unable to establish a collection handle in restaurantsDAO: ${e}`)
+      console.error(`Unable to connect to database in restaurantsDAO: ${e}`)
     }
   }
 
   static async getRestaurants({ filters = null, page = 0, restaurantsPerPage = 20 } = {}) {
-    let query
+    let query = {}
     if (filters) {
       if ('name' in filters) {
         query = { $text: { $search: filters['name'] } }
@@ -24,28 +38,24 @@ export default class RestaurantsDAO {
         query = { 'address.zipcode': { $eq: filters['zipcode'] } }
       }
     }
-
-    let cursor
-
+  
     try {
-      cursor = await restaurants.find(query)
-    } catch (e) {
-      console.error(`Unable to issue find command, ${e}`)
-      return { restaurantsList: [], totalNumRestaurants: 0 }
-    }
-
-    const displayCursor = cursor.limit(restaurantsPerPage).skip(restaurantsPerPage * page)
-
-    try {
-      const restaurantsList = await displayCursor.toArray()
-      const totalNumRestaurants = await restaurants.countDocuments(query)
-
+      const restaurantsList = await Restaurant
+        .find(query)
+        .limit(restaurantsPerPage)
+        .skip(restaurantsPerPage * page)
+        .lean()
+        .exec()
+  
+      const totalNumRestaurants = await Restaurant.countDocuments(query)
+  
       return { restaurantsList, totalNumRestaurants }
     } catch (e) {
-      console.error(`Unable to convert cursor to array or problem counting documents, ${e}`)
+      console.error(`Unable to get restaurants, ${e}`)
       return { restaurantsList: [], totalNumRestaurants: 0 }
     }
   }
+  
 
   static async getRestaurantByID(id) {
     try {
@@ -84,7 +94,8 @@ export default class RestaurantsDAO {
           }
         }
       ]
-      return await restaurants.aggregate(pipeline).next()
+
+      return await Restaurant.aggregate(pipeline).exec()
     } catch (e) {
       console.error(`Something went wrong in getRestaurantByID: ${e}`)
       throw e
@@ -93,8 +104,10 @@ export default class RestaurantsDAO {
 
   static async getCuisines() {
     let cuisines = []
+
     try {
-      cuisines = await restaurants.distinct('cuisine')
+      cuisines = await Restaurant.distinct('cuisine')
+
       return cuisines
     } catch (e) {
       console.error(`Unable to get cuisines, ${e}`)
