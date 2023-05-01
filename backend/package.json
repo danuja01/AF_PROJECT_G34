@@ -1,0 +1,56 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "build": "npm run clean && npm run build-babel && npm run copy",
+    "build-babel": "babel -d ./dist ./src -s",
+    "dev": "nodemon --exec  babel-node src/app.js",
+    "clean": "rm -rf dist",
+    "start": "node dist/app.js",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern '**/.babelrc' && prettier . --write",
+    "test": "echo test",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "celebrate": "15.0.1",
+    "compression": "1.7.4",
+    "consola": "3.1.0",
+    "cors": "2.8.5",
+    "dotenv": "16.0.1",
+    "express": "4.18.1",
+    "express-http-context": "1.2.4",
+    "express-rate-limit": "6.7.0",
+    "helmet": "6.1.5",
+    "mongodb": "4.9.0",
+    "mongoose": "7.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.17.10",
+    "@babel/core": "7.17.12",
+    "@babel/eslint-parser": "7.18.2",
+    "@babel/node": "^7.18.6",
+    "@babel/preset-env": "^7.21.5",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.19.0",
+    "husky": "4.3.8",
+    "prettier": "^2.7.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && git add ."
+    }
+  },
+  "engines": {
+    "node": ">=10",
+    "pnpm": ">=3"
+  }
+}
