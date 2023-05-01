@@ -6,7 +6,9 @@ import helmet from 'helmet'
 import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
 import restaurants from './routes/restaurants.route'
+import toursRouter from './routes/tours.routes'
 import connectDB from './database'
+import path from 'path'
 
 const app = express()
 
@@ -26,7 +28,11 @@ connectDB()
 
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
-app.use('/api/v1/restaurants', restaurants)
+app.use('/api/restaurants', restaurants)
+
+app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
+
+app.use('/api/tours', toursRouter)
 
 app.use(responseInterceptor)
 

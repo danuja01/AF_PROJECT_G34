@@ -6,7 +6,7 @@ import ReviewsDAO from '../dao/reviewsDAO.js'
 
 const connectDB = async () => {
   mongoose
-    .connect(process.env.MONGO_URI, { keepAlive: true, connectTimeoutMS: 3000 })
+    .connect(process.env.MONGO_URI, { connectTimeoutMS: 3000 })
     .then(async (client) => {
       // await RestaurantsDAO.injectDB(client)
       // await ReviewsDAO.injectDB(client)
