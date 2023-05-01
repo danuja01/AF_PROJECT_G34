@@ -10,8 +10,7 @@
     "clean": "rm -rf dist",
     "start": "node dist/app.js",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern '**/.babelrc' && prettier . --write",
-    "test": "echo test",
-    "prepare": "husky install"
+    "test": "echo test"
   },
   "repository": {
     "type": "git",
@@ -31,7 +30,8 @@
     "express-rate-limit": "6.7.0",
     "helmet": "6.1.5",
     "mongodb": "4.9.0",
-    "mongoose": "7.1.0"
+    "mongoose": "7.1.0",
+    "multer": "1.4.5-lts.1"
   },
   "devDependencies": {
     "@babel/cli": "7.17.10",
@@ -41,13 +41,7 @@
     "@babel/preset-env": "^7.21.5",
     "dotenv": "^16.0.1",
     "eslint": "^8.19.0",
-    "husky": "4.3.8",
     "prettier": "^2.7.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint && git add ."
-    }
   },
   "engines": {
     "node": ">=10",
