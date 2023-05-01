@@ -26,7 +26,7 @@ connectDB()
 
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
-app.use('/api/v1/restaurants', restaurants)
+app.use('/api/v1/destinations', restaurants)
 
 app.use(responseInterceptor)
 
