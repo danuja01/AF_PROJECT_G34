@@ -65,7 +65,7 @@ export default class ReviewsDAO {
   static async updateReview(reviewId, userId, text, date, rating) {
     try {
       const updateResponse = await Review.updateOne(
-        { user_id: userId, _id: mongoose.Types.ObjectId(reviewId) },
+        { user_id: userId, _id: new mongoose.Types.ObjectId(reviewId) },
         { $set: { text: text, date: date, rating: rating } }
       );
 
@@ -78,8 +78,8 @@ export default class ReviewsDAO {
 
   static async deleteReview(reviewId, userId) {
     try {
-      const deleteResponse = await Review.deleteOne({
-        _id: mongoose.Types.ObjectId(reviewId),
+      const deleteResponse = await Review.findOneAndDelete({
+        _id: new mongoose.Types.ObjectId(reviewId),
         user_id: userId,
       });
 
