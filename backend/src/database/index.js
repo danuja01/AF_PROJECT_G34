@@ -1,14 +1,14 @@
 import mongoose from 'mongoose'
 import { consola } from 'consola'
 
-import RestaurantsDAO from '../dao/restaurantsDAO.js'
+import ItemsDAO from '../dao/itemsDAO.js'
 import ReviewsDAO from '../dao/reviewsDAO.js'
 
 const connectDB = async () => {
   mongoose
     .connect(process.env.MONGO_URI, { connectTimeoutMS: 3000 })
     .then(async (client) => {
-      await RestaurantsDAO.injectDB(client)
+      await ItemsDAO.injectDB(client)
       await ReviewsDAO.injectDB(client)
     })
     .catch((error) => {

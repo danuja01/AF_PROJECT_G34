@@ -1,9 +1,11 @@
 import ReviewsDAO from '../dao/reviewsDAO.js'
 
 export default class ReviewsController {
+
+  // POST a review
   static async apiPostReview(req, res, next) {
     try {
-      const restaurantId = req.body.restaurant_id
+      const itemId = req.body.item_id
       const review = req.body.text
       const rating = req.body.rating
       const userInfo = {
@@ -12,13 +14,14 @@ export default class ReviewsController {
       }
       const date = new Date()
 
-      const ReviewResponse = await ReviewsDAO.addReview(restaurantId, userInfo, review, date, rating)
+      const ReviewResponse = await ReviewsDAO.addReview(itemId, userInfo, review, date, rating)
       res.json({ status: 'success' })
     } catch (e) {
       res.status(500).json({ error: e.message })
     }
   }
 
+  // PUT a review
   static async apiUpdateReview(req, res, next) {
     try {
       const reviewId = req.body.review_id
@@ -43,6 +46,7 @@ export default class ReviewsController {
     }
   }
 
+  // DELETE a review
   static async apiDeleteReview(req, res, next) {
     try {
       const reviewId = req.query.id

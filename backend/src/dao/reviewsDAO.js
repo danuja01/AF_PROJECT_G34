@@ -12,19 +12,20 @@ export default class ReviewsDAO {
     try {
       await conn.connect()
     } catch (e) {
-      console.error(`Unable to connect to database in restaurantsDAO: ${e}`)
+      console.error(`Unable to connect to database in ReviewsDAO: ${e}`)
     }
   }
 
-  static async addReview(restaurantId, user, review, date, rating) {
+  // POST a review
+  static async addReview(itemId, user, review, date, rating) {
     try {
       const reviewDoc = new Review({
+        item_id: new mongoose.Types.ObjectId(itemId),
         name: user.name,
         user_id: user._id,
         date: date,
         text: review,
-        rating: rating,
-        restaurant_id: new mongoose.Types.ObjectId(restaurantId)
+        rating: rating
       })
 
       return await reviewDoc.save()
@@ -34,6 +35,7 @@ export default class ReviewsDAO {
     }
   }
 
+  // PUT a review
   static async updateReview(reviewId, userId, text, date, rating) {
     try {
       const updateResponse = await Review.updateOne({ user_id: userId, _id: new mongoose.Types.ObjectId(reviewId) }, { $set: { text: text, date: date, rating: rating } })
@@ -45,6 +47,7 @@ export default class ReviewsDAO {
     }
   }
 
+  // DELETE a review
   static async deleteReview(reviewId, userId) {
     try {
       const deleteResponse = await Review.findOneAndDelete({

@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const reviewSchema = new mongoose.Schema({
+  item_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -22,10 +26,6 @@ const reviewSchema = new mongoose.Schema({
     required: true,
     min: 1,
     max: 5
-  },
-  restaurant_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
   }
 })
 
