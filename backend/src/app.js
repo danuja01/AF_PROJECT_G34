@@ -29,8 +29,6 @@ connectDB()
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
 
-app.use('/api/destinations', restaurants)
-
 app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
 
 app.use('/api/tours', toursRouter)
