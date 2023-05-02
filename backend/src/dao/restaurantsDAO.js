@@ -1,18 +1,7 @@
 import mongoose from 'mongoose'
+import restaurantSchema from '../models/restaurants.js'
 
-const restaurantSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  address: {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zipcode: { type: String, required: true }
-  },
-  cuisine: { type: String, required: true },
-  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
-})
-
-const Restaurant = mongoose.model('Destination', restaurantSchema)
+const Restaurant =  restaurantSchema
 
 export default class RestaurantsDAO {
   static async injectDB(conn) {

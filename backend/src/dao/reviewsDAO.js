@@ -1,35 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
+import reviewSchema from '../models/review.js'
 
-const reviewSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  user_id: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5,
-  },
-  restaurant_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
-});
-
-const Review = mongoose.model('Review', reviewSchema);
+const Review = reviewSchema
 
 export default class ReviewsDAO {
   static async injectDB(conn) {
@@ -52,27 +24,24 @@ export default class ReviewsDAO {
         date: date,
         text: review,
         rating: rating,
-        restaurant_id: new mongoose.Types.ObjectId(restaurantId),
-      });
+        restaurant_id: new mongoose.Types.ObjectId(restaurantId)
+      })
 
-      return await reviewDoc.save();
+      return await reviewDoc.save()
     } catch (e) {
-      console.error(`Unable to post review: ${e}`);
-      return { error: e };
+      console.error(`Unable to post review: ${e}`)
+      return { error: e }
     }
   }
 
   static async updateReview(reviewId, userId, text, date, rating) {
     try {
-      const updateResponse = await Review.updateOne(
-        { user_id: userId, _id: new mongoose.Types.ObjectId(reviewId) },
-        { $set: { text: text, date: date, rating: rating } }
-      );
+      const updateResponse = await Review.updateOne({ user_id: userId, _id: new mongoose.Types.ObjectId(reviewId) }, { $set: { text: text, date: date, rating: rating } })
 
-      return updateResponse;
+      return updateResponse
     } catch (e) {
-      console.error(`Unable to update review: ${e}`);
-      return { error: e };
+      console.error(`Unable to update review: ${e}`)
+      return { error: e }
     }
   }
 
@@ -80,13 +49,13 @@ export default class ReviewsDAO {
     try {
       const deleteResponse = await Review.findOneAndDelete({
         _id: new mongoose.Types.ObjectId(reviewId),
-        user_id: userId,
-      });
+        user_id: userId
+      })
 
-      return deleteResponse;
+      return deleteResponse
     } catch (e) {
-      console.error(`Unable to delete review: ${e}`);
-      return { error: e };
+      console.error(`Unable to delete review: ${e}`)
+      return { error: e }
     }
   }
 }
