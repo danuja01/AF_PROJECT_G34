@@ -19,15 +19,15 @@ const Tours = () => {
   }, [])
 
   return (
-    <Layout title="Home">
-      <div className="-z-10">
+    <Layout title="Tour">
+      <div>
         <Hero />
       </div>
       <div className="w-full relative mb-28">
         <Search />
       </div>
       <div className="bg-white">
-        <Section className="max-w-7xl mx-auto ">
+        <Section className="max-w-7xl mx-auto">
           <div className=" flex flex-col items-center">
             <h1 className="text-center text-3xl font-bold">Sri Lankan Cultural Tours</h1>
             <p className="text-center w-[70%] text-sm">

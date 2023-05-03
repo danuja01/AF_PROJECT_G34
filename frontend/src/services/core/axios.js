@@ -26,7 +26,7 @@ export const apiRequest = async (request, showLoader = true, authRequired = fals
       success: true,
     }))
     .catch((error) => {
-      const message = error.response.data.message
+      const message = error
 
       store.dispatch(toggleLoader(false))
       toast.error(message)

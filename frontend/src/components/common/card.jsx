@@ -16,9 +16,9 @@ const Card = ({ tour }) => {
         <h5 className="mb-2 text-sm h-10 font-bold leading-tight text-neutral-800 dark:text-neutral-50">{tour.tourName}</h5>
         <p className="mb-4 text-[0.7rem] h-16 text-neutral-600 dark:text-neutral-200">{tour.description.slice(0, 170) + '...'}</p>
         <div>
-          <button type="button" className="relative rounded pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:translate-x-1" data-te-ripple-init="" data-te-ripple-color="light">
+          <a href={`/tour/${tour._id}`} type="button" className="relative rounded pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:translate-x-1" data-te-ripple-init="" data-te-ripple-color="light">
             SCHEDULE TRIP <span className="">-&gt;</span>
-          </button>
+          </a>
         </div>
       </div>
     </div>
