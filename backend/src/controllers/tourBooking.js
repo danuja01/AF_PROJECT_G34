@@ -1,5 +1,4 @@
 import Booking from '../models/tourBookings'
-import Tour from '../models/tour'
 import { toSuccess } from '../utils'
 
 export const createBooking = async (req, res) => {
