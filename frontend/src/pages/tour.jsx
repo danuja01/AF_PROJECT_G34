@@ -5,9 +5,27 @@ import Layout from '../components/layout'
 import { GlobeAltIcon } from '@heroicons/react/20/solid'
 import { getTour } from '../services/tours'
 
+//mui
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+
 const Tour = () => {
   const id = useParams().id
   const [tourRes, setTourRes] = useState(null)
+  const [open, setOpen] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const refresh = debounce(() => {
     getTour(id).then(({ data }) => setTourRes(data))
@@ -59,12 +77,31 @@ const Tour = () => {
                 </div>
               </div>
               <div className="flex">
-                <button className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">Book Your Adventure Now!</button>
+                <button onClick={handleClickOpen} className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
+                  Book Your Adventure Now!
+                </button>
               </div>
             </div>
           </div>
         </div>
       )}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle> Get a Quotation </DialogTitle>
+        <DialogContent>
+          <DialogContentText>Submit to receive a custom quotation for your tour, including accommodations, transportation, and a full guide. Please note that prices may vary depending on current conditions in your selected destination.</DialogContentText>
+          <TextField autoFocus margin="dense" id="name" label="Name" type="name" fullWidth variant="standard" />
+          <TextField autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth variant="standard" />
+          <TextField autoFocus margin="dense" id="budget" label="Prefferd Budget" type="number" fullWidth variant="standard" />
+        </DialogContent>
+        <DialogActions>
+          <button className="capitalize text-red-600 mb-2 mr-4" onClick={handleClose}>
+            CANCEL
+          </button>
+          <button className="capitalize px-4 mr-4 rounded-md mb-2 py-2 text-white  bg-primary " onClick={handleClose}>
+            SUBMIT
+          </button>
+        </DialogActions>
+      </Dialog>
     </Layout>
   )
 }
