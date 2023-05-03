@@ -4,7 +4,7 @@ import { Transition } from '@headlessui/react'
 
 const search = (props) => {
   return (
-    <div {...props} className={twMerge('bg-gray-200 py-10 w-[60%] top-[-4rem] rounded-sm absolute right-0 left-0 m-auto ', props.className)}>
+    <div {...props} className={twMerge('bg-gray-50 shadow-md  py-10 w-[60%] top-[-4rem] rounded-sm absolute right-0 left-0 m-auto ', props.className)}>
       <div className="xs:mx-2 max-w-xl mx-auto flex gap-2 items-center">
         <div className=" relative shadow-md flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
           <div className="grid  place-items-center h-full w-12 text-gray-300">
