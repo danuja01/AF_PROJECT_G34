@@ -7,6 +7,7 @@ import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
 import restaurants from './routes/restaurants.route'
 import toursRouter from './routes/tours.routes'
+import tourBookings from './routes/tourBooking.routes'
 import connectDB from './database'
 import path from 'path'
 
@@ -32,6 +33,8 @@ app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Runnin
 app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
 
 app.use('/api/tours', toursRouter)
+
+app.use('/api/bookings', tourBookings)
 
 app.use(responseInterceptor)
 
