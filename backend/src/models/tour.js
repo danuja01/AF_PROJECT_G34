@@ -5,13 +5,11 @@ const tourSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tourType: [
-    {
-      type: String,
-      enum: ['cultural', 'religious', 'adventure', 'wildlife', 'camping', 'hiking'],
-      required: true
-    }
-  ],
+  tourType: {
+    type: String,
+    enum: ['cultural', 'adventure', 'wildlife', 'camping', 'beach'],
+    required: true
+  },
   description: {
     type: String,
     required: true

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { render } from 'react-dom'
 import Slider from 'react-animated-slider'
 import 'react-animated-slider/build/horizontal.css'
@@ -31,12 +30,6 @@ const content = [
     description: "Experience the great outdoors on our Sri Lankan camping adventure. Sleep under the stars, hike through stunning wilderness, and enjoy campfire meals. This tour is perfect for those who want to connect with nature and experience Sri Lanka's rugged beauty.",
     button: 'Get Started',
     image: 'assets/images/tour-slider/camping.webp',
-  },
-  {
-    title: 'Sri Lankan Cultural Hotels',
-    description: "Our Sri Lankan cultural hotels offers you the opportunity to explore the country's vibrant traditions, breathtaking scenery, and delicious cuisine. Stay in tents that are fully equipped with modern amenities and enjoy meals cooked over an open fire.",
-    button: <Link to="/hotels-products">Book Now</Link>,
-    image: 'assets/images/tour-slider/hotel.jpg',
   },
 ]
 

@@ -4,7 +4,7 @@ import { useAuth } from '../hooks'
 import Home from '../pages/home'
 import NotFound from '../pages/404'
 import Tours from '../pages/tours'
-import HotelsProducts from '../pages/hotels-products'
+import Tour from '../pages/tour'
 
 const AnimatedRoutes = () => {
   // useAuth()
@@ -16,7 +16,7 @@ const AnimatedRoutes = () => {
       <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/tours" element={<Tours />} />
-        <Route path="/hotels-products" element={<HotelsProducts />} />
+        <Route path="/tour/:id" element={<Tour />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
