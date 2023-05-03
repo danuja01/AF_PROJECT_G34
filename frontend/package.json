@@ -22,6 +22,7 @@
     "normalize.css": "^8.0.1",
     "outline": "link:@heroicons/react/24/outline",
     "react": "^18.0.0",
+    "react-animated-slider": "^2.0.0",
     "react-countdown": "^2.3.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.2.0",

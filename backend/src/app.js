@@ -29,8 +29,6 @@ connectDB()
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
 
-app.use('/api/restaurants', restaurants)
-
 app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
 
 app.use('/api/tours', toursRouter)
@@ -39,7 +37,7 @@ app.use(responseInterceptor)
 
 app.use(errorHandler)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 2000
 
 app.listen(port, () => {
   consola.info(`server successfully started on port ${port}`)

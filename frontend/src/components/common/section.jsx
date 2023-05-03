@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge'
 
 const Section = ({ children, ...props }) => {
   return (
-    <div {...props} className={twMerge('h-screen w-screen', props.className)}>
+    <div {...props} className={twMerge('h-[92vh] w-screen', props.className)}>
       {children}
     </div>
   )

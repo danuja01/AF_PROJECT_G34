@@ -24,6 +24,7 @@ specifiers:
   postcss: ^8.4.14
   prettier: ^2.5.1
   react: ^18.0.0
+  react-animated-slider: ^2.0.0
   react-countdown: ^2.3.2
   react-dom: ^18.2.0
   react-icons: ^4.2.0
@@ -56,6 +57,7 @@ dependencies:
   normalize.css: 8.0.1
   outline: link:@heroicons/react/24/outline
   react: 18.2.0
+  react-animated-slider: 2.0.0_biqbaboplfbrettd7655fr4n2y
   react-countdown: 2.3.5_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.8.0_react@18.2.0
@@ -5239,6 +5241,16 @@ packages:
   /quick-lru/5.1.1:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
+    dev: false
+
+  /react-animated-slider/2.0.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-JOvLvqAfdNrYjPJWnCZbtS7d/DxSowDTFeIbaS5xUDEVJe3whgxUD6rDZ6+VI0Rhp9N03ogdpuNKlFJIoPhIyg==}
+    peerDependencies:
+      react: ^16.4.0
+      react-dom: ^16.4.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-countdown/2.3.5_biqbaboplfbrettd7655fr4n2y:
