@@ -70,7 +70,7 @@ const Tour = () => {
                   </span>
                   <div className="flex items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
                     <GlobeAltIcon className="h-5 w-5 text-primary" />
-                    <a href="https://www.google.com/search?q=sigiriya" className="ml-1 text-primary">
+                    <a href={`https://www.google.com/search?q=${tourRes.tourName}`} className="ml-1 text-primary">
                       Explore More!
                     </a>
                   </div>
@@ -89,15 +89,19 @@ const Tour = () => {
         <DialogTitle> Get a Quotation </DialogTitle>
         <DialogContent>
           <DialogContentText>Submit to receive a custom quotation for your tour, including accommodations, transportation, and a full guide. Please note that prices may vary depending on current conditions in your selected destination.</DialogContentText>
-          <TextField autoFocus margin="dense" id="name" label="Name" type="name" fullWidth variant="standard" />
-          <TextField autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth variant="standard" />
-          <TextField autoFocus margin="dense" id="budget" label="Prefferd Budget" type="number" fullWidth variant="standard" />
+          <TextField autoFocus margin="dense" id="name" label="Name" type="name" fullWidth variant="standard" className="ring-0 !important mui " />
+          <TextField autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth variant="standard" className="ring-0 !important mui markdown" />
+          <div className="mt-4">
+            <label className="text-gray-500 text-sm">Planned Date</label>
+            <TextField autoFocus margin="dense" id="date" type="date" fullWidth variant="standard" className="ring-0 !important mui" />
+          </div>
+          <TextField autoFocus margin="dense" id="budget" label="Preferred Budget" type="number" fullWidth variant="standard" className="ring-0 !important mui" />
         </DialogContent>
         <DialogActions>
           <button className="capitalize text-red-600 mb-2 mr-4" onClick={handleClose}>
             CANCEL
           </button>
-          <button className="capitalize px-4 mr-4 rounded-md mb-2 py-2 text-white  bg-primary " onClick={handleClose}>
+          <button className="capitalize px-4 mr-4 rounded-md mb-2 py-2 text-white bg-primary " onClick={handleClose}>
             SUBMIT
           </button>
         </DialogActions>
