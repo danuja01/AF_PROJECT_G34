@@ -3,6 +3,8 @@ import { AnimatePresence } from 'framer-motion'
 import { useAuth } from '../hooks'
 import Home from '../pages/home'
 import NotFound from '../pages/404'
+import Tours from '../pages/tours'
+import HotelsProducts from '../pages/hotels-products'
 
 const AnimatedRoutes = () => {
   // useAuth()
@@ -13,6 +15,8 @@ const AnimatedRoutes = () => {
     <AnimatePresence>
       <Routes location={location}>
         <Route path="/" element={<Home />} />
+        <Route path="/tours" element={<Tours />} />
+        <Route path="/hotels-products" element={<HotelsProducts />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>

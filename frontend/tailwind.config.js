@@ -18,12 +18,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#0070F3',
-        secondary: '#00DFD8',
-        'nav-links-unselected': '#888888',
-        'gray-light': '#D9D9D9',
-        'profile-card': 'rgba(255, 255, 255, 0.02)',
-        card: '#181818',
+        primary: '#146C94',
+        secondary: '#19A7CE',
+        tertiary: '#AFD3E2',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
