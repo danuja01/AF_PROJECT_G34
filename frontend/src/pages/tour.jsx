@@ -33,9 +33,9 @@ const Tour = () => {
   // Filter the reviews array based on the tour id
   const filteredReviews = reviews.filter((review) => review.tour && review.tour._id === id)
 
-  const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0)
-  const averageRating = totalRating / reviews.length
-  const numRatings = reviews.length;
+  const totalRating = filteredReviews.reduce((acc, review) => acc + review.rating, 0)
+  const averageRating = totalRating / filteredReviews.length
+  const numRatings = filteredReviews.length;
 
   for (let i = 1; i <= 5; i++) {
     if (i <= averageRating) {
@@ -47,16 +47,8 @@ const Tour = () => {
 
   const deleteReview = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/api/reviews/${id}`)
-      console.log(response.data) // optional: log the response from the server
-      // update the reviews state to remove the deleted review
-      const index = reviews.findIndex((review) => review._id === id)
-      if (index !== -1) {
-        // remove the deleted review from the reviews array
-        reviews.splice(index, 1)
-        // update the state with the new reviews array
-        setReviews([...reviews])
-      }
+      await axios.delete(`http://localhost:4000/api/reviews/${id}`)
+      refresh()
     } catch (error) {
       console.error(error)
     }
@@ -68,7 +60,6 @@ const Tour = () => {
 
   const handleCloseEditReview = () => {
     setSelectedReviewId(null)
-    window.location.reload()
   }
 
   const [reviewData, setReviewData] = useState({
@@ -83,16 +74,8 @@ const Tour = () => {
     event.preventDefault()
 
     // Send a POST request to the server to add the new review
-    axios
-      .post(`http://localhost:4000/api/reviews`, reviewData)
-      .then((response) => {
-        // Reset the form fields
-        setReviews({
-          text: '',
-          rating: '',
-        })
-        window.location.reload()
-      })
+    axios.post(`http://localhost:4000/api/reviews`, reviewData)
+    refresh()
       .catch((error) => {
         console.log(error)
       })
@@ -152,12 +135,6 @@ const Tour = () => {
           {/* render reviews */}
           <div>
             <h4 className="text-2xl font-bold my-4">Reviews</h4>
-            {/* <Link to={'/add-review'} style={{ textDecoration: 'none', color: '#fff' }}>
-              <Button variant="contained" sx={{ mb: 2 }}>
-                Add Review
-              </Button>
-            </Link> */}
-
             <div className="mt-4">
               <h2 className="text-2xl font-bold">Add a Review</h2>
               <form onSubmit={handleSubmit} className="mt-4">
@@ -176,7 +153,7 @@ const Tour = () => {
             </div>
 
             <br />
-            {selectedReviewId !== null && <EditReview reviewId={selectedReviewId} onClose={handleCloseEditReview} />}
+            {selectedReviewId !== null && <EditReview reviewId={selectedReviewId} onClose={handleCloseEditReview} refresh={refresh} />}
             {reviews.length === 0 ? (
               <p>No reviews found.</p>
             ) : (
@@ -187,7 +164,7 @@ const Tour = () => {
                     <div className="p-4">
                       <p className="text-lg font-medium leading-tight mb-2 break-words">{review.text}</p>
                       <p className="text-sm font-medium text-gray-500 mb-2">
-                        <span className="font-bold">User:</span> {review.name}
+                        <span className="font-bold">User:</span> {review.user}
                         <br />
                         <span className="font-bold">Date:</span> {Moment(review.date).format('LLLL')}
                       </p>

@@ -7,6 +7,8 @@ import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
 import toursRouter from './routes/tours.routes'
 import reviewsRouter from './routes/reviews.routes'
+import usersRouter from './routes/users.routes'
+import itemRouter from './routes/items.routes'
 import connectDB from './database'
 import path from 'path'
 
@@ -28,6 +30,10 @@ connectDB()
 
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
+
+app.use('/api/items', itemRouter)
+
+app.use('/api/users', usersRouter)
 
 app.use('/api/reviews', reviewsRouter)
 

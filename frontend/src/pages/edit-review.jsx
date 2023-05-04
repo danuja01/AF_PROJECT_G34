@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { TextField, Button } from '@mui/material';
 
-function EditReview({ reviewId }) {
+function EditReview({ reviewId, onClose, refresh }) {
   const [text, setText] = useState('')
   const [rating, setRating] = useState('')
 
@@ -12,8 +12,8 @@ function EditReview({ reviewId }) {
     axios
       .get(`http://localhost:4000/api/reviews/${reviewId}`)
       .then((response) => {
-        setText(response.data.text)
-        setRating(response.data.rating)
+        setText(response.data.data.text)
+        setRating(response.data.data.rating)
       })
       .catch((error) => {
         console.error(error)
@@ -34,6 +34,8 @@ function EditReview({ reviewId }) {
         console.log(response.data)
         // Redirect the user to the tour page
         // Or show a success message
+        refresh()
+        onClose()
       })
       .catch((error) => {
         console.error(error)

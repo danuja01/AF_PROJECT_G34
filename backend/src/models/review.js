@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import Tour from './tour.js'
 
 const reviewSchema = new mongoose.Schema({
   tour: {
@@ -17,7 +16,7 @@ const reviewSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: false
+    required: true
   },
   text: {
     type: String,

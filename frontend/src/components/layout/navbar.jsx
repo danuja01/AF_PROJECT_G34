@@ -30,6 +30,7 @@ const Header = () => {
     { name: 'Tours', href: '#', current: true },
     { name: 'Blogs', href: '#', current: false },
     { name: 'Feedback and reviews', href: '#', current: false },
+    { name: 'Restaurants and Products', href: './restaurants', current: false },
   ]
 
   return (

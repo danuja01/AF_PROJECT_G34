@@ -34,7 +34,7 @@ const content = [
 ]
 
 const Hero = () => (
-  <div className="w-screen relative -z-0]">
+  <div className="w-screen relative -z-0">
     <Slider autoplay={3000} className="slider-wrapper">
       {content.map((item, index) => (
         <div key={index} className="slider-content" style={{ background: `url('${item.image}') no-repeat center center` }}>
