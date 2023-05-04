@@ -1,4 +1,5 @@
 import Booking from '../models/tourBookings'
+import { sendMail } from '../services/mailer'
 import { toSuccess } from '../utils'
 
 export const createBooking = async (req, res) => {
@@ -13,6 +14,10 @@ export const createBooking = async (req, res) => {
       budget: budget > 0 ? budget : 0
     })
 
+    const data = await Booking.findById(booking._id).populate('tourId')
+    const { tourName, imagePath } = data.tourId
+
+    await sendMail(email, 'booking', { tourName, name, date, email, imagePath }, "Request Delivered! We'll Get Back to You Soon! Thank You.")
     return toSuccess({ res, status: 201, data: booking, message: 'Booking created successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
