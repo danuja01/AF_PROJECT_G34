@@ -26,6 +26,11 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
       },
+      zIndex: {
+        menu: 50,
+        error: 100,
+        modal: 1000,
+      },
       height: {},
     },
   },

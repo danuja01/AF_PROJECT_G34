@@ -33,7 +33,7 @@ const Header = () => {
   ]
 
   return (
-    <Disclosure as="nav" className={`bg-gray-50 ${isSticky ? ' sticky' : ''} transition-all duration-1000 ease-in-out bg-opacity-50 backdrop-filter backdrop-blur-lg `}>
+    <Disclosure as="nav" className={`bg-gray-50 ${isSticky ? ' sticky' : 'relative z-menu'} transition-all duration-1000 ease-in-out bg-opacity-50 backdrop-filter backdrop-blur-lg `}>
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
