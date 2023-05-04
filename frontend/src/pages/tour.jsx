@@ -88,7 +88,7 @@ const Tour = () => {
           </div>{' '}
           <br />
           {/* render reviews */}
-          <Reviews id={id} onReviewsData={handleReviewsData} />
+          <Reviews id={id} onReviewsData={handleReviewsData} source="tour" />
         </div>
       )}
       <Dialog open={open} onClose={handleClose}>

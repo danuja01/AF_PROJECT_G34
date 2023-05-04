@@ -101,7 +101,7 @@ const Item = () => {
           </div>{' '}
           <br />
           {/* render reviews */}
-          <Reviews id={id} onReviewsData={handleReviewsData} />
+          <Reviews id={id} onReviewsData={handleReviewsData} source="item" />
         </div>
       )}
       <Dialog open={open} onClose={handleClose}>

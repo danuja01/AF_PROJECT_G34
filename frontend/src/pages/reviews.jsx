@@ -12,12 +12,16 @@ import axios from 'axios'
 import TextField from '@mui/material/TextField'
 import Rating from '@mui/material/Rating'
 
-const Reviews = ({ id, onReviewsData }) => {
+const Reviews = ({ id, onReviewsData, source  }) => {
   const [reviews, setReviews] = useState([])
   const [selectedReviewId, setSelectedReviewId] = useState(null)
 
+  // Set the appropriate id based on the source prop
+  const itemId = source === "item" ? id : null;
+  const tourId = source === "tour" ? id : null;
+
   // Filter the reviews array based on the item id or tour id
-  const filteredReviews = reviews.filter((review) => (review.item && review.item._id === id) || (review.tour && review.tour._id))
+  const filteredReviews = reviews.filter((review) => (review.item && review.item._id === id) || (review.tour && review.tour._id === id))
 
   const totalRating = filteredReviews.reduce((acc, review) => acc + review.rating, 0)
   const averageRating = totalRating / filteredReviews.length
@@ -41,8 +45,8 @@ const Reviews = ({ id, onReviewsData }) => {
   }
 
   const [reviewData, setReviewData] = useState({
-    item: id,
-    tour: id,
+    item: itemId,
+    tour: tourId,
     user_id: 'admin',
     user: 'admin',
     text: '',
