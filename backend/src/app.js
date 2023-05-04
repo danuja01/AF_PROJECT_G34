@@ -27,6 +27,8 @@ app.use(express.urlencoded({ extended: true }))
 
 connectDB()
 
+global.__basedir = __dirname
+
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
 
