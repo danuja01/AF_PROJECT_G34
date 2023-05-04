@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom'
 import Layout from '../components/layout'
 import { GlobeAltIcon } from '@heroicons/react/20/solid'
 import { getTour } from '../services/tours'
+import toast from '../libs/toastify'
 
-//mui
-import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -14,10 +13,21 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
+import { createBooking } from '../services/booking'
+
 const Tour = () => {
   const id = useParams().id
   const [tourRes, setTourRes] = useState(null)
   const [open, setOpen] = useState(false)
+
+  // form
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [date, setDate] = useState('')
+  const [budget, setBudget] = useState('')
+
+  //validation
+  const [isEmpty, setIsEmpty] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -29,20 +39,56 @@ const Tour = () => {
 
   const refresh = debounce(() => {
     getTour(id).then(({ data }) => setTourRes(data))
-    // getAllTours().then(({ data }) => setToursRes(data))
   }, 300)
 
   useEffect(() => {
     refresh()
   }, [])
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (name.trim() === '' || email.trim() === '' || date.trim() === '') {
+      toast.error('Please fill all the fields!')
+      setIsEmpty(true)
+      return
+    } else {
+      const data = {
+        tourId: id,
+        name,
+        email,
+        date,
+        budget,
+      }
+
+      createBooking(data)
+        .then((res) => {
+          if (res) {
+            toast.success(res.message)
+          } else {
+            toast.error('Error while Booking!')
+          }
+        })
+        .catch((err) => toast.error(err))
+
+      setOpen(false)
+      setName('')
+      setEmail('')
+      setDate('')
+      setBudget('')
+    }
+  }
+
   return (
     <Layout>
       {tourRes && (
-        <div className="container max-w-7xl py-10 mx-20">
+        <div className="container max-w-7xl py-10 mx-20 bg-white">
           <h2 className="text-sm title-font text-gray-500 tracking-widest">TOUR NAME</h2>
           <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-            {tourRes.tourName} | <span className="bg-primary opacity-80 text-white text-[1.8rem] px-2 py-1 rounded">{tourRes.duration} DAYS</span>
+            {tourRes.tourName} |{' '}
+            <span className="bg-primary opacity-80 text-white text-[1.8rem] px-2 py-1 rounded">
+              {tourRes.duration} {tourRes.duration == 1 ? 'DAY' : 'DAYS'}
+            </span>
           </h1>
           <div className="w-full h-auto mt-10 flex flex-wrap">
             <img alt="ecommerce" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={tourRes.imagePath} />
@@ -70,7 +116,7 @@ const Tour = () => {
                   </span>
                   <div className="flex items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
                     <GlobeAltIcon className="h-5 w-5 text-primary" />
-                    <a href={`https://www.google.com/search?q=${tourRes.tourName}`} className="ml-1 text-primary">
+                    <a href={`https://www.google.com/search?q=${tourRes.tourName}`} target="_blank" className="ml-1 text-primary">
                       Explore More!
                     </a>
                   </div>
@@ -78,7 +124,7 @@ const Tour = () => {
               </div>
               <div className="flex">
                 <button onClick={handleClickOpen} className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
-                  Book Your Adventure Now!
+                  Schedule Your Adventure Now!
                 </button>
               </div>
             </div>
@@ -87,24 +133,24 @@ const Tour = () => {
       )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle> Get a Quotation </DialogTitle>
-        <DialogContent>
-          <DialogContentText>Submit to receive a custom quotation for your tour, including accommodations, transportation, and a full guide. Please note that prices may vary depending on current conditions in your selected destination.</DialogContentText>
-          <TextField autoFocus margin="dense" id="name" label="Name" type="name" fullWidth variant="standard" className="ring-0 !important mui " />
-          <TextField autoFocus margin="dense" id="email" label="Email Address" type="email" fullWidth variant="standard" className="ring-0 !important mui markdown" />
-          <div className="mt-4">
-            <label className="text-gray-500 text-sm">Planned Date</label>
-            <TextField autoFocus margin="dense" id="date" type="date" fullWidth variant="standard" className="ring-0 !important mui" />
-          </div>
-          <TextField autoFocus margin="dense" id="budget" label="Preferred Budget" type="number" fullWidth variant="standard" className="ring-0 !important mui" />
-        </DialogContent>
-        <DialogActions>
-          <button className="capitalize text-red-600 mb-2 mr-4" onClick={handleClose}>
-            CANCEL
-          </button>
-          <button className="capitalize px-4 mr-4 rounded-md mb-2 py-2 text-white bg-primary " onClick={handleClose}>
-            SUBMIT
-          </button>
-        </DialogActions>
+        <form onSubmit={handleSubmit}>
+          <DialogContent>
+            <DialogContentText>Submit to receive a custom quotation for your tour, including accommodations, transportation, and a full guide. Please note that prices may vary depending on current conditions in your selected destination.</DialogContentText>
+            <TextField error={name === '' && isEmpty} onChange={(e) => setName(e.target.value)} value={name} autoFocus margin="dense" id="name" label="Name*" type="name" fullWidth variant="standard" className="ring-0 !important mui " />
+            <TextField error={email === '' && isEmpty} onChange={(e) => setEmail(e.target.value)} value={email} autoFocus margin="dense" id="email" label="Email Address*" type="email" fullWidth variant="standard" className="ring-0 !important mui markdown" />
+            <div className="mt-4">
+              <label className={`${date === '' && isEmpty ? 'text-red-700' : 'text-gray-500'} text-sm `}>Planned Date*</label>
+              <TextField error={date === '' && isEmpty} onChange={(e) => setDate(e.target.value)} value={date} autoFocus margin="dense" id="date" type="date" fullWidth variant="outlined" className="ring-0 !important mui" />
+            </div>
+            <TextField onChange={(e) => setBudget(e.target.value)} value={budget} autoFocus margin="dense" id="budget" label="Preferred Budget" type="number" fullWidth variant="standard" className="ring-0 !important mui" />
+          </DialogContent>
+          <DialogActions>
+            <button type="button" className="capitalize text-red-600 mb-2 mr-4" onClick={handleClose}>
+              CANCEL
+            </button>
+            <button className="capitalize px-4 mr-4 rounded-md mb-2 py-2 text-white bg-primary">SUBMIT</button>
+          </DialogActions>
+        </form>
       </Dialog>
     </Layout>
   )

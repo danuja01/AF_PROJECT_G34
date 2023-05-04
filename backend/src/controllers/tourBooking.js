@@ -10,8 +10,9 @@ export const createBooking = async (req, res) => {
       name,
       email,
       date,
-      budget
+      budget: budget > 0 ? budget : 0
     })
+
     return toSuccess({ res, status: 201, data: booking, message: 'Booking created successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })

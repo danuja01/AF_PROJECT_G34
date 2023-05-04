@@ -8,6 +8,7 @@ specifiers:
   '@heroicons/react': ^2.0.17
   '@material-tailwind/react': ^1.4.2
   '@mui/material': ^5.12.3
+  '@mui/x-date-pickers': ^6.3.0
   '@reduxjs/toolkit': ^1.8.5
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
@@ -55,6 +56,7 @@ dependencies:
   '@heroicons/react': 2.0.17_react@18.2.0
   '@material-tailwind/react': 1.4.2_biqbaboplfbrettd7655fr4n2y
   '@mui/material': 5.12.3_i7rlcbcydoahoq47lrtvbmciau
+  '@mui/x-date-pickers': 6.3.0_3ktuscrytwodjya2bm6jylenni
   '@reduxjs/toolkit': 1.9.5_k4ae6lp43ej6mezo3ztvx6pykq
   axios: 0.27.2
   flowbite: 1.6.5
@@ -2177,6 +2179,58 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-is: 18.2.0
+    dev: false
+
+  /@mui/x-date-pickers/6.3.0_3ktuscrytwodjya2bm6jylenni:
+    resolution: {integrity: sha512-Qux/nRGb0HueZU4L0h1QEqmORCrpgLukWWhG1Im6cFCmLtZbBey/0JuAFRa+OgvIXgGktDt8SY/FYsRkfGt2TQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.9.0
+      '@emotion/styled': ^11.8.1
+      '@mui/base': ^5.0.0-alpha.87
+      '@mui/material': ^5.8.6
+      '@mui/system': ^5.8.0
+      date-fns: ^2.25.0
+      date-fns-jalali: ^2.13.0-0
+      dayjs: ^1.10.7
+      luxon: ^3.0.2
+      moment: ^2.29.4
+      moment-hijri: ^2.1.2
+      moment-jalaali: ^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0
+      react: ^17.0.2 || ^18.0.0
+      react-dom: ^17.0.2 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      date-fns:
+        optional: true
+      date-fns-jalali:
+        optional: true
+      dayjs:
+        optional: true
+      luxon:
+        optional: true
+      moment:
+        optional: true
+      moment-hijri:
+        optional: true
+      moment-jalaali:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.21.5
+      '@emotion/react': 11.10.8_3mjolpizrsjgnt7s4ahgoveqvu
+      '@emotion/styled': 11.10.8_47zspfu3r4q74llkzwrvdmry34
+      '@mui/material': 5.12.3_i7rlcbcydoahoq47lrtvbmciau
+      '@mui/utils': 5.12.3_react@18.2.0
+      '@types/react-transition-group': 4.4.5
+      clsx: 1.2.1
+      moment: 2.29.4
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /@nicolo-ribaudo/eslint-scope-5-internals/5.1.1-v1:
