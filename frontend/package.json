@@ -16,6 +16,7 @@
     "@heroicons/react": "^2.0.17",
     "@material-tailwind/react": "^1.4.2",
     "@mui/material": "^5.12.3",
+    "@mui/x-date-pickers": "^6.3.0",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "flowbite": "^1.5.3",
