@@ -5,8 +5,8 @@ import cors from 'cors'
 import helmet from 'helmet'
 import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
-import items from './routes/items.route'
 import toursRouter from './routes/tours.routes'
+import reviewsRouter from './routes/reviews.routes'
 import connectDB from './database'
 import path from 'path'
 
@@ -29,7 +29,7 @@ connectDB()
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
 
-app.use('/api/items', items)
+app.use('/api/reviews', reviewsRouter)
 
 app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
 

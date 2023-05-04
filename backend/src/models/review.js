@@ -1,11 +1,13 @@
 import mongoose from 'mongoose'
+import Tour from './tour.js'
 
 const reviewSchema = new mongoose.Schema({
-  item_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
+  tour: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: 'Tour'
   },
-  name: {
+  user: {
     type: String,
     required: true
   },
@@ -15,7 +17,7 @@ const reviewSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true
+    required: false
   },
   text: {
     type: String,
@@ -29,4 +31,6 @@ const reviewSchema = new mongoose.Schema({
   }
 })
 
-export default mongoose.model('Review', reviewSchema)
+const Review = mongoose.model('Review', reviewSchema)
+
+export default Review
