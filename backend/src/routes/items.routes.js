@@ -1,17 +1,14 @@
-import express from "express"
-import ItemsCtrl from "../controllers/Items.controller.js"
-import ReviewsCtrl from "../controllers/reviews.controller.js"
+import express from 'express'
+import { createItem, getAllItems, getItem, updateItem, deleteItem, searchItems } from '../controllers/item'
 
-const router = express.Router()
+const itemsRouter = express.Router()
 
-router.route("/").get(ItemsCtrl.apiGetItems)
-router.route("/id/:id").get(ItemsCtrl.apiGetItemById)
-router.route("/cuisines").get(ItemsCtrl.apiGetItemCuisines)
+//add new destinations
+itemsRouter.post('/', createItem)
+itemsRouter.get('/', getAllItems)
+itemsRouter.get('/:id', getItem)
+itemsRouter.patch('/:id', updateItem)
+itemsRouter.delete('/:id', deleteItem)
+itemsRouter.get('/search/:term', searchItems)
 
-router
-  .route("/review")
-  .post(ReviewsCtrl.apiPostReview)
-  .put(ReviewsCtrl.apiUpdateReview)
-  .delete(ReviewsCtrl.apiDeleteReview)
-
-export default router
+export default itemsRouter

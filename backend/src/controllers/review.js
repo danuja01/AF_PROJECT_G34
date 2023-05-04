@@ -3,11 +3,12 @@ import Review from '../models/review'
 
 // Create a new review
 export const createReview = async (req, res) => {
-  const {tour, user, user_id, text, rating } = req.body
+  const {item, tour, user, user_id, text, rating } = req.body
 
   const date = new Date()
   try {
     const review = await Review.create({
+      item,
       tour,
       user,
       user_id,
@@ -24,7 +25,7 @@ export const createReview = async (req, res) => {
 // Get all reviews
 export const getAllReviews = async (req, res) => {
   try {
-    const data = await Review.find().populate('tour')
+    const data = await Review.find().populate('tour').populate('item')
     return toSuccess({ res, data, message: 'Reviews retrieved successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
@@ -35,7 +36,7 @@ export const getAllReviews = async (req, res) => {
 export const getReview = async (req, res) => {
   const { id } = req.params
   try {
-    const data = await Review.findById(id).populate('tour')
+    const data = await Review.findById(id).populate('tour').populate('item')
     return toSuccess({ res, data, message: 'Review retrieved successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
