@@ -26,10 +26,10 @@ const Header = () => {
   }, [])
 
   const navigation = [
-    { name: 'Home', href: '#', current: false },
-    { name: 'Tours', href: '#', current: true },
-    { name: 'Blogs', href: '#', current: false },
-    { name: 'Feedback and reviews', href: '#', current: false },
+    { name: 'Home', href: '/home', current: false },
+    { name: 'Tours', href: '/tours', current: true },
+    { name: 'Blogs', href: '/blogs', current: false },
+    { name: 'Feedback and reviews', href: '/feedback', current: false },
   ]
 
   return (
@@ -47,7 +47,9 @@ const Header = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <h1 className="text-2xl font-semibold text-gray-800">Ceylon Voyages</h1>
+                  <a href="/tours">
+                    <h1 className="text-2xl font-semibold text-gray-800">Ceylon Voyages</h1>
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block h-ful">
                   <div className="flex items-center space-x-4 h-full">
