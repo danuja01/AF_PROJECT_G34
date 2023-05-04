@@ -45,7 +45,7 @@ function EditReview({ reviewId, onClose, refresh }) {
   return (
     <form onSubmit={handleSubmit}>
       <TextField label="Text" variant="outlined" value={text} onChange={(event) => setText(event.target.value)} margin="normal" fullWidth />
-      <TextField label="Rating" variant="outlined" type="number" value={rating} onChange={(event) => setRating(event.target.value)} margin="normal" fullWidth />
+      <TextField label="Rating" inputProps={{ min: '1', max: '5' }} variant="outlined" type="number" value={rating} onChange={(event) => setRating(event.target.value)} margin="normal" fullWidth />
       <Button variant="contained" type="submit" color="primary">
         Update Review
       </Button>

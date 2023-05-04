@@ -10,9 +10,13 @@ const itemSchema = new mongoose.Schema({
     enum: ['restaurant', 'product'],
     required: true
   },
+  location: {
+    type: String,
+    required: false
+  },
   price: {
-    type: Number,
-    required: true
+    type: String,
+    required: false
   },
   description: {
     type: String,
@@ -20,7 +24,7 @@ const itemSchema = new mongoose.Schema({
   },
   cuisine: {
     type: String,
-    required: true
+    required: false
   },
   img: {
     type: String,
