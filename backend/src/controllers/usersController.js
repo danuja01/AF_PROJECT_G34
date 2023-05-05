@@ -117,9 +117,21 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+const getSingleUser = asyncHandler(async(req, res) => {
+    let userId = req.params.id;
+
+    const user = await User.findById(userId).then((users) => {
+        res.status(200).send({ status: "User fetched", users })
+    }).catch((err) => {
+        console.log(err.message);
+        res.status(500).send({ status: "Error with get user", error: err.message })
+    })
+})
+
 module.exports = {
     getAllUsers,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getSingleUser
 }
