@@ -9,6 +9,8 @@ import toursRouter from './routes/tours.routes'
 import reviewsRouter from './routes/reviews.routes'
 import usersRouter from './routes/users.routes'
 import itemsRouter from './routes/items.routes'
+import tourBookings from './routes/tourBooking.routes'
+
 import connectDB from './database'
 import path from 'path'
 
@@ -28,6 +30,8 @@ app.use(express.urlencoded({ extended: true }))
 
 connectDB()
 
+global.__basedir = __dirname
+
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
 
@@ -40,6 +44,8 @@ app.use('/api/reviews', reviewsRouter)
 app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
 
 app.use('/api/tours', toursRouter)
+
+app.use('/api/bookings', tourBookings)
 
 app.use(responseInterceptor)
 
