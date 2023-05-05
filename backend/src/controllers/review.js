@@ -95,7 +95,7 @@ export const getReviewsByUser = async (req, res) => {
 export const getReviewsByRating = async (req, res) => {
   const { rating } = req.params
   try {
-    const data = await Review.find({ rating })
+    const data = await Review.find({ rating }).populate('tour').populate('item')
     return toSuccess({ res, data, message: 'Reviews retrieved successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
