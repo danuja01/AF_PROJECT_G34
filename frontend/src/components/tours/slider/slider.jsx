@@ -34,7 +34,6 @@ const content = [
 ]
 
 const Hero = () => (
-
   <div className="w-screen relative select-none">
     <Slider autoplay={3000} className="slider-wrapper">
       {content.map((item, index) => (

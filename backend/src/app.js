@@ -5,9 +5,12 @@ import cors from 'cors'
 import helmet from 'helmet'
 import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
-// import restaurants from './routes/restaurants.route'
 import toursRouter from './routes/tours.routes'
+import reviewsRouter from './routes/reviews.routes'
+import usersRouter from './routes/users.routes'
+import itemsRouter from './routes/items.routes'
 import tourBookings from './routes/tourBooking.routes'
+
 import connectDB from './database'
 import path from 'path'
 
@@ -31,6 +34,12 @@ global.__basedir = __dirname
 
 //routes
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
+
+app.use('/api/items', itemsRouter)
+
+app.use('/api/users', usersRouter)
+
+app.use('/api/reviews', reviewsRouter)
 
 app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'images')))
 
