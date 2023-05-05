@@ -5,9 +5,10 @@ import cors from 'cors'
 import helmet from 'helmet'
 import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
-import restaurants from './routes/restaurants.route'
+
 import toursRouter from './routes/tours.routes'
 import tourBookings from './routes/tourBooking.routes'
+import postRoutes from './routes/posts.js'
 import connectDB from './database'
 import path from 'path'
 
@@ -35,6 +36,8 @@ app.use('/tour/image', express.static(path.join(__dirname, '..', 'upload', 'imag
 app.use('/api/tours', toursRouter)
 
 app.use('/api/bookings', tourBookings)
+
+app.use('/posts', postRoutes);
 
 app.use(responseInterceptor)
 
