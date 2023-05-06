@@ -55,18 +55,18 @@ app.use('/api/auth', require('./routes/authRoutes'))
 
 app.use('/api/users', require('./routes/userRoutes'))
 
-app.use('/notifications', require('./routes/notificationRoutes'))
+app.use('/api/notifications', require('./routes/notificationRoutes'))
 
 app.all('*', (req, res) => {
   res.status(404)
-  if(req.accepts('html')){
-      res.sendFile(path.join(__dirname, 'views', '404.html'))
+  if (req.accepts('html')) {
+    res.sendFile(path.join(__dirname, 'views', '404.html'))
   } else if (req.accepts('json')) {
-      res.json({message: '404 Not Found'})
+    res.json({ message: '404 Not Found' })
   } else {
-      res.type('txt').send('404 Not Found')
+    res.type('txt').send('404 Not Found')
   }
-}) 
+})
 
 app.use(responseInterceptor)
 

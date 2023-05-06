@@ -19,7 +19,7 @@ const Login = () => {
             const data = response.data;
             console.log("token", data)
             if (data) {
-                localStorage.setItem('accessToken', data);
+                localStorage.setItem('accessToken', data.accessToken);
                 alert('Login successful');
             } else {
                 alert('Please check your username and password');
@@ -33,7 +33,7 @@ const Login = () => {
         <>
             <Layout>
                 <br /> <br />
-                <div >
+                <div  >
                     <center >
                         <div class="w-full max-w-xs">
                         <h1>Login</h1>
