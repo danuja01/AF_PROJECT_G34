@@ -3,7 +3,6 @@ import {
   UserCircleIcon,
   TableCellsIcon,
   GlobeAmericasIcon,
-  MapPinIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   MapPinIcon,

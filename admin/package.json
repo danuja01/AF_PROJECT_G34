@@ -4,7 +4,7 @@
   "version": "2.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3001",
+    "dev": "vite --port 3002",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -13,13 +13,9 @@
     "@material-tailwind/react": "1.2.4",
     "@mui/material": "^5.12.3",
     "@reduxjs/toolkit": "^1.9.5",
-
     "apexcharts": "3.35.5",
     "axios": "^1.4.0",
-<<<<<<< HEAD
     "framer-motion": "^10.12.8",
-=======
->>>>>>> a7cfb44 (created functionality of booking page in  admin portal)
     "lodash": "^4.17.21",
     "prop-types": "15.8.1",
     "react": "18.2.0",

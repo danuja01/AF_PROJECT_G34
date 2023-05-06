@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Sidenav, DashboardNavbar } from "@/components/widgets/layout";
+import { Sidenav, DashboardNavbar } from "@/components/common/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController } from "@/context";
 import { Loader } from "../common";
