@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Dashboard, Auth } from "@/components/layouts";
 
-
 function App() {
   return (
     <Routes>

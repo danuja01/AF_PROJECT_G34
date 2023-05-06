@@ -5,7 +5,7 @@ import {
   UserPlusIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-import { Navbar, Footer } from "@/components/widgets/layout";
+import { Navbar } from "@/components/widgets/layout";
 import routes from "@/routes";
 
 export function Auth() {
@@ -43,7 +43,7 @@ export function Auth() {
         )}
       </Routes>
       <div className="container absolute bottom-8 left-2/4 z-10 mx-auto -translate-x-2/4 text-white">
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

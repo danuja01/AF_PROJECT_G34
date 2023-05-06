@@ -63,7 +63,7 @@ StatisticsCard.propTypes = {
     "red",
   ]),
   icon: PropTypes.node.isRequired,
-  title: PropTypes.node.isRequired,
+  title: PropTypes.node,
   value: PropTypes.node.isRequired,
   footer: PropTypes.node,
 };

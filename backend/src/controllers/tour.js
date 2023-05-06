@@ -49,11 +49,6 @@ export const getTour = async (req, res) => {
 export const updateTour = async (req, res) => {
   const { id } = req.params
   const { tourName, tourType, description, duration } = req.body
-  let imagePath = Tour.findById(id).imagePath
-
-  if (req.file) {
-    imagePath = `http://localhost:4000/tour/image/${req.file.filename}`
-  }
 
   try {
     const data = await Tour.findByIdAndUpdate(
@@ -62,8 +57,7 @@ export const updateTour = async (req, res) => {
         tourName,
         tourType,
         description,
-        duration,
-        imagePath
+        duration
       },
       {
         new: true
