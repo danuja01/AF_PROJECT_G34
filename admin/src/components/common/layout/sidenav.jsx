@@ -1,12 +1,7 @@
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  Avatar,
-  Button,
-  IconButton,
-  Typography,
-} from "@material-tailwind/react";
+import { Button, IconButton, Typography } from "@material-tailwind/react";
 import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 
 export function Sidenav({ brandImg, brandName, routes }) {
@@ -71,7 +66,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
                       variant={isActive ? "gradient" : "text"}
                       color={
                         isActive
-                          ? "#fff"
+                          ? "blue"
                           : sidenavType === "dark"
                           ? "white"
                           : "blue-gray"
@@ -100,7 +95,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
 
 Sidenav.defaultProps = {
   brandImg: "/img/logo-sssct.png",
-  brandName: "Ceylon Voyage",
+  brandName: "Ceylon Voyages",
 };
 
 Sidenav.propTypes = {

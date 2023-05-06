@@ -3,7 +3,7 @@ import User from '../models/user'
 
 // Create a new review
 export const createUser = async (req, res) => {
-  const {user_name, user_id } = req.body
+  const { user_name, user_id } = req.body
   try {
     const user = await User.create({
       user_name,

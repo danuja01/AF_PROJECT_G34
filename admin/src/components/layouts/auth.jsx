@@ -5,7 +5,7 @@ import {
   UserPlusIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-import { Navbar, Footer } from "@/components/widgets/layout";
+import { Navbar, Footer } from "@/components/common/layout";
 import routes from "@/routes";
 
 export function Auth() {

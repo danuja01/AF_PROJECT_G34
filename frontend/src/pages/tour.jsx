@@ -6,11 +6,7 @@ import { GlobeAltIcon } from '@heroicons/react/20/solid'
 import { getTour } from '../services/tours'
 import toast from '../libs/toastify'
 
-
 import Reviews from './reviews'
-
-//mui
-import Button from '@mui/material/Button'
 
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
@@ -23,22 +19,31 @@ import { createBooking } from '../services/booking'
 
 const Tour = () => {
   const id = useParams().id
-  const starIcons = [];
+  const starIcons = []
   const [tourRes, setTourRes] = useState(null)
   const [open, setOpen] = useState(false)
-  const [numRatings, setNumRatings] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
+  const [numRatings, setNumRatings] = useState(0)
+  const [averageRating, setAverageRating] = useState(0)
 
-  const handleReviewsData  = (numRatingsFromChild, averageRatingFromChild) => {
-    setNumRatings(numRatingsFromChild);
-    setAverageRating(averageRatingFromChild);
-  };
+  const handleReviewsData = (numRatingsFromChild, averageRatingFromChild) => {
+    setNumRatings(numRatingsFromChild)
+    setAverageRating(averageRatingFromChild)
+  }
 
   for (let i = 1; i <= 5; i++) {
     if (i <= averageRating) {
-      starIcons.push(<svg key={i} fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>);
+      starIcons.push(
+        <svg key={i} fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>,
+      )
     } else {
-      starIcons.push(<svg key={i} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>);
+      starIcons.push(
+        <svg key={i} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
+          <path stroke="none" d="M0 0h24v24H0z" />
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>,
+      )
     }
   }
 
