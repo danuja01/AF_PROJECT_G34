@@ -13,8 +13,8 @@ export const createReview = async (data, showLoader) => {
   return await apiRequest(() => axiosInstance.post("/api/reviews", data), showLoader);
 }
 
-export const updateReview = async (data, showLoader) => {
-  return await apiRequest(() => axiosInstance.patch("/api/reviews", data), showLoader);
+export const updateReview = async (id, data, showLoader) => {
+  return await apiRequest(() => axiosInstance.patch(`/api/reviews/${id}`, data), showLoader);
 }
 
 export const deleteReview = async (id, userId, showLoader) => {

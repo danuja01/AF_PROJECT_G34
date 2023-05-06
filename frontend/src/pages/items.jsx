@@ -3,11 +3,20 @@ import Layout from '../components/layout'
 import CardStack from '../components/items/card_carousel/cardStack'
 import Search from '../components/items/search/search'
 import { debounce } from 'lodash'
-import { getAllItems } from '../services/items'
+import { getAllItems, searchItem } from '../services/items'
 import { useEffect, useState } from 'react'
 
 const Items = () => {
   const [itemsRes, setItemsRes] = useState(null)
+
+  const handleSearch = async (term) => {
+    try {
+      const response = await searchItem(term)
+      setItemsRes(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const refresh = debounce(() => {
     getAllItems().then(({ data }) => setItemsRes(data))
@@ -19,8 +28,9 @@ const Items = () => {
 
   return (
     <Layout title="Restaurants and Products">
+      {/* <SearchBar onSearch={handleSearch} /> */}
       <div className="w-full relative mb-20">
-        <Search />
+        <Search onSearch={handleSearch} />
       </div> <br /> <br /> <br /> <br />
       <div className="bg-white">
         <Section className="max-w-7xl mx-auto">

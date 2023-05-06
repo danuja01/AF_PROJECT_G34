@@ -88,7 +88,7 @@ export const searchItems = async (req, res) => {
         { description: { $regex: term, $options: 'i' } } // Case-insensitive regex search on description
       ]
     })
-    return toSuccess({ res, data: items, message: 'Tours retrieved successfully' })
+    return toSuccess({ res, data: items, message: 'Items retrieved successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }

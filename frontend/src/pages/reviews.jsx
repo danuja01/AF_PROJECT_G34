@@ -1,12 +1,9 @@
 import { debounce } from 'lodash'
 import { useEffect, useState } from 'react'
-import { getAllReviews, getReviewByRating } from '../services/reviews'
-import { createReview } from '../services/reviews'
+import { getAllReviews, getReviewByRating, createReview, deleteReview } from '../services/reviews'
 import Moment from 'moment'
 import EditReview from './edit-review'
 import { NIL } from 'uuid'
-
-import axios from 'axios'
 
 //mui
 import { Rating, TextField } from '@mui/material'
@@ -48,9 +45,9 @@ const Reviews = ({ id, onReviewsData, source }) => {
     rating: NIL,
   })
 
-  const deleteReview = async (id) => {
+  const deleteReviews = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/reviews/${id}`)
+      await deleteReview(id)
       refresh()
     } catch (error) {
       console.error(error)
@@ -61,7 +58,7 @@ const Reviews = ({ id, onReviewsData, source }) => {
     event.preventDefault()
 
     // Send a POST request to the server to add the new review
-    axios.post(`http://localhost:4000/api/reviews`, reviewData)
+    createReview(reviewData)
     refresh().catch((error) => {
       console.log(error)
     })
@@ -91,7 +88,7 @@ const Reviews = ({ id, onReviewsData, source }) => {
           </label>
           <div class="relative">
             <select id="rating" value={rating} onChange={handleRatingChange} class="block appearance-none w-40 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-              <option value="">Select a rating</option>
+              <option value="">All reviews</option>
               <option value="1">1 star</option>
               <option value="2">2 stars</option>
               <option value="3">3 stars</option>
@@ -146,7 +143,7 @@ const Reviews = ({ id, onReviewsData, source }) => {
                 {/* {props.user && props.user.id === review.user_id && ( */}
                 <div className="bg-gray-100 px-4 py-2 flex justify-between">
                   <button onClick={() => handleEditReview(review._id)}>Edit</button>
-                  <button className="text-red-500 font-medium hover:text-red-800" onClick={() => deleteReview(review._id)}>
+                  <button className="text-red-500 font-medium hover:text-red-800" onClick={() => deleteReviews(review._id)}>
                     Delete Review
                   </button>
                 </div>
