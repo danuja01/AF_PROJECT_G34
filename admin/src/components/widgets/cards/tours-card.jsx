@@ -9,34 +9,64 @@ import PropTypes from "prop-types";
 
 import React from "react";
 
-export function ToursCard({ color, chart, title, description, footer }) {
+export function ToursCard({
+  _id,
+  tourName,
+  tourType,
+  description,
+  duration,
+  imagePath,
+  handleDelete,
+  handleUpdate,
+}) {
   return (
     <Card>
       <CardHeader color={"gray"}>
         <img
-          src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+          src={imagePath}
           alt="img-blur-shadow"
+          className="h-52 w-full select-none object-cover object-center"
           layout="fill"
         />
       </CardHeader>
-      <CardBody className="p-6">
-        <Typography variant="h6" color="blue-gray">
-          Sri Lanka Culureal Triangle
+      <CardBody className="h-[12rem] px-6 pt-6 pb-4">
+        <Typography
+          variant="small"
+          color="blue-gray"
+          className=" font-semibold"
+        >
+          {tourType} | {duration} {duration == 1 ? "day" : "days"}
         </Typography>
-        <Typography variant="small" className="font-normal text-blue-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          asperiores itaque odit eius expedita autem minima architecto aut
-          distinctio et.
+        <Typography variant="h6" color="blue-gray">
+          {tourName}
+        </Typography>
+        <Typography
+          variant="small"
+          className="pt-1 font-normal text-blue-gray-600"
+        >
+          {description.slice(0, 150) + "..."}
         </Typography>
       </CardBody>
 
       <CardFooter className="border-blue-green-50 border-t px-6 py-5">
-        <a href="" className="mr-5 text-blue-600">
+        <button
+          value={_id}
+          onClick={(e) => {
+            handleUpdate(e.target.value);
+          }}
+          className="mr-5 text-blue-600"
+        >
           Upgrade
-        </a>
-        <a href="" className="text-red-600">
+        </button>
+        <button
+          value={_id}
+          onClick={(e) => {
+            handleDelete(e.target.value);
+          }}
+          className="text-red-600"
+        >
           Delete
-        </a>
+        </button>
       </CardFooter>
     </Card>
   );

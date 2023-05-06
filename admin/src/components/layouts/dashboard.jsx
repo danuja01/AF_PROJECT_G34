@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Sidenav, DashboardNavbar, Footer } from "@/components/widgets/layout";
+import { Sidenav, DashboardNavbar } from "@/components/common/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController } from "@/context";
 import { Loader } from "../common";
@@ -9,13 +9,8 @@ export function Dashboard() {
   const { sidenavType } = controller;
 
   return (
-    <div className="min-h-screen bg-blue-gray-50/50">
-      <Sidenav
-        routes={routes}
-        brandImg={
-          sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
-        }
-      />
+    <div className="min-h-screen overflow-x-hidden bg-blue-gray-50/50">
+      <Sidenav routes={routes} />
       <div className="p-4 xl:ml-80">
         <DashboardNavbar />
         <Routes>
@@ -27,9 +22,7 @@ export function Dashboard() {
               ))
           )}
         </Routes>
-        <div className="text-blue-gray-6 ">
-          <Footer />
-        </div>
+        <div className="text-blue-gray-6 "></div>
       </div>
       <Loader />
     </div>
