@@ -54,13 +54,13 @@ const createNewUser = asyncHandler(async (req, res) => {
 //  Private
 
 const updateUser = asyncHandler(async (req, res) => {
-    const { id, username, first_name, last_name, mobile, password, dob, gender, roles, active } = req.body;
+    const { id, username, first_name, last_name, mobile, password, dob, gender, roles, active, image_link, about } = req.body;
     //change to _id for backend
     // Confirm Data
     if(!id || !username || !first_name || !last_name || !mobile || !dob || !gender || !roles || typeof active !== 'boolean') {
         return res.status(400).json({message: 'Complete all fields'})
     }
-    const user = await User.find({_id: id}).exec()
+    const user = await User.findOne({_id: id}).exec()
 
     if(!user) {
         return res.status(400).json({message: 'User not found'})
@@ -69,7 +69,7 @@ const updateUser = asyncHandler(async (req, res) => {
      //Check for duplicate
      const duplicate = await User.findOne({username}).lean().exec()
     //allow updates to the original user
-     if(duplicate && duplicate?.id.toString() !== id) {
+     if(duplicate && duplicate?._id.toString() !== id) {
          return res.status(409).json({message: "User ID already available"})
      }
 
@@ -81,6 +81,8 @@ const updateUser = asyncHandler(async (req, res) => {
      user.gender = gender
      user.roles = roles
      user.active = active
+     user.image_link = image_link
+     user.about = about
 
      if (password) {
         // Hash password 
@@ -128,10 +130,32 @@ const getSingleUser = asyncHandler(async(req, res) => {
     })
 })
 
+const getSingleUserByUserName = asyncHandler(async(req, res) => {
+    let keyword = req.params.keyword;
+    await User.find({ "username": `${keyword}` }).then((users) => {
+        res.json(users);
+    }).catch((err) => {
+        console.log(err.message);
+        res.status(500).send({ status: "Error with get the user", error: err.message });
+    })
+})
+
+const getSingleUserByFirstName = asyncHandler(async(req, res) => {
+    let keyword = req.params.keyword;
+    await User.find({ "first_name": `${keyword}` }).then((users) => {
+        res.json(users);
+    }).catch((err) => {
+        console.log(err.message);
+        res.status(500).send({ status: "Error with get the user", error: err.message });
+    })
+})
+
 module.exports = {
     getAllUsers,
     createNewUser,
     updateUser,
     deleteUser,
-    getSingleUser
+    getSingleUser,
+    getSingleUserByUserName,
+    getSingleUserByFirstName
 }

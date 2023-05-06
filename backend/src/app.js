@@ -7,7 +7,7 @@ import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
 import toursRouter from './routes/tours.routes'
 import reviewsRouter from './routes/reviews.routes'
-import usersRouter from './routes/users.routes'
+// import usersRouter from './routes/users.routes'
 import itemsRouter from './routes/items.routes'
 import tourBookings from './routes/tourBooking.routes'
 
@@ -37,7 +37,7 @@ app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Runnin
 
 app.use('/api/items', itemsRouter)
 
-app.use('/api/users', usersRouter)
+// app.use('/api/users', usersRouter)
 
 app.use('/api/reviews', reviewsRouter)
 
@@ -51,9 +51,9 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/root'))
 
-app.use('/auth', require('./routes/authRoutes'))
+app.use('/api/auth', require('./routes/authRoutes'))
 
-app.use('/users', require('./routes/userRoutes'))
+app.use('/api/users', require('./routes/userRoutes'))
 
 app.use('/notifications', require('./routes/notificationRoutes'))
 
