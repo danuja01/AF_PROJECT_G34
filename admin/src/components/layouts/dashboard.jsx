@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Sidenav, DashboardNavbar, Footer } from "@/components/common/layout";
+import { Sidenav, DashboardNavbar } from "@/components/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController } from "@/context";
 import { Loader } from "../common";
@@ -22,9 +22,7 @@ export function Dashboard() {
               ))
           )}
         </Routes>
-        <div className="text-blue-gray-6 ">
-          <Footer />
-        </div>
+        <div className="text-blue-gray-6 "></div>
       </div>
       <Loader />
     </div>

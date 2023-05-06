@@ -3,6 +3,7 @@ import {
   UserCircleIcon,
   TableCellsIcon,
   GlobeAmericasIcon,
+  MapPinIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   MapPinIcon,
@@ -10,7 +11,7 @@ import {
 import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import Tours from "./pages/dashboard/Tours";
-import Bookings from "./pages/dashboard/Bookings";
+import Bookings from "./pages/dashboard/bookings";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
