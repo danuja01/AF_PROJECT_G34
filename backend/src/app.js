@@ -7,7 +7,6 @@ import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
 import toursRouter from './routes/tours.routes'
 import reviewsRouter from './routes/reviews.routes'
-import usersRouter from './routes/users.routes'
 import itemsRouter from './routes/items.routes'
 import tourBookings from './routes/tourBooking.routes'
 
@@ -36,8 +35,6 @@ global.__basedir = __dirname
 app.get('/', (req, res) => res.status(200).json({ message: 'Server Up and Running' }))
 
 app.use('/api/items', itemsRouter)
-
-app.use('/api/users', usersRouter)
 
 app.use('/api/reviews', reviewsRouter)
 
