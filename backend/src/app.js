@@ -56,3 +56,5 @@ const port = process.env.PORT || 2000
 app.listen(port, () => {
   consola.info(`server successfully started on port ${port}`)
 })
+
+export default app
