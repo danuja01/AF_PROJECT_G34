@@ -3,7 +3,7 @@ import Review from '../models/review'
 
 // Create a new review
 export const createReview = async (req, res) => {
-  const {item, tour, user, user_id, text, rating } = req.body
+  const { item, tour, user, user_id, text, rating } = req.body
 
   const date = new Date()
   try {

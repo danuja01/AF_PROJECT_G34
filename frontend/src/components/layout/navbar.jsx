@@ -1,6 +1,8 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
+import Notification from '../../pages/Notification'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -25,12 +27,13 @@ const Header = () => {
     }
   }, [])
 
+  const currentPath = window.location.pathname;
   const navigation = [
-    { name: 'Home', href: '/home', current: false },
-    { name: 'Tours', href: '/tours', current: true },
-    { name: 'Restaurants and Products', href: '/items', current: false },
-    { name: 'Blogs', href: '/blogs', current: false },
-    { name: 'Feedback and reviews', href: '/feedback', current: false },
+    { id: 0, name: 'Home', href: '/home' },
+    { id: 1, name: 'Tours', href: '/tours' },
+    { id: 2, name: 'Restaurants and Products', href: '/items' },
+    { id: 3, name: 'Blogs', href: '/blogs' },
+    { id: 4, name: 'Feedback and reviews', href: '/feedback' },
   ]
 
   return (
@@ -54,14 +57,14 @@ const Header = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block h-ful">
                   <div className="flex items-center space-x-4 h-full">
-                    {navigation.map((item) => (
+                    {navigation.map(({id, name, href}) => (
                       <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(item.current ? 'border-b-4 border-primary text-primary' : 'text-gray-800 hover:border-b-4 hover:border-gray-700 hover:text-gray-800', 'h-full px-3 py-[1.09rem] pt-[1.4rem] text-sm font-medium')}
-                        aria-current={item.current ? 'page' : undefined}
+                        key={id}
+                        href={href}
+                        className={classNames(currentPath.startsWith(href) ? 'border-b-4 border-primary text-primary' : 'text-gray-800 hover:border-b-4 hover:border-gray-700 hover:text-gray-800', 'h-full px-3 py-[1.09rem] pt-[1.4rem] text-sm font-medium')}
+                        aria-current={currentPath.startsWith(href) ? 'page' : null}
                       >
-                        {item.name}
+                        {name}
                       </a>
                     ))}
                   </div>
@@ -80,7 +83,21 @@ const Header = () => {
                     <Menu.Items className="absolute  right-0  mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                          <a href="/sign-in" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                            Sign In
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a href="/sign-up" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                            Sign Up
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a href="/view-profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                             Your Profile
                           </a>
                         )}
@@ -102,6 +119,11 @@ const Header = () => {
                     </Menu.Items>
                   </Transition>
                 </Menu>
+                {/* <Menu>
+                  <i className="fa fa-bell icon-circle icon-circle" />
+
+                  <Notification />
+                </Menu> */}
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { toSuccess } from '../utils'
-import User from '../models/user'
+import User from '../models/User'
 
 // Create a new review
 export const createUser = async (req, res) => {
