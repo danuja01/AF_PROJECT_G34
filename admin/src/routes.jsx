@@ -2,12 +2,14 @@ import {
   HomeIcon,
   UserCircleIcon,
   TableCellsIcon,
+  ChatBubbleBottomCenterTextIcon,
+  BookOpenIcon,
   GlobeAmericasIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   MapPinIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { Home, Profile, Tables } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import Tours from "./pages/dashboard/Tours";
 import Bookings from "./pages/dashboard/bookings";
@@ -39,17 +41,30 @@ export const routes = [
         element: <Bookings />,
       },
       {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
+        icon: <ChatBubbleBottomCenterTextIcon {...icon} />,
+        name: "Reviews",
+        path: "/reviews",
+        element: <Bookings />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
+        icon: <BookOpenIcon {...icon} />,
+        name: "Blogs",
+        path: "/blogs",
+        element: <Bookings />,
       },
+
+      // {
+      //   icon: <UserCircleIcon {...icon} />,
+      //   name: "profile",
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
+      // {
+      //   icon: <TableCellsIcon {...icon} />,
+      //   name: "tables",
+      //   path: "/tables",
+      //   element: <Tables />,
+      // },
     ],
   },
   {
