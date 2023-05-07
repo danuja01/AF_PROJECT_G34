@@ -6,14 +6,10 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
   Chip,
-  Tooltip,
-  Progress,
 } from "@material-tailwind/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { authorsTableData, projectsTableData } from "@/data";
 import { debounce } from "lodash";
+import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 
 import { getAllBookings } from "../../services/booking";
 
@@ -28,8 +24,26 @@ export function Bookings() {
     refresh();
   }, []);
 
+  const [value, setValue] = useState("");
+
+  const handleChange = (val) => {
+    setValue(val);
+  };
+
   return (
-    <div className="mt-12 mb-8 flex flex-col gap-12">
+    <div className="mt-6 mb-8 flex flex-col gap-12">
+      <div className="w-[20rem]">
+        <Tabs value={value}>
+          <TabsHeader>
+            <Tab value="" onClick={() => setValue("")}>
+              All
+            </Tab>
+            <Tab value="cultural" onClick={() => handleChange("cultural")}>
+              Archived
+            </Tab>
+          </TabsHeader>
+        </Tabs>
+      </div>
       <Card>
         <CardHeader variant="gradient" color="blue" className="mb-8 p-6">
           <Typography variant="h6" color="white">
@@ -40,19 +54,21 @@ export function Bookings() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["Name", "Tour", "status", "date", "budget", ""].map((el) => (
-                  <th
-                    key={el}
-                    className="border-b border-blue-gray-50 py-3 px-5 text-left"
-                  >
-                    <Typography
-                      variant="small"
-                      className="text-[11px] font-bold uppercase text-blue-gray-400"
+                {["Name", "Tour", "status", "date", "budget", "", ""].map(
+                  (el) => (
+                    <th
+                      key={el}
+                      className="border-b border-blue-gray-50 py-3 px-5 text-left"
                     >
-                      {el}
-                    </Typography>
-                  </th>
-                ))}
+                      <Typography
+                        variant="small"
+                        className="text-[11px] font-bold uppercase text-blue-gray-400"
+                      >
+                        {el}
+                      </Typography>
+                    </th>
+                  )
+                )}
               </tr>
             </thead>
             <tbody>
@@ -107,9 +123,18 @@ export function Bookings() {
                           <Typography
                             as="a"
                             href="#"
-                            className="text-xs font-semibold text-blue-gray-600"
+                            className="text-xs font-semibold text-blue-gray-600 hover:text-green-500"
                           >
                             mark as complete
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          <Typography
+                            as="a"
+                            href="#"
+                            className="text-xs font-semibold text-red-600 hover:underline"
+                          >
+                            archive
                           </Typography>
                         </td>
                       </tr>
