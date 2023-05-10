@@ -1,15 +1,18 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import { useAuth } from '../hooks'
-import Home from '../pages/home'
-import NotFound from '../pages/404'
-import Tours from '../pages/tours'
-import Tour from '../pages/tour'
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { useAuth } from '../hooks';
+import Home from '../pages/home';
+import NotFound from '../pages/404';
+import Tours from '../pages/tours';
+import Tour from '../pages/tour';
+import PostDetails from '../components/Posts/PostDetails/PostDetails';
+
+import Memo from '../pages/Memo';
 
 const AnimatedRoutes = () => {
   // useAuth()
 
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <AnimatePresence>
@@ -18,9 +21,12 @@ const AnimatedRoutes = () => {
         <Route path="/tours" element={<Tours />} />
         <Route path="/tour/:id" element={<Tour />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/posts" element={<Memo />} />
+        <Route path="/posts/search" element={<Memo />} />
+        <Route path='/posts/:id' element={<PostDetails />} />
       </Routes>
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default AnimatedRoutes
+export default AnimatedRoutes;

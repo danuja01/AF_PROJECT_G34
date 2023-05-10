@@ -1,10 +1,11 @@
 import express from 'express';
 import mongoose from "mongoose";
+import { toSuccess } from '../utils'
 import PostMessage from "../models/postMessage.js";
 
 const router = express.Router();
 
-export const getPosts = async (req,res) => {
+/*export const getPosts = async (req,res) => {
   
   try {
     const postMessage = await PostMessage.find(); //find in the database
@@ -14,6 +15,15 @@ export const getPosts = async (req,res) => {
 
     res.status(404).json({message: error.message});
 
+  }
+}*/
+
+export const getPosts = async (req, res) => {
+  try {
+    const data = await PostMessage.find()
+    return toSuccess({ res, data, message: 'Posts retrieved successfully' })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
   }
 }
 
@@ -32,7 +42,7 @@ export const getPost = async (req, res) => {
 
 
 
-export const getPostsBySearch = async (req, res) => {
+/*export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
 
   try {
@@ -44,7 +54,22 @@ export const getPostsBySearch = async (req, res) => {
   } catch (error) {    
       res.status(404).json({ message: error.message });
   }
+}*/
+
+export const getPostsBySearch = async (req, res) => {
+  const { searchQuery } = req.query;
+
+  try {
+    const title = new RegExp(searchQuery, "i");
+
+    const posts = await PostMessage.find({ title });
+
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 }
+
 
 export const createPost = async (req,res) => {
 
@@ -96,6 +121,23 @@ export const likePost = async (req, res) => {
   
   res.json(updatedPost);
 }
+
+/*export const searchPosts = async (req, res) => {
+  const { term } = req.params
+  try {
+    const postMessage = await PostMessage.find({
+      $or: [
+        { title: { $regex: term, $options: 'i' } }, // Case-insensitive regex search on tourName
+       // { tourType: { $regex: term, $options: 'i' } }, // Case-insensitive regex search on tourType
+       // { description: { $regex: term, $options: 'i' } } // Case-insensitive regex search on description
+      ]
+    })
+    return toSuccess({ res, data: postMessage, message: 'Posts retrieved successfully' })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}*/
+
 
 
 export default router;
