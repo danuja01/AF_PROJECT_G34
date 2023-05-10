@@ -23,7 +23,7 @@ const Form = ({ currentId, setCurrentId,selectedPost }) => {
   //populate the values of the form
   useEffect(() => {
     if (selectedPost) {
-      console.log("selected post found "+ selectedPost._id)
+      console.log("selected post found "+ selectedPost._id) //to check the posts
       setPostData(selectedPost)
     }
    
