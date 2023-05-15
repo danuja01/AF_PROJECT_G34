@@ -27,7 +27,7 @@ const Header = () => {
     }
   }, [])
 
-  const currentPath = window.location.pathname;
+  const currentPath = window.location.pathname
   const navigation = [
     { id: 0, name: 'Home', href: '/home' },
     { id: 1, name: 'Tours', href: '/tours' },
@@ -57,7 +57,7 @@ const Header = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block h-ful">
                   <div className="flex items-center space-x-4 h-full">
-                    {navigation.map(({id, name, href}) => (
+                    {navigation.map(({ id, name, href }) => (
                       <a
                         key={id}
                         href={href}
