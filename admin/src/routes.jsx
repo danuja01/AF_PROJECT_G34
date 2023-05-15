@@ -2,13 +2,18 @@ import {
   HomeIcon,
   UserCircleIcon,
   TableCellsIcon,
+  ChatBubbleBottomCenterTextIcon,
+  BookOpenIcon,
   GlobeAmericasIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { Home, Profile, Tables } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import Tours from "./pages/dashboard/Tours";
+import Items from "./pages/dashboard/Items";
+import Bookings from "./pages/dashboard/bookings";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -31,17 +36,42 @@ export const routes = [
         element: <Tours />,
       },
       {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
+        icon: <GlobeAmericasIcon {...icon} />,
+        name: "Hotels and Restaurants",
+        path: "/items",
+        element: <Items />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
+        icon: <MapPinIcon {...icon} />,
+        name: "Booking Requests",
+        path: "/bookings",
+        element: <Bookings />,
       },
+      {
+        icon: <ChatBubbleBottomCenterTextIcon {...icon} />,
+        name: "Reviews",
+        path: "/reviews",
+        element: <Bookings />,
+      },
+      {
+        icon: <BookOpenIcon {...icon} />,
+        name: "Blogs",
+        path: "/blogs",
+        element: <Bookings />,
+      },
+
+      // {
+      //   icon: <UserCircleIcon {...icon} />,
+      //   name: "profile",
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
+      // {
+      //   icon: <TableCellsIcon {...icon} />,
+      //   name: "tables",
+      //   path: "/tables",
+      //   element: <Tables />,
+      // },
     ],
   },
   {

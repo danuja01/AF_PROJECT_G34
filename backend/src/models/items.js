@@ -7,12 +7,12 @@ const itemSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['restaurant', 'product'],
+    enum: ['restaurant', 'hotel'],
     required: true
   },
   location: {
     type: String,
-    required: false
+    required: true
   },
   price: {
     type: String,
@@ -26,9 +26,9 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  img: {
+  imagePath: {
     type: String,
-    required: true
+    required: false
   }
 })
 

@@ -6,15 +6,18 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 import React from "react";
 
-export function ToursCard({
+export function ItemsCard({
   _id,
-  tourName,
-  tourType,
+  itemName,
+  category,
   description,
-  duration,
+  cuisine,
+  price,
+  location,
   imagePath,
   handleDelete,
   handleUpdate,
@@ -35,10 +38,10 @@ export function ToursCard({
           color="blue-gray"
           className=" font-semibold"
         >
-          {tourType} | {duration} {duration == 1 ? "day" : "days"}
+          {category}
         </Typography>
         <Typography variant="h6" color="blue-gray">
-          {tourName}
+          {itemName}
         </Typography>
         <Typography
           variant="small"
@@ -46,9 +49,30 @@ export function ToursCard({
         >
           {description.slice(0, 150) + "..."}
         </Typography>
+        <div className="flex items-center">
+          <FaMapMarkerAlt className="text-primary mr-3 h-4 w-4" />
+          <Typography
+            variant="small"
+            className="pt-1 font-normal text-blue-gray-600"
+          >
+            {location}
+          </Typography>
+        </div>
+        <Typography
+          variant="small"
+          className="pt-1 font-bold text-blue-gray-600"
+        >
+          {cuisine ? "Cuisine: " + cuisine : null}
+        </Typography>
+        <Typography
+          variant="small"
+          className="pt-1 font-bold text-blue-gray-600"
+        >
+          {price ? "Price: " + price : null}
+        </Typography>
       </CardBody>
 
-      <CardFooter className="border-blue-green-50 border-t px-6 py-5">
+      <CardFooter className="mt-12 border-blue-green-50 border-t px-6 py-5">
         <button
           value={_id}
           onClick={(e) => {
@@ -56,7 +80,7 @@ export function ToursCard({
           }}
           className="mr-5 text-blue-600"
         >
-          Upgrade
+          Update
         </button>
         <button
           value={_id}
@@ -72,12 +96,12 @@ export function ToursCard({
   );
 }
 
-ToursCard.defaultProps = {
+ItemsCard.defaultProps = {
   color: "blue",
   footer: null,
 };
 
-ToursCard.propTypes = {
+ItemsCard.propTypes = {
   color: PropTypes.oneOf([
     "white",
     "blue-gray",
@@ -105,6 +129,6 @@ ToursCard.propTypes = {
   footer: PropTypes.node,
 };
 
-ToursCard.displayName = "/src/widgets/charts/statistics-chart.jsx";
+ItemsCard.displayName = "/src/widgets/charts/statistics-chart.jsx";
 
-export default ToursCard;
+export default ItemsCard;

@@ -28,7 +28,7 @@ const Header = () => {
   const navigation = [
     { name: 'Home', href: '/home', current: false },
     { name: 'Tours', href: '/tours', current: true },
-    { name: 'Restaurants and Products', href: '/items', current: false },
+    { name: 'Hotels and Restaurants', href: '/items', current: false },
     { name: 'Blogs', href: '/blogs', current: false },
     { name: 'Feedback and reviews', href: '/feedback', current: false },
   ]

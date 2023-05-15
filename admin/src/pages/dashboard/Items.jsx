@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 
 import {
-  getAllTours,
-  deleteTour,
-  createTour,
-  updateTour,
-} from "../../services/tours";
+  getAllItems,
+  deleteItem,
+  createItem,
+  updateItem,
+} from "../../services/items";
 
-import { ToursCard } from "@/components/widgets/cards";
+import { ItemsCard } from "@/components/widgets/cards";
 import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
 
@@ -26,25 +26,29 @@ import {
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
-export function Tours() {
-  const [toursRes, setToursRes] = useState("");
+export function Items() {
+  const [itemsRes, setItemRes] = useState("");
 
-  const [tourName, setTourName] = useState("");
-  const [tourType, setTourType] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
+  const [cuisine, setCuisine] = useState("");
+  const [price, setPrice] = useState("");
+  const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
 
-  const [tourNameUpdate, setTourNameUpdate] = useState("");
-  const [tourTypeUpdate, setTourTypeUpdate] = useState("");
+  const [itemNameUpdate, setItemNameUpdate] = useState("");
+  const [categoryUpdate, setCategoryUpdate] = useState("");
   const [descriptionUpdate, setDescriptionUpdate] = useState("");
-  const [durationUpdate, setDurationUpdate] = useState("");
+  const [cuisineUpdate, setCuisineUpdate] = useState("");
+  const [priceUpdate, setPriceUpdate] = useState("");
+  const [locationUpdate, setLocationUpdate] = useState("");
 
   const [isEmpty, setIsEmpty] = useState(false);
   const [isEmptyUpdate, setIsEmptyUpdate] = useState(false);
 
   const refresh = debounce(() => {
-    getAllTours().then(({ data }) => setToursRes(data));
+    getAllItems().then(({ data }) => setItemRes(data));
   }, 300);
 
   useEffect(() => {
@@ -52,10 +56,10 @@ export function Tours() {
   }, []);
 
   const handleDelete = (id) => {
-    deleteTour(id)
+    deleteItem(id)
       .then(() => {
         refresh();
-        // alert("Tour deleted successfully");
+        // alert("Item deleted successfully");
       })
       .catch((err) => {
         // alert("Something went wrong. Please try again later");
@@ -76,10 +80,11 @@ export function Tours() {
     e.preventDefault();
 
     if (
-      tourName.trim() === "" ||
-      tourType.trim() === "" ||
+      itemName.trim() === "" ||
+      category.trim() === "" ||
       description.trim() === "" ||
-      duration.trim() === ""
+      price.trim() === ""||
+      location.trim() === ""
     ) {
       // do
 
@@ -90,13 +95,15 @@ export function Tours() {
       return;
     } else {
       const formData = new FormData();
-      formData.append("tourName", tourName);
-      formData.append("tourType", tourType);
+      formData.append("itemName", itemName);
+      formData.append("category", category);
       formData.append("description", description);
-      formData.append("duration", duration);
+      formData.append("cuisine", cuisine);
+      formData.append("price", price);
+      formData.append("location", location);
       formData.append("image", image);
 
-      await createTour(formData)
+      await createItem(formData)
         .then((res) => {
           if (res) {
             //do
@@ -110,45 +117,53 @@ export function Tours() {
         });
 
       setOpen(false);
-      setTourName("");
-      setTourType("");
+      setItemName("");
+      setCategory("");
       setDescription("");
-      setDuration("");
+      setCuisine("");
+      setPrice("");
+      setLocation("");
     }
   };
 
   const [updateId, setUpdateId] = useState("");
 
   const handleUpdateBox = async (id) => {
-    const tour = toursRes.find((tour) => tour._id === id);
+    const tour = itemsRes.find((tour) => tour._id === id);
 
     tour && setUpdateId(tour._id);
-    tour && setTourNameUpdate(tour.tourName);
-    tour && setTourTypeUpdate(tour.tourType);
+    tour && setItemNameUpdate(tour.itemName);
+    tour && setCategoryUpdate(tour.category);
     tour && setDescriptionUpdate(tour.description);
-    tour && setDurationUpdate(tour.duration);
+    tour && setCuisineUpdate(tour.cuisine);
+    tour && setPriceUpdate(tour.price);
+    tour && setLocationUpdate(tour.location);
     tour && setOpen2(true);
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const data = {
-      tourName: tourNameUpdate,
-      tourType: tourTypeUpdate,
+      itemName: itemNameUpdate,
+      category: categoryUpdate,
       description: descriptionUpdate,
-      duration: durationUpdate,
+      cuisine: cuisineUpdate,
+      price: priceUpdate,
+      location: locationUpdate,
     };
 
     if (
-      tourNameUpdate.trim() === "" ||
-      tourTypeUpdate.trim() === "" ||
+      itemNameUpdate.trim() === "" ||
+      categoryUpdate.trim() === "" ||
       descriptionUpdate.trim() === "" ||
-      durationUpdate.trim() === ""
+      cuisineUpdate.trim() === ""||
+      priceUpdate.trim() === ""||
+      locationUpdate.trim() === ""
     ) {
       setIsEmptyUpdate(true);
       return;
     } else {
-      await updateTour(updateId, data)
+      await updateItem(updateId, data)
         .then((res) => {
           if (res) {
             //do
@@ -162,10 +177,12 @@ export function Tours() {
         });
 
       setOpen2(false);
-      setTourNameUpdate("");
-      setTourTypeUpdate("");
+      setItemNameUpdate("");
+      setCategoryUpdate("");
       setDescriptionUpdate("");
-      setDurationUpdate("");
+      setCuisineUpdate("");
+      setPriceUpdate("");
+      setLocationUpdate("");
     }
   };
 
@@ -175,12 +192,12 @@ export function Tours() {
     setValue(newValue);
   };
 
-  const tours =
-    toursRes &&
-    toursRes
-      .filter((tour) => !value || tour.tourType === value)
+  const items =
+    itemsRes &&
+    itemsRes
+      .filter((tour) => !value || tour.category === value)
       .map((props) => (
-        <ToursCard
+        <ItemsCard
           key={props._id}
           {...props}
           handleDelete={handleDelete}
@@ -197,56 +214,47 @@ export function Tours() {
               <Tab value="" onClick={() => setValue("")}>
                 All
               </Tab>
-              <Tab value="cultural" onClick={() => handleChange("cultural")}>
-                Cultural
+              <Tab value="hotel" onClick={() => handleChange("hotel")}>
+                Hotels
               </Tab>
-              <Tab value="adventure" onClick={() => handleChange("adventure")}>
-                Adventure
-              </Tab>
-              <Tab value="beach" onClick={() => handleChange("beach")}>
-                Beach
-              </Tab>
-              <Tab value="camping" onClick={() => handleChange("camping")}>
-                Camping
+              <Tab value="restaurant" onClick={() => handleChange("restaurant")}>
+                Restaurants
               </Tab>
             </TabsHeader>
           </Tabs>
         </div>
         <div className="mr-5 flex items-center">
           <Button className="bg-blue-700" onClick={handleOpen}>
-            ADD NEW TOUR
+            ADD NEW HOTEL/ RESTAURANT
           </Button>
         </div>
       </div>
       <div className="mb-6 mt-14 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
-        {tours}
+        {items}
       </div>
 
       <Dialog open={open} handler={handleOpen}>
         <form className="w-full">
           <div className="flex items-center justify-between">
-            <DialogHeader>Add New Tour</DialogHeader>
+            <DialogHeader>Add New Hotel/ Restaurant</DialogHeader>
             <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen} />
           </div>
           <DialogBody divider>
             <div className="grid w-full gap-6">
               <Input
-                error={isEmpty && tourName === ""}
-                value={tourName}
-                onChange={(e) => setTourName(e.target.value)}
-                label="Name of the Tour"
+                error={isEmpty && itemName === ""}
+                value={itemName}
+                onChange={(e) => setItemName(e.target.value)}
+                label="Name of the Hotel/ Restaurant"
               />
               <Select
-                label="Select Tour Type"
-                error={isEmpty && tourType === ""}
-                value={tourType}
-                onChange={(e) => setTourType(e.target ? e.target.value : e)}
+                label="Select Category"
+                error={isEmpty && category === ""}
+                value={category}
+                onChange={(e) => setCategory(e.target ? e.target.value : e)}
               >
-                <Option value="cultural">Cultural</Option>
-                <Option value="adventure">Adventure</Option>
-                <Option value="wildlife">Wildlife</Option>
-                <Option value="camping">Camping</Option>
-                <Option value="beach">Beach</Option>
+                <Option value="hotel">Hotel</Option>
+                <Option value="restaurant">Restaurant</Option>
               </Select>
               <Textarea
                 value={description}
@@ -256,11 +264,22 @@ export function Tours() {
                 label="Description"
               />
               <Input
-                value={duration}
-                error={isEmpty && duration === ""}
-                onChange={(e) => setDuration(e.target.value)}
-                type="number"
-                label="Duration"
+                value={cuisine}
+                error={isEmpty && cuisine === ""}
+                onChange={(e) => setCuisine(e.target.value)}
+                label="Cuisine"
+              />
+              <Input
+                value={price}
+                error={isEmpty && price === ""}
+                onChange={(e) => setPrice(e.target.value)}
+                label="Price"
+              />
+              <Input
+                value={location}
+                error={isEmpty && location === ""}
+                onChange={(e) => setLocation(e.target.value)}
+                label="Location"
               />
               <div>
                 <label
@@ -272,7 +291,7 @@ export function Tours() {
                 <input
                   className={`border-neutral-300 text-neutral-700 file:bg-neutral-100 file:text-neutral-700 hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary relative m-0 block w-full min-w-0 flex-auto rounded border border-solid ${
                     isEmpty && image === null ? "border-red-500" : ""
-                  } bg-clip-padding px-3 py-[0.32rem] text-base font-normal transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:px-3 file:py-[0.32rem] file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:outline-none`}
+                  } bg-clip-padding px-3 py-[0.32rem] text-base font-normal transition cuisine-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:px-3 file:py-[0.32rem] file:transition file:cuisine-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] focus:outline-none`}
                   type="file"
                   required
                   onChange={handleFileSelect}
@@ -300,30 +319,27 @@ export function Tours() {
       <Dialog open={open2} handler={handleOpen2}>
         <form className="w-full">
           <div className="flex items-center justify-between">
-            <DialogHeader>Update Tour</DialogHeader>
+            <DialogHeader>Update Hotel/ Restaurant</DialogHeader>
             <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen2} />
           </div>
           <DialogBody divider>
             <div className="grid w-full gap-6">
               <Input
-                error={isEmptyUpdate && tourNameUpdate === ""}
-                value={tourNameUpdate}
-                onChange={(e) => setTourNameUpdate(e.target.value)}
-                label="Name of the Tour"
+                error={isEmptyUpdate && itemNameUpdate === ""}
+                value={itemNameUpdate}
+                onChange={(e) => setItemNameUpdate(e.target.value)}
+                label="Name of the Hotel/ Restaurant"
               />
               <Select
-                label="Select Tour Type"
-                error={isEmptyUpdate && tourTypeUpdate === ""}
-                value={tourTypeUpdate}
+                label="Select category"
+                error={isEmptyUpdate && categoryUpdate === ""}
+                value={categoryUpdate}
                 onChange={(e) =>
-                  setTourTypeUpdate(e.target ? e.target.value : e)
+                  setCategoryUpdate(e.target ? e.target.value : e)
                 }
               >
-                <Option value="cultural">Cultural</Option>
-                <Option value="adventure">Adventure</Option>
-                <Option value="wildlife">Wildlife</Option>
-                <Option value="camping">Camping</Option>
-                <Option value="beach">Beach</Option>
+                <Option value="hotel">Hotel</Option>
+                <Option value="restaurant">Product</Option>
               </Select>
               <Textarea
                 value={descriptionUpdate}
@@ -333,11 +349,22 @@ export function Tours() {
                 label="Description"
               />
               <Input
-                value={durationUpdate}
-                error={isEmptyUpdate && durationUpdate === ""}
-                onChange={(e) => setDurationUpdate(e.target.value)}
-                type="number"
-                label="Duration"
+                value={cuisineUpdate}
+                error={isEmptyUpdate && cuisineUpdate === ""}
+                onChange={(e) => setCuisineUpdate(e.target.value)}
+                label="Cuisine"
+              />
+              <Input
+                value={priceUpdate}
+                error={isEmptyUpdate && priceUpdate === ""}
+                onChange={(e) => setPriceUpdate(e.target.value)}
+                label="Price"
+              />
+              <Input
+                value={locationUpdate}
+                error={isEmptyUpdate && locationUpdate === ""}
+                onChange={(e) => setLocationUpdate(e.target.value)}
+                label="Location"
               />
             </div>
           </DialogBody>
@@ -359,4 +386,4 @@ export function Tours() {
   );
 }
 
-export default Tours;
+export default Items;

@@ -3,7 +3,12 @@ import { toSuccess } from '../utils'
 
 // Create a new Item
 export const createItem = async (req, res) => {
-  const { itemName, category, price, description, cuisine, img } = req.body
+  const { itemName, category, price, description, cuisine, location } = req.body
+  let imagePath = ''
+
+  if (req.file) {
+    imagePath = `http://localhost:4000/item/image/${req.file.filename}`
+  }
 
   try {
     const item = await Item.create({
@@ -12,7 +17,8 @@ export const createItem = async (req, res) => {
       price,
       description,
       cuisine,
-      img
+      location,
+      imagePath
     })
     return toSuccess({ res, status: 201, data: item, message: 'Item created successfully' })
   } catch (error) {
@@ -44,7 +50,12 @@ export const getItem = async (req, res) => {
 // update a tour
 export const updateItem = async (req, res) => {
   const { id } = req.params
-  const { itemName, category, price, description, cuisine, img } = req.body
+  const { itemName, category, price, description, cuisine, location } = req.body
+  let imagePath = Item.findById(id).imagePath
+
+  if (req.file) {
+    imagePath = `http://localhost:4000/item/image/${req.file.filename}`
+  }
 
   try {
     const data = await Item.findByIdAndUpdate(
@@ -55,7 +66,8 @@ export const updateItem = async (req, res) => {
         price,
         description,
         cuisine,
-        img
+        location,
+        imagePath
       },
       {
         new: true
