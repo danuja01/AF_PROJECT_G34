@@ -9,8 +9,8 @@
     "dev": "nodemon --exec  babel-node src/app.js",
     "clean": "rm -rf dist",
     "start": "node dist/app.js",
-    "lint": "eslint --ignore-path .gitignore --ignore-pattern '**/.babelrc' && prettier . --write",
-    "test": "echo test"
+    "test": "jest",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern '**/.babelrc' && prettier . --write"
   },
   "repository": {
     "type": "git",
@@ -49,8 +49,10 @@
     "@babel/preset-env": "^7.21.5",
     "dotenv": "^16.0.1",
     "eslint": "^8.19.0",
+    "jest": "29.5.0",
     "nodemon": "2.0.22",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "supertest": "6.3.3"
   },
   "engines": {
     "node": ">=10",

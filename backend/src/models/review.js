@@ -8,7 +8,7 @@ const reviewSchema = new mongoose.Schema({
   },
   user_details: {
     type: mongoose.Types.ObjectId,
-    required: true,
+    required: false,
     ref: 'User'
   },
   tour: {
@@ -18,23 +18,23 @@ const reviewSchema = new mongoose.Schema({
   },
   user: {
     type: String,
-    required: true
+    required: false
   },
   user_id: {
     type: String,
-    required: true
+    required: false
   },
   date: {
     type: Date,
-    required: true
+    required: false
   },
   text: {
     type: String,
-    required: true
+    required: false
   },
   rating: {
     type: Number,
-    required: true,
+    required: false,
     min: 1,
     max: 5
   }
