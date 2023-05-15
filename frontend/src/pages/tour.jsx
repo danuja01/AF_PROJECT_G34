@@ -6,6 +6,8 @@ import { GlobeAltIcon } from '@heroicons/react/20/solid'
 import { getTour } from '../services/tours'
 import toast from '../libs/toastify'
 
+import Reviews from './reviews'
+
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -17,8 +19,33 @@ import { createBooking } from '../services/booking'
 
 const Tour = () => {
   const id = useParams().id
+  const starIcons = []
   const [tourRes, setTourRes] = useState(null)
   const [open, setOpen] = useState(false)
+  const [numRatings, setNumRatings] = useState(0)
+  const [averageRating, setAverageRating] = useState(0)
+
+  const handleReviewsData = (numRatingsFromChild, averageRatingFromChild) => {
+    setNumRatings(numRatingsFromChild)
+    setAverageRating(averageRatingFromChild)
+  }
+
+  for (let i = 1; i <= 5; i++) {
+    if (i <= averageRating) {
+      starIcons.push(
+        <svg key={i} fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>,
+      )
+    } else {
+      starIcons.push(
+        <svg key={i} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
+          <path stroke="none" d="M0 0h24v24H0z" />
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>,
+      )
+    }
+  }
 
   // form
   const [name, setName] = useState('')
@@ -97,22 +124,8 @@ const Tour = () => {
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 <div className="flex mb-4">
                   <span className="flex items-center">
-                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-4 h-4 text-primary" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                    <span className="text-gray-600 ml-3">4 Reviews</span>
+                    {starIcons}
+                    <span className="text-gray-600 ml-3">{numRatings} Reviews</span>
                   </span>
                   <div className="flex items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
                     <GlobeAltIcon className="h-5 w-5 text-primary" />
@@ -128,7 +141,10 @@ const Tour = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div>{' '}
+          <br />
+          {/* render reviews */}
+          <Reviews id={id} onReviewsData={handleReviewsData} source="tour" />
         </div>
       )}
       <Dialog open={open} onClose={handleClose}>
