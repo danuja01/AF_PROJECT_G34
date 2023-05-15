@@ -19,6 +19,15 @@ app.use(limiter)
 
 // app.use(helmet())
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      imgSrc: ["'self'", "/uploads/images"],
+    },
+  })
+);
+
+
 app.use(compression())
 
 app.use(cors({ origin: true, credentials: true }))

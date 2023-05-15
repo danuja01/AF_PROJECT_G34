@@ -31,7 +31,7 @@ const Items = () => {
       {/* <SearchBar onSearch={handleSearch} /> */}
       <div className="w-full relative mb-20">
         <Search onSearch={handleSearch} />
-      </div> <br /> <br /> <br /> <br />
+      </div> <br /> <br /> <br /> <br /> <br />
       <div className="bg-white">
         <Section className="max-w-7xl mx-auto">
           <div className=" flex flex-col items-center">
@@ -43,7 +43,7 @@ const Items = () => {
           <div className="mt-16 h-[30rem]">{itemsRes && <CardStack data={itemsRes.filter((item) => item.category === 'hotel')} />}</div>
         </Section>
       </div>
-      <div className="bg-gray-100 ">
+      <div className="bg-gray-100">
         <Section className="max-w-7xl mx-auto ">
           <div className=" flex flex-col items-center pt-12">
             <h1 className="text-center text-3xl font-bold">Sri Lankan Restaurants</h1>

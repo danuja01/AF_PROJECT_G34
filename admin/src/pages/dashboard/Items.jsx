@@ -339,7 +339,7 @@ export function Items() {
                 }
               >
                 <Option value="hotel">Hotel</Option>
-                <Option value="restaurant">Product</Option>
+                <Option value="restaurant">Restaurant</Option>
               </Select>
               <Textarea
                 value={descriptionUpdate}
