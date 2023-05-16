@@ -32,7 +32,7 @@ const Header = () => {
     { id: 0, name: 'Home', href: '/home' },
     { id: 1, name: 'Tours', href: '/tours' },
     { id: 2, name: 'Restaurants and Products', href: '/items' },
-    { id: 3, name: 'Blogs', href: '/blogs' },
+    { id: 3, name: 'Blogs', href: '/posts' },
     { id: 4, name: 'Feedback and reviews', href: '/feedback' },
   ]
 
