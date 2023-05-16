@@ -74,7 +74,7 @@ app.use('/api/users', require('./routes/userRoutes'))
 
 app.use('/api/notifications', require('./routes/notificationRoutes'))
 
-app.use('/posts', postRoutes)
+app.use('/api/posts', postRoutes)
 
 app.all('*', (req, res) => {
   res.status(404)
