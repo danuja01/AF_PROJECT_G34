@@ -15,7 +15,7 @@ export const apiRequest = async (request, showLoader = true, authRequired = fals
 
   if (authRequired) {
     axiosInstance.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+      config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
       return config
     })
   }

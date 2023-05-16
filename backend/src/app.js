@@ -7,6 +7,7 @@ import { consola } from 'consola'
 import { limiter, responseInterceptor, errorHandler } from './middleware'
 import toursRouter from './routes/tours.routes'
 import reviewsRouter from './routes/reviews.routes'
+// import usersRouter from './routes/users.routes'
 import itemsRouter from './routes/items.routes'
 import tourBookings from './routes/tourBooking.routes'
 
@@ -17,22 +18,13 @@ const app = express()
 
 app.use(limiter)
 
-// app.use(helmet())
-
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      imgSrc: ["'self'", "/uploads/images"],
-    },
-  })
-);
-
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
 
 app.use(compression())
 
 app.use(cors({ origin: true, credentials: true }))
 
-app.use(express.json({ limit: '1mb' }))
+app.use(express.json({ limit: '100mb' }))
 
 app.use(express.urlencoded({ extended: true }))
 
@@ -59,22 +51,22 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/root'))
 
-app.use('/auth', require('./routes/authRoutes'))
+app.use('/api/auth', require('./routes/authRoutes'))
 
-app.use('/users', require('./routes/userRoutes'))
+app.use('/api/users', require('./routes/userRoutes'))
 
-app.use('/notifications', require('./routes/notificationRoutes'))
+app.use('/api/notifications', require('./routes/notificationRoutes'))
 
 app.all('*', (req, res) => {
   res.status(404)
-  if(req.accepts('html')){
-      res.sendFile(path.join(__dirname, 'views', '404.html'))
+  if (req.accepts('html')) {
+    res.sendFile(path.join(__dirname, 'views', '404.html'))
   } else if (req.accepts('json')) {
-      res.json({message: '404 Not Found'})
+    res.json({ message: '404 Not Found' })
   } else {
-      res.type('txt').send('404 Not Found')
+    res.type('txt').send('404 Not Found')
   }
-}) 
+})
 
 app.use(responseInterceptor)
 
