@@ -6,49 +6,49 @@ const asyncHandler = require('express-async-handler')
 // Login
 // POST /auth
 const login = asyncHandler(async (req, res) => {
-    const { username, password } = req.body
+  const { username, password } = req.body
 
-    if (!username || !password) {
-        return res.status(400).json({ message: 'Please Enter Credentials' })
-    }
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Please Enter Credentials' })
+  }
 
-    const foundUser = await User.findOne({ username }).exec()
+  const foundUser = await User.findOne({ username }).exec()
 
-    if (!foundUser || !foundUser.active) {
-        return res.status(401).json({ message: 'Unauthorized' })
-    }
+  if (!foundUser || !foundUser.active) {
+    return res.status(401).json({ message: 'Unauthorized' })
+  }
 
-    const match = await bcrypt.compare(password, foundUser.password)
+  const match = await bcrypt.compare(password, foundUser.password)
 
-    if (!match) return res.status(401).json({ message: 'Unauthorized' })
+  if (!match) return res.status(401).json({ message: 'Unauthorized' })
 
-    const accessToken = jwt.sign(
-        {
-            "UserInfo": {
-                "username": foundUser.username,
-                "roles": foundUser.roles
-            }
-        },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '15m' }
-    )
+  const accessToken = jwt.sign(
+    {
+      UserInfo: {
+        username: foundUser.username,
+        roles: foundUser.roles
+      }
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: '15m' }
+  )
 
-    // const refreshToken = jwt.sign(
-    //     { "username": foundUser.username },
-    //     process.env.REFRESH_TOKEN_SECRET,
-    //     { expiresIn: '7d' }
-    // )
+  // const refreshToken = jwt.sign(
+  //     { "username": foundUser.username },
+  //     process.env.REFRESH_TOKEN_SECRET,
+  //     { expiresIn: '7d' }
+  // )
 
-    // // Create secure cookie with refresh token 
-    // res.cookie('jwt', refreshToken, {
-    //     httpOnly: true, //accessible only by web server 
-    //     secure: true, //https
-    //     sameSite: 'None', //cross-site cookie 
-    //     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
-    // })
+  // // Create secure cookie with refresh token
+  // res.cookie('jwt', refreshToken, {
+  //     httpOnly: true, //accessible only by web server
+  //     secure: true, //https
+  //     sameSite: 'None', //cross-site cookie
+  //     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+  // })
 
-    // Send accessToken containing username and roles 
-    res.json({ accessToken })
+  // Send accessToken containing username and roles
+  res.json({ accessToken })
 })
 
 // // Refresh
@@ -98,7 +98,7 @@ const login = asyncHandler(async (req, res) => {
 // }
 
 module.exports = {
-    login,
-    // refresh,
-    // logout
+  login
+  // refresh,
+  // logout
 }

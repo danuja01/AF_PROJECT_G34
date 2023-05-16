@@ -54,7 +54,7 @@ export const updateBookingStatus = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' })
     }
-    return toSuccess({ res, data: booking, message: 'Booking status updated successfully' })
+    return toSuccess({ res, status: 201, data: booking, message: 'Booking status updated successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
