@@ -4,15 +4,11 @@ import {
   TableCellsIcon,
   ChatBubbleBottomCenterTextIcon,
   BookOpenIcon,
-  ChatBubbleBottomCenterTextIcon,
-  BookOpenIcon,
   GlobeAmericasIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   MapPinIcon,
-  MapPinIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables } from "@/pages/dashboard";
 import { Home, Profile, Tables } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import Tours from "./pages/dashboard/Tours";
