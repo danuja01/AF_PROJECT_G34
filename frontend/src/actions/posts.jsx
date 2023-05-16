@@ -35,6 +35,7 @@ export const getPosts = () => async (dispatch) => {
 
 };
 
+//search action 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         //dispatch({ type: START_LOADING });
@@ -60,7 +61,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   }
 };*/
   
-
+//create action
 export const createPost = (post) => async (dispatch) => {
     try {
         //dispatch({ type: START_LOADING });
@@ -72,6 +73,7 @@ export const createPost = (post) => async (dispatch) => {
     }
 };
 
+//update action
 export const updatePost = (id, post) => async (dispatch) => {
     try {
         const { data} = await api.updatePost(id, post);
@@ -82,7 +84,7 @@ export const updatePost = (id, post) => async (dispatch) => {
     }
 };
 
-
+//delete action
 export const deletePost = (id) => async (dispatch) => {
     try {
         await api.deletePost(id);
@@ -93,6 +95,7 @@ export const deletePost = (id) => async (dispatch) => {
     }
 };
 
+//like action
 export const likePost = (id) => async (dispatch) => {
     try {
       const { data } = await api.likePost(id);
