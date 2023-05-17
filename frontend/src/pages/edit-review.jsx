@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { getReview, updateReview } from '../services/reviews'
 
 import { TextField, Button } from '@mui/material';
 
@@ -9,11 +9,10 @@ function EditReview({ reviewId, onClose, refresh }) {
 
   useEffect(() => {
     // Fetch the review data and prefill the form with it
-    axios
-      .get(`http://localhost:4000/api/reviews/${reviewId}`)
+    getReview(reviewId)
       .then((response) => {
-        setText(response.data.data.text)
-        setRating(response.data.data.rating)
+        setText(response.data.text)
+        setRating(response.data.rating)
       })
       .catch((error) => {
         console.error(error)
@@ -28,8 +27,7 @@ function EditReview({ reviewId, onClose, refresh }) {
       rating: rating,
     }
 
-    axios
-      .patch(`http://localhost:4000/api/reviews/${reviewId}`, updatedReview)
+    updateReview(reviewId, updatedReview)
       .then((response) => {
         console.log(response.data)
         // Redirect the user to the tour page
