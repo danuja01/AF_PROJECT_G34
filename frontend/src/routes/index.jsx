@@ -42,7 +42,6 @@ const AnimatedRoutes = () => {
         <Route path="/review/:id" element={<EditReview />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/posts" element={<Memo />} />
-        <Route path="/posts/search" element={<Memo />} />
         <Route path='/posts/:id' element={<PostDetails />} />
       </Routes>
     </AnimatePresence>

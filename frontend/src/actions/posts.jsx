@@ -39,9 +39,9 @@ export const getPosts = () => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         //dispatch({ type: START_LOADING });
-        const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
+        const data = await api.fetchPostsBySearch(searchQuery);
 
-        dispatch({ type: FETCH_BY_SEARCH, payload: data });
+        dispatch({ type: FETCH_BY_SEARCH, payload: data.data });
         //dispatch({ type: END_LOADING });
         console.log(data)
     } catch (error) {
@@ -49,24 +49,13 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     }
 }
 
-/*export const fetchPostsBySearch = async (searchQuery) => {
-  try {
-    const response = await axios.get(`/api/posts/search`, {
-      params: searchQuery
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};*/
   
 //create action
 export const createPost = (post) => async (dispatch) => {
     try {
         //dispatch({ type: START_LOADING });
-        const { data } = await api.createPost(post);
-
+        const data  = await api.createPost(post);
+        
         dispatch({ type: CREATE, payload: data })
     } catch (error) {
         console.log(error);

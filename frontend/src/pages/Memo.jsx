@@ -39,8 +39,10 @@ const Memo = () => {
 
   const searchPost = () => {
     if (search.trim()) {
+      console.log({search});
       dispatch(getPostsBySearch(search));
-      navigate(`/posts/search?searchQuery=${search || 'none'}`);
+      
+      //navigate(`/posts/search?searchQuery=${search || 'none'}`);
     } else {
       navigate('/');
     }
