@@ -10,7 +10,7 @@ import reviewsRouter from './routes/reviews.routes'
 // import usersRouter from './routes/users.routes'
 import itemsRouter from './routes/items.routes'
 import tourBookings from './routes/tourBooking.routes'
-
+import postRoutes from './routes/posts.js'
 import connectDB from './database'
 import path from 'path'
 
@@ -56,6 +56,8 @@ app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 
 app.use('/api/notifications', require('./routes/notificationRoutes'))
+
+app.use('/posts', postRoutes)
 
 app.all('*', (req, res) => {
   res.status(404)
