@@ -93,15 +93,20 @@ export const deleteItem = async (req, res) => {
 export const searchItems = async (req, res) => {
   const { term } = req.params
   try {
-    const items = await Item.find({
-      $or: [
-        { itemName: { $regex: term, $options: 'i' } }, // Case-insensitive regex search on itemName
-        { category: { $regex: term, $options: 'i' } }, // Case-insensitive regex search on itemType
-        { description: { $regex: term, $options: 'i' } } // Case-insensitive regex search on description
-      ]
-    })
+    let items;
+    if (term) {
+      items = await Item.find({
+        $or: [
+          { itemName: { $regex: term, $options: 'i' } },
+          { category: { $regex: term, $options: 'i' } },
+        ]
+      })
+    } else {
+      items = [] // Empty array when the search bar is empty
+    }
     return toSuccess({ res, data: items, message: 'Items retrieved successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
 }
+

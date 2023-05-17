@@ -11,12 +11,20 @@ const Items = () => {
 
   const handleSearch = async (term) => {
     try {
-      const response = await searchItem(term)
-      setItemsRes(response.data)
+      let response;
+      if (term.trim() === "") {
+        // If the search term is empty, fetch all items
+        response = await getAllItems();
+      } else {
+        // If there is a search term, perform the search
+        response = await searchItem(term);
+      }
+      setItemsRes(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
+  
 
   const refresh = debounce(() => {
     getAllItems().then(({ data }) => setItemsRes(data))
