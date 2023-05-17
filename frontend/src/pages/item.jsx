@@ -71,7 +71,7 @@ const Item = () => {
           <h2 className="text-sm title-font text-gray-500 tracking-widest">RESTAURANT | PRODUCT NAME</h2>
           <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{itemRes.itemName}</h1>
           <div className="w-full h-auto mt-10 flex flex-wrap">
-            <img alt="ecommerce" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={itemRes.img} />
+            <img alt="ecommerce" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={itemRes.imagePath} />
             <div className="lg:w-1/2 w-full  pl-10 lg:pb-6 lg:pt-5  mt-6 lg:mt-0">
               <p className="leading-relaxed">{itemRes.description}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">

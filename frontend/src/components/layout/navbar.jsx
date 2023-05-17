@@ -29,11 +29,11 @@ const Header = () => {
 
   const currentPath = window.location.pathname
   const navigation = [
-    { id: 0, name: 'Home', href: '/home' },
-    { id: 1, name: 'Tours', href: '/tours' },
-    { id: 2, name: 'Restaurants and Products', href: '/items' },
-    { id: 3, name: 'Blogs', href: '/blogs' },
-    { id: 4, name: 'Feedback and reviews', href: '/feedback' },
+    { name: 'Home', href: '/home', current: false },
+    { name: 'Tours', href: '/tours', current: true },
+    { name: 'Hotels and Restaurants', href: '/items', current: false },
+    { name: 'Blogs', href: '/blogs', current: false },
+    { name: 'Feedback and reviews', href: '/feedback', current: false },
   ]
 
   return (
