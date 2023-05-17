@@ -24,7 +24,6 @@ const Items = () => {
       console.log(error);
     }
   }
-  
 
   const refresh = debounce(() => {
     getAllItems().then(({ data }) => setItemsRes(data))
