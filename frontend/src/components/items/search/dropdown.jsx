@@ -5,7 +5,7 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
 
 export const SearchDropdown = () => {
-  const menueItem = ['all', 'adventure', 'beach', 'culture', 'nature', 'wildlife']
+  const menueItem = ['all', 'hotel', 'restaurant']
   const [selected, setSelected] = useState(menueItem[0])
 
   return (
