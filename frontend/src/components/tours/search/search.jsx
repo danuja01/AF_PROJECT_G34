@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+
 import { searchTour } from '../../../services/tours'
+import { Dropdown } from '../../common'
 
 const Search = (props) => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -8,8 +10,27 @@ const Search = (props) => {
 
   const handleSearch = async () => {
     try {
-      const response = await searchTour(searchTerm, true)
-      setSearchResults(response.data)
+      if (searchTerm.length > 3) {
+        const response = await searchTour(searchTerm, true)
+
+        if (response.data.length === 0) {
+          setSearchResults([
+            {
+              tourName: 'No tours found',
+            },
+          ])
+        } else {
+          setSearchResults(response.data)
+        }
+      } else if (searchTerm.length === 0) {
+        setSearchResults([])
+      } else {
+        setSearchResults([
+          {
+            tourName: 'Search term must be at least 3 characters long',
+          },
+        ])
+      }
     } catch (error) {
       console.error(error)
       setSearchResults([])
@@ -19,12 +40,16 @@ const Search = (props) => {
   const highlightSearchTerm = (text) => {
     if (!searchTerm || !text) return text
     const regex = new RegExp(searchTerm, 'gi')
-    return text.replace(regex, (match) => `<span class="text-yellow-500">${match}</span>`)
+    return text.replace(regex, (match) => `<span class="bg-yellow-500 px-1 py-0.5 rounded-sm text-white">${match}</span>`)
   }
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value)
   }
+
+  useEffect(() => {
+    handleSearch()
+  }, [searchTerm])
 
   return (
     <div {...props} className={twMerge('bg-gray-50 shadow-md py-10 w-[60%] top-[-4rem] rounded-sm absolute right-0 left-0 m-auto', props.className)}>
@@ -36,15 +61,12 @@ const Search = (props) => {
             </svg>
           </div>
           <input className="peer h-full w-full outline-none border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} />
-          <button onClick={handleSearch} className="px-4 py-2 text-sm text-white bg-blue-500 hover:bg-blue-600 rounded-md">
-            Search
-          </button>
         </div>
       </div>
       {searchResults.length > 0 && (
-        <div className="mt-4 absolute bg-gray-100 w-full z-10">
+        <div className="mt-4 absolute bg-gray-100  w-full z-10">
           {searchResults.map((result, index) => (
-            <div key={result._id} className={`${index !== 0 && 'border-t border-gray-200'} py-2 px-4`}>
+            <div key={result._id} className={`${index !== 0 && 'border-t border-gray-200'} py-2 px-4 hover:bg-slate-200`}>
               <a href={`/tour/${result._id}`}>
                 <div className="font-semibold" dangerouslySetInnerHTML={{ __html: highlightSearchTerm(result.tourName) }} />
                 <div className="text-gray-500 text-xs" dangerouslySetInnerHTML={{ __html: highlightSearchTerm(result.description) }} />
