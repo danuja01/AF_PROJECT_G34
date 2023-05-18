@@ -11,7 +11,8 @@ import {
 import { debounce } from "lodash";
 import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 
-import { getAllBookings } from "../../services/booking";
+import { archiveBooking, getAllBookings } from "../../services/booking";
+import { Button } from "@material-tailwind/react";
 
 export function Bookings() {
   const [bookingRes, setBookingRes] = useState("");
@@ -24,21 +25,25 @@ export function Bookings() {
     refresh();
   }, []);
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(false);
 
   const handleChange = (val) => {
     setValue(val);
   };
 
+  const handleArchive = (id) => {
+    archiveBooking(id).then(() => refresh());
+  };
+
   return (
     <div className="mt-6 mb-8 flex flex-col gap-12">
       <div className="w-[20rem]">
-        <Tabs value={value}>
+        <Tabs value={value ? value : "false"}>
           <TabsHeader>
-            <Tab value="" onClick={() => setValue("")}>
+            <Tab value="false" onClick={() => setValue(false)}>
               All
             </Tab>
-            <Tab value="cultural" onClick={() => handleChange("cultural")}>
+            <Tab value="true" onClick={() => handleChange(true)}>
               Archived
             </Tab>
           </TabsHeader>
@@ -73,8 +78,9 @@ export function Bookings() {
             </thead>
             <tbody>
               {bookingRes &&
-                bookingRes.map(
-                  ({ _id, name, email, tourId, date, status, budget }) => {
+                bookingRes
+                  .filter((booking) => booking.archived === value)
+                  .map(({ _id, name, email, tourId, date, status, budget }) => {
                     const className = `py-3 px-5`;
                     return (
                       <tr key={_id}>
@@ -129,18 +135,22 @@ export function Bookings() {
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography
+                          <button
                             as="a"
                             href="#"
-                            className="text-xs font-semibold text-red-600 hover:underline"
+                            onClick={() => {
+                              value
+                                ? console.log("clicked delete")
+                                : handleArchive(_id);
+                            }}
+                            className=" text-xs font-semibold text-red-600 hover:underline"
                           >
-                            archive
-                          </Typography>
+                            {value ? "delete" : "archive"}
+                          </button>
                         </td>
                       </tr>
                     );
-                  }
-                )}
+                  })}
             </tbody>
           </table>
         </CardBody>
