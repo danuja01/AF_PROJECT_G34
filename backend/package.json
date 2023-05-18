@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "build": "npm run clean && npm run build-babel && npm run copy",
+    "build": "npm run clean && npm run build-babel ",
     "build-babel": "babel -d ./dist ./src -s",
     "dev": "nodemon --exec  babel-node src/app.js",
     "clean": "rm -rf dist",
