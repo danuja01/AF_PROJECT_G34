@@ -48,9 +48,11 @@ export const getBookingById = async (req, res) => {
 
 export const updateBookingStatus = async (req, res) => {
   const { id } = req.params
-  const { status } = req.body
+  const { status, name, email, body } = req.body
   try {
     const booking = await Booking.findByIdAndUpdate(id, { status }, { new: true })
+    await sendMail(email, 'plain', { name, body }, 'WellnessRoots - Tour Qutation')
+
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' })
     }

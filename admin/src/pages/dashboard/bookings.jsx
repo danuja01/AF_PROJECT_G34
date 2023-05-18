@@ -11,8 +11,11 @@ import {
 import { debounce } from "lodash";
 import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 
-import { archiveBooking, getAllBookings } from "../../services/booking";
-import { Button } from "@material-tailwind/react";
+import {
+  archiveBooking,
+  deleteBooking,
+  getAllBookings,
+} from "../../services/booking";
 
 export function Bookings() {
   const [bookingRes, setBookingRes] = useState("");
@@ -33,6 +36,10 @@ export function Bookings() {
 
   const handleArchive = (id) => {
     archiveBooking(id).then(() => refresh());
+  };
+
+  const handleDelete = (id) => {
+    deleteBooking(id).then(() => refresh());
   };
 
   return (
@@ -139,9 +146,7 @@ export function Bookings() {
                             as="a"
                             href="#"
                             onClick={() => {
-                              value
-                                ? console.log("clicked delete")
-                                : handleArchive(_id);
+                              value ? handleDelete(_id) : handleArchive(_id);
                             }}
                             className=" text-xs font-semibold text-red-600 hover:underline"
                           >
