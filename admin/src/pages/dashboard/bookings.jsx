@@ -1,6 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+import { Button } from "@material-tailwind/react";
+
+import {
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Textarea,
+} from "@material-tailwind/react";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+
 import {
   Card,
   CardHeader,
@@ -19,6 +30,13 @@ import {
 
 export function Bookings() {
   const [bookingRes, setBookingRes] = useState("");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(false);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const refresh = debounce(() => {
     getAllBookings().then(({ data }) => setBookingRes(data));
@@ -27,8 +45,6 @@ export function Bookings() {
   useEffect(() => {
     refresh();
   }, []);
-
-  const [value, setValue] = useState(false);
 
   const handleChange = (val) => {
     setValue(val);
@@ -40,6 +56,26 @@ export function Bookings() {
 
   const handleDelete = (id) => {
     deleteBooking(id).then(() => refresh());
+  };
+
+  const handleOpen = () => setOpen(!open);
+
+  const handleBookingBox = (id) => {
+    const booking = bookingRes.find((booking) => booking._id === id);
+    booking && setName(booking.name);
+    booking && setEmail(booking.email);
+    booking && setOpen(true);
+  };
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+
+    const booking = {
+      name,
+      email,
+      description,
+      staus: "Completed",
+    };
   };
 
   return (
@@ -69,7 +105,7 @@ export function Bookings() {
                 {["Name", "Tour", "status", "date", "budget", "", ""].map(
                   (el) => (
                     <th
-                      key={el}
+                      key={el + Math.random()}
                       className="border-b border-blue-gray-50 py-3 px-5 text-left"
                     >
                       <Typography
@@ -116,7 +152,7 @@ export function Bookings() {
                           <Chip
                             variant="gradient"
                             color={
-                              status === "complete" ? "green" : "blue-gray"
+                              status === "Completed" ? "green" : "blue-gray"
                             }
                             value={status}
                             className="py-0.5 px-2 text-[11px] font-medium"
@@ -133,18 +169,17 @@ export function Bookings() {
                           </Typography>
                         </td>
                         <td className={className}>
-                          <Typography
-                            as="a"
-                            href="#"
+                          <button
                             className="text-xs font-semibold text-blue-gray-600 hover:text-green-500"
+                            onClick={() => {
+                              handleBookingBox(_id);
+                            }}
                           >
-                            mark as complete
-                          </Typography>
+                            Send Quatation
+                          </button>
                         </td>
                         <td className={className}>
                           <button
-                            as="a"
-                            href="#"
                             onClick={() => {
                               value ? handleDelete(_id) : handleArchive(_id);
                             }}
@@ -160,6 +195,31 @@ export function Bookings() {
           </table>
         </CardBody>
       </Card>
+
+      <Dialog open={open} handler={handleOpen}>
+        <form className="w-full">
+          <div className="flex items-center justify-between">
+            <DialogHeader>Send a Quatation</DialogHeader>
+            <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen} />
+          </div>
+          <DialogBody divider>
+            <div className="grid w-full gap-6">
+              <Textarea
+                value={description}
+                error={isEmpty && description === ""}
+                onChange={(e) => setDescription(e.target.value)}
+                className=""
+                label="Quatation"
+              />
+            </div>
+          </DialogBody>
+          <DialogFooter className="space-x-2">
+            <Button type="submit" variant="gradient" color="blue">
+              Send
+            </Button>
+          </DialogFooter>
+        </form>
+      </Dialog>
     </div>
   );
 }
