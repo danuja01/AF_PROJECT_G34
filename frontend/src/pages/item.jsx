@@ -49,8 +49,10 @@ const Item = () => {
   }
 
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    const searchQuery = itemRes && itemRes.itemName ? encodeURIComponent(itemRes.itemName) : '';
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
+    window.open(googleMapsUrl, '_blank');
+  };
 
   const handleClose = () => {
     setOpen(false)
@@ -80,12 +82,6 @@ const Item = () => {
                     {starIcons}
                     <span className="text-gray-600 ml-3">{numRatings} Reviews</span>
                   </span>
-                  <div className="flex items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
-                    <GlobeAltIcon className="h-5 w-5 text-primary" />
-                    <a href="https://www.google.com/search?q=sigiriya" className="ml-1 text-primary">
-                      Explore More!
-                    </a>
-                  </div>
                 </div>
               </div>
               <div className="flex items-center pl-3 py-2">
@@ -94,7 +90,7 @@ const Item = () => {
               </div>
               <div className="flex mt-3">
                 <button onClick={handleClickOpen} className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
-                  Book Now!
+                  Explore in Google Maps!
                 </button>
               </div>
             </div>
