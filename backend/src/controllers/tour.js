@@ -12,7 +12,7 @@ export const createTour = async (req, res) => {
   let imagePath = ''
 
   if (req.file) {
-    imagePath = `${baseUrl}/tour/image/${req.file.filename}`
+    imagePath = `${baseUrl}tour/image/${req.file.filename}`
   }
 
   try {
