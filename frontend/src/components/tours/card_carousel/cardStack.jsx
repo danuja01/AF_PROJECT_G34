@@ -9,7 +9,7 @@ import { Card } from '../../common'
 
 const CardStack = ({ data }) => {
   return (
-    <Swiper modules={[FreeMode, Pagination, Autoplay]} autoplay={{ delay: 2500, disableOnInteraction: false }} freeMode={true} spaceBetween={50} auto slidesPerView={4} pagination={{ clickable: true }} className="h-full">
+    <Swiper modules={[FreeMode, Pagination, Autoplay]} autoplay={{ delay: 2500, disableOnInteraction: false }} freeMode={true} spaceBetween={50} slidesPerView={4} pagination={{ clickable: true }} className="h-full">
       {data &&
         data.map((tour) => (
           <SwiperSlide>

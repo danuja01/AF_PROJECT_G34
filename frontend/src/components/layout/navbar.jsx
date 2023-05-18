@@ -29,7 +29,6 @@ const Header = () => {
 
   const currentPath = window.location.pathname
   const navigation = [
-    
     { name: 'Home', href: '/home', current: false },
     { name: 'Tours', href: '/tours', current: true },
     { name: 'Hotels and Restaurants', href: '/items', current: false },
