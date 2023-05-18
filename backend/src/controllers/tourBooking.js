@@ -60,6 +60,20 @@ export const updateBookingStatus = async (req, res) => {
   }
 }
 
+export const archiveBooking = async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const booking = await Booking.findByIdAndUpdate(id, { archived: true }, { new: true })
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' })
+    }
+    return toSuccess({ res, status: 201, data: booking, message: 'Booking archived successfully' })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
 export const deleteBooking = async (req, res) => {
   const { id } = req.params
   try {
