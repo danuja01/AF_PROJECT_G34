@@ -27,6 +27,7 @@ import {
   deleteBooking,
   getAllBookings,
 } from "../../services/booking";
+import { updateBookingStatus } from "../../services/booking";
 
 export function Bookings() {
   const [bookingRes, setBookingRes] = useState("");
@@ -36,6 +37,7 @@ export function Bookings() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
+  const [bookingId, setBookingId] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
 
   const refresh = debounce(() => {
@@ -62,6 +64,7 @@ export function Bookings() {
 
   const handleBookingBox = (id) => {
     const booking = bookingRes.find((booking) => booking._id === id);
+    booking && setBookingId(booking._id);
     booking && setName(booking.name);
     booking && setEmail(booking.email);
     booking && setOpen(true);
@@ -70,12 +73,22 @@ export function Bookings() {
   const handleBooking = (e) => {
     e.preventDefault();
 
-    const booking = {
-      name,
-      email,
-      description,
-      staus: "Completed",
-    };
+    if (!name || !email || !description) {
+      setIsEmpty(true);
+      return;
+    } else {
+      const booking = {
+        name,
+        email,
+        body: description,
+        status: "Completed",
+      };
+      updateBookingStatus(bookingId, booking).then(() => refresh());
+      setOpen(false);
+      setDescription("");
+      setName("");
+      setEmail("");
+    }
   };
 
   return (
@@ -168,16 +181,18 @@ export function Bookings() {
                             {budget > 0 ? budget : "-"}
                           </Typography>
                         </td>
-                        <td className={className}>
-                          <button
-                            className="text-xs font-semibold text-blue-gray-600 hover:text-green-500"
-                            onClick={() => {
-                              handleBookingBox(_id);
-                            }}
-                          >
-                            Send Quatation
-                          </button>
-                        </td>
+                        {value ? null : (
+                          <td className={className}>
+                            <button
+                              className="text-xs font-semibold text-blue-gray-600 hover:text-green-500"
+                              onClick={() => {
+                                handleBookingBox(_id);
+                              }}
+                            >
+                              Send Quatation
+                            </button>
+                          </td>
+                        )}
                         <td className={className}>
                           <button
                             onClick={() => {
@@ -197,7 +212,7 @@ export function Bookings() {
       </Card>
 
       <Dialog open={open} handler={handleOpen}>
-        <form className="w-full">
+        <form className="w-full" onSubmit={handleBooking}>
           <div className="flex items-center justify-between">
             <DialogHeader>Send a Quatation</DialogHeader>
             <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen} />
