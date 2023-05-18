@@ -11,25 +11,13 @@ const Search = (props) => {
   const handleSearch = async () => {
     try {
       if (searchTerm.length > 3) {
-        const response = await searchTour(searchTerm, true)
+        const response = await searchTour(searchTerm, false)
 
-        if (response.data.length === 0) {
-          setSearchResults([
-            {
-              tourName: 'No tours found',
-            },
-          ])
-        } else {
-          setSearchResults(response.data)
-        }
+        setSearchResults(response.data.length === 0 ? [{ tourName: 'No tours found' }] : response.data)
       } else if (searchTerm.length === 0) {
         setSearchResults([])
       } else {
-        setSearchResults([
-          {
-            tourName: 'Search term must be at least 3 characters long',
-          },
-        ])
+        setSearchResults([{ tourName: 'Search term must be at least 3 characters long' }])
       }
     } catch (error) {
       console.error(error)
@@ -40,7 +28,8 @@ const Search = (props) => {
   const highlightSearchTerm = (text) => {
     if (!searchTerm || !text) return text
     const regex = new RegExp(searchTerm, 'gi')
-    return text.replace(regex, (match) => `<span class="bg-yellow-500 px-1 py-0.5 rounded-sm text-white">${match}</span>`)
+    if (searchTerm.length > 3) return text.replace(regex, (match) => `<span class="bg-yellow-500 px-1 py-0.5 rounded-sm text-white">${match}</span>`)
+    else return text
   }
 
   const handleInputChange = (e) => {
@@ -60,7 +49,7 @@ const Search = (props) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input className="peer h-full w-full outline-none border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} />
+          <input className="peer  h-full w-full outline-none focus:outline-none focus:border-none border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} />
         </div>
       </div>
       {searchResults.length > 0 && (

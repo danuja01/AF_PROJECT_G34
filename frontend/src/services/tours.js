@@ -21,5 +21,5 @@ export const deleteTour = async (id, showLoader) => {
 }
 
 export const searchTour = async (term, showLoader = false) => {
-  return await apiRequest(() => axiosInstance.get(`/api/tours/search/${term}`), false)
+  return await apiRequest(() => axiosInstance.get(`/api/tours/search/${term}`), showLoader)
 }
