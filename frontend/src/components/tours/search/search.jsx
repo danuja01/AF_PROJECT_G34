@@ -48,7 +48,7 @@ const Search = (props) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input className="peer h-full w-full outline-none border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} autocomplete="off" />
+          <input className="peer h-full w-full outline-none border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} autoComplete="off" />
           {searchTerm.length > 0 && (
             <button className="absolute right-4 hover:text-red-600 top-1/2 transform -translate-y-1/2 text-gray-500" onClick={() => setSearchTerm('')}>
               x
@@ -59,7 +59,7 @@ const Search = (props) => {
       </div>
 
       {searchResults.length > 0 && (
-        <div className="mt-4 absolute bg-gray-100  w-full z-10">
+        <div className="mt-4 absolute bg-gray-100 w-full max-h-72 overflow-y-auto z-10">
           {searchResults.map((result, index) => (
             <div key={result._id} className={`${index !== 0 && 'border-t border-gray-200'} py-2 px-4 hover:bg-slate-200`}>
               <a href={`/tour/${result._id}`}>
