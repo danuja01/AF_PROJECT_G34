@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useAuth } from '../hooks'
 import Home from '../pages/home'
@@ -27,7 +27,7 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location}>
-        <Route path="/" element={<Tours />} />
+        <Route path="/" element={<Navigate to="/tours" />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/view-profile" element={<ViewProfile />} />

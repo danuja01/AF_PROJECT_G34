@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-
+import { SearchDropdown } from './dropdown'
 import { searchTour } from '../../../services/tours'
-import { Dropdown } from '../../common'
 
 const Search = (props) => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -49,8 +48,9 @@ const Search = (props) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input className="peer  h-full w-full outline-none focus:outline-none focus:border-none border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} />
+          <input className="peer h-full w-full outline-none border-none focus:border-none text-sm text-gray-700 pr-2" type="text" id="search" placeholder="Explore Sri Lanka ..." value={searchTerm} onChange={handleInputChange} />
         </div>
+        <SearchDropdown />
       </div>
       {searchResults.length > 0 && (
         <div className="mt-4 absolute bg-gray-100  w-full z-10">
