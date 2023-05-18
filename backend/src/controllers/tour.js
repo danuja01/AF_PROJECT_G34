@@ -1,5 +1,10 @@
 import Tour from '../models/tour'
 import { toSuccess } from '../utils'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const baseUrl = process.env.BASE_URL || 'http://localhost:4000'
 
 // Create a new tour
 export const createTour = async (req, res) => {
@@ -7,7 +12,7 @@ export const createTour = async (req, res) => {
   let imagePath = ''
 
   if (req.file) {
-    imagePath = `http://localhost:4000/tour/image/${req.file.filename}`
+    imagePath = `${baseUrl}/tour/image/${req.file.filename}`
   }
 
   try {
