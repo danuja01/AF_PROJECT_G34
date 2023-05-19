@@ -95,11 +95,11 @@ const Reviews = ({ id, onReviewsData, source }) => {
               <option value="4">4 stars</option>
               <option value="5">5 stars</option>
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            {/* <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M14.95 6.95a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L15.586 11H3a1 1 0 010-2h12.586l-1.646-1.646a1 1 0 010-1.414z" />
               </svg>
-            </div>
+            </div> */}
           </div>
         </div>
 
