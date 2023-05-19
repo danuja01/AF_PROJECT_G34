@@ -93,7 +93,7 @@ const Tour = () => {
           if (res) {
             toast.success(res.message)
           } else {
-            toast.success('Booking request sent succesfully!')
+            toast.error('Error while Booking!')
           }
         })
         .catch((err) => toast.error(err))

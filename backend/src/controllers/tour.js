@@ -3,7 +3,7 @@ import { toSuccess } from '../utils'
 import dotenv from 'dotenv'
 
 dotenv.config()
-
+// deploy url
 const baseUrl = process.env.BASE_URL || 'http://localhost:4000/'
 
 // Create a new tour
