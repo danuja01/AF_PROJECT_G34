@@ -21,5 +21,5 @@ export const deleteItem = async (id, showLoader) => {
 }
 
 export const searchItem = async (term, showLoader) => {
-  return await apiRequest(() => axiosInstance.delete(`/api/items/search/${term}`), showLoader)
+  return await apiRequest(() => axiosInstance.get(`/api/items/search/${term}`), false)
 }

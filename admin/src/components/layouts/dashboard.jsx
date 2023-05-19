@@ -9,7 +9,7 @@ export function Dashboard() {
   const { sidenavType } = controller;
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-blue-gray-50/50">
+    <div className="min-w-xl mx-auto max-w-[90em] overflow-x-hidden">
       <Sidenav routes={routes} />
       <div className="p-4 xl:ml-80">
         <DashboardNavbar />

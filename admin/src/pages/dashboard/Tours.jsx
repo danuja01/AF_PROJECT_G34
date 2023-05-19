@@ -41,6 +41,7 @@ export function Tours() {
   const [durationUpdate, setDurationUpdate] = useState("");
 
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmptyUpdate, setIsEmptyUpdate] = useState(false);
 
   const refresh = debounce(() => {
     getAllTours().then(({ data }) => setToursRes(data));
@@ -138,24 +139,34 @@ export function Tours() {
       duration: durationUpdate,
     };
 
-    await updateTour(updateId, data)
-      .then((res) => {
-        if (res) {
-          //do
-          refresh();
-        } else {
-          //do
-        }
-      })
-      .catch((err) => {
-        //dp
-      });
+    if (
+      tourNameUpdate.trim() === "" ||
+      tourTypeUpdate.trim() === "" ||
+      descriptionUpdate.trim() === "" ||
+      durationUpdate.trim() === ""
+    ) {
+      setIsEmptyUpdate(true);
+      return;
+    } else {
+      await updateTour(updateId, data)
+        .then((res) => {
+          if (res) {
+            //do
+            refresh();
+          } else {
+            //do
+          }
+        })
+        .catch((err) => {
+          //dp
+        });
 
-    setOpen2(false);
-    setTourNameUpdate("");
-    setTourTypeUpdate("");
-    setDescriptionUpdate("");
-    setDurationUpdate("");
+      setOpen2(false);
+      setTourNameUpdate("");
+      setTourTypeUpdate("");
+      setDescriptionUpdate("");
+      setDurationUpdate("");
+    }
   };
 
   const [value, setValue] = React.useState("");
@@ -289,20 +300,20 @@ export function Tours() {
       <Dialog open={open2} handler={handleOpen2}>
         <form className="w-full">
           <div className="flex items-center justify-between">
-            <DialogHeader>Add New Tour</DialogHeader>
+            <DialogHeader>Update Tour</DialogHeader>
             <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen2} />
           </div>
           <DialogBody divider>
             <div className="grid w-full gap-6">
               <Input
-                error={isEmpty && tourName === ""}
+                error={isEmptyUpdate && tourNameUpdate === ""}
                 value={tourNameUpdate}
                 onChange={(e) => setTourNameUpdate(e.target.value)}
                 label="Name of the Tour"
               />
               <Select
                 label="Select Tour Type"
-                error={isEmpty && tourType === ""}
+                error={isEmptyUpdate && tourTypeUpdate === ""}
                 value={tourTypeUpdate}
                 onChange={(e) =>
                   setTourTypeUpdate(e.target ? e.target.value : e)
@@ -316,14 +327,14 @@ export function Tours() {
               </Select>
               <Textarea
                 value={descriptionUpdate}
-                error={isEmpty && description === ""}
+                error={isEmptyUpdate && descriptionUpdate === ""}
                 onChange={(e) => setDescriptionUpdate(e.target.value)}
                 className=""
                 label="Description"
               />
               <Input
                 value={durationUpdate}
-                error={isEmpty && duration === ""}
+                error={isEmptyUpdate && durationUpdate === ""}
                 onChange={(e) => setDurationUpdate(e.target.value)}
                 type="number"
                 label="Duration"

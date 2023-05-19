@@ -3,7 +3,12 @@ import { toSuccess } from '../utils'
 
 // Create a new Item
 export const createItem = async (req, res) => {
-  const { itemName, category, price, description, cuisine, img } = req.body
+  const { itemName, category, price, description, cuisine, location } = req.body
+  let imagePath = ''
+
+  if (req.file) {
+    imagePath = `http://localhost:4000/item/image/${req.file.filename}`
+  }
 
   try {
     const item = await Item.create({
@@ -12,7 +17,8 @@ export const createItem = async (req, res) => {
       price,
       description,
       cuisine,
-      img
+      location,
+      imagePath
     })
     return toSuccess({ res, status: 201, data: item, message: 'Item created successfully' })
   } catch (error) {
@@ -44,7 +50,12 @@ export const getItem = async (req, res) => {
 // update a tour
 export const updateItem = async (req, res) => {
   const { id } = req.params
-  const { itemName, category, price, description, cuisine, img } = req.body
+  const { itemName, category, price, description, cuisine, location } = req.body
+  let imagePath = Item.findById(id).imagePath
+
+  if (req.file) {
+    imagePath = `http://localhost:4000/item/image/${req.file.filename}`
+  }
 
   try {
     const data = await Item.findByIdAndUpdate(
@@ -55,7 +66,8 @@ export const updateItem = async (req, res) => {
         price,
         description,
         cuisine,
-        img
+        location,
+        imagePath
       },
       {
         new: true
@@ -81,15 +93,20 @@ export const deleteItem = async (req, res) => {
 export const searchItems = async (req, res) => {
   const { term } = req.params
   try {
-    const items = await Item.find({
-      $or: [
-        { itemName: { $regex: term, $options: 'i' } }, // Case-insensitive regex search on itemName
-        { category: { $regex: term, $options: 'i' } }, // Case-insensitive regex search on itemType
-        { description: { $regex: term, $options: 'i' } } // Case-insensitive regex search on description
-      ]
-    })
-    return toSuccess({ res, data: items, message: 'Tours retrieved successfully' })
+    let items;
+    if (term) {
+      items = await Item.find({
+        $or: [
+          { itemName: { $regex: term, $options: 'i' } },
+          { category: { $regex: term, $options: 'i' } },
+        ]
+      })
+    } else {
+      items = [] // Empty array when the search bar is empty
+    }
+    return toSuccess({ res, data: items, message: 'Items retrieved successfully' })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
 }
+

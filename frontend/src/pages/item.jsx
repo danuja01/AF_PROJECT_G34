@@ -49,8 +49,10 @@ const Item = () => {
   }
 
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    const searchQuery = itemRes && itemRes.itemName ? encodeURIComponent(itemRes.itemName) : '';
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
+    window.open(googleMapsUrl, '_blank');
+  };
 
   const handleClose = () => {
     setOpen(false)
@@ -71,7 +73,7 @@ const Item = () => {
           <h2 className="text-sm title-font text-gray-500 tracking-widest">RESTAURANT | PRODUCT NAME</h2>
           <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{itemRes.itemName}</h1>
           <div className="w-full h-auto mt-10 flex flex-wrap">
-            <img alt="ecommerce" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={itemRes.img} />
+            <img alt="ecommerce" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={itemRes.imagePath} />
             <div className="lg:w-1/2 w-full  pl-10 lg:pb-6 lg:pt-5  mt-6 lg:mt-0">
               <p className="leading-relaxed">{itemRes.description}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
@@ -80,12 +82,6 @@ const Item = () => {
                     {starIcons}
                     <span className="text-gray-600 ml-3">{numRatings} Reviews</span>
                   </span>
-                  <div className="flex items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
-                    <GlobeAltIcon className="h-5 w-5 text-primary" />
-                    <a href="https://www.google.com/search?q=sigiriya" className="ml-1 text-primary">
-                      Explore More!
-                    </a>
-                  </div>
                 </div>
               </div>
               <div className="flex items-center pl-3 py-2">
@@ -94,7 +90,7 @@ const Item = () => {
               </div>
               <div className="flex mt-3">
                 <button onClick={handleClickOpen} className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
-                  Book Now!
+                  Explore in Google Maps!
                 </button>
               </div>
             </div>
