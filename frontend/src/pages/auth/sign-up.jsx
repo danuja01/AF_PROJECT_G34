@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { createUser } from '../../services/users'
 import axios from "axios";
 import Layout from "../../components/layout";
+import background from './backgroundImage.jpg'
 
 
 export function SignUp() {
@@ -72,134 +73,155 @@ export function SignUp() {
       gender
     }
     console.log(username, password, roles, first_name, last_name, mobile, dob, gender)
-    axios.post("http://localhost:4000/api/users/", newUser).then(() => {
-      alert("User Added");
-      navigate('/home/')
-    }).catch((err) => {
-      // alert(err)
+    // axios.post("http://localhost:3500/api/users/", newUser).then(() => {
+    try {
+      const response = createUser(newUser)
+      if (response) {
+        alert("User Added");
+        navigate('/tours/')
+      } else {
+        alert("User ID Already Available")
+      }
+    } catch (error) {
       alert("User ID Already Available")
-    })
+      navigate('/tours/')
+    }
+
+    // createUser(newUser).then(() => {
+
+
+    // })
+    // .catch((err) => {
+    //   // alert(err)
+
+    // })
 
   }
 
   return (
     <>
       <Layout>
-        <div>
-          <center>
-            <div class="w-full max-w-xl">
-              <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={sendData}>
-                <center className="container" >
-                  <label className="form__label">
-                    Username:</label>
-                  {usernameError && <p className="text-red-500">{usernameError}</p>}
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="off"
-                    value={username}
-                    onChange={onUsernameChanged}
-                  />
-                  <label className="form__label" htmlFor="first_name">
-                    First Name:</label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="first_name"
-                    name="first_name"
-                    type="text"
-                    autoComplete="off"
-                    value={first_name}
-                    onChange={onFirstNameChanged}
-                  />
-                  <label className="form__label" htmlFor="last_name">
-                    Last Name: </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="last_name"
-                    name="last_name"
-                    type="text"
-                    autoComplete="off"
-                    value={last_name}
-                    onChange={onLastNameChanged}
-                  />
-                  <label className="form__label" htmlFor="mobile">
-                    Mobile: </label>
-                  {mobileError && <p className="text-red-500">{mobileError}</p>}
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="mobile"
-                    name="mobile"
-                    type="text"
-                    autoComplete="off"
-                    value={mobile}
-                    onChange={onMobileChanged}
-                  />
-                  <label className="form__label" htmlFor="dob">
-                    Date of Birth: </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="dob"
-                    name="dob"
-                    type="date"
-                    autoComplete="off"
-                    value={dob}
-                    onChange={onDOBChanged}
-                  />
+        <div style={{
+          backgroundImage: `url(${background})`, height: "900px", backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}>
+          <div>
+            <br /><br />
+            <center>
+              <div class="w-full max-w-xl">
+                <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{ opacity: 0.8 }} onSubmit={sendData}>
+                  <center className="container" >
+                    <label className="form__label">
+                      Username:</label>
+                    {usernameError && <p className="text-red-500">{usernameError}</p>}
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="username"
+                      name="username"
+                      type="text"
+                      autoComplete="off"
+                      value={username}
+                      onChange={onUsernameChanged}
+                    />
+                    <label className="form__label" htmlFor="first_name">
+                      First Name:</label>
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="first_name"
+                      name="first_name"
+                      type="text"
+                      autoComplete="off"
+                      value={first_name}
+                      onChange={onFirstNameChanged}
+                    />
+                    <label className="form__label" htmlFor="last_name">
+                      Last Name: </label>
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="last_name"
+                      name="last_name"
+                      type="text"
+                      autoComplete="off"
+                      value={last_name}
+                      onChange={onLastNameChanged}
+                    />
+                    <label className="form__label" htmlFor="mobile">
+                      Mobile: </label>
+                    {mobileError && <p className="text-red-500">{mobileError}</p>}
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="mobile"
+                      name="mobile"
+                      type="text"
+                      autoComplete="off"
+                      value={mobile}
+                      onChange={onMobileChanged}
+                    />
+                    <label className="form__label" htmlFor="dob">
+                      Date of Birth: </label>
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="dob"
+                      name="dob"
+                      type="date"
+                      autoComplete="off"
+                      value={dob}
+                      onChange={onDOBChanged}
+                    />
 
-                  <label className="form__label" htmlFor="gender">
-                    Gender: </label>
-                  <select
-                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="gender"
-                    name="gender"
-                    type="text"
-                    autoComplete="off"
-                    value={gender}
-                    onChange={onGenderChanged}
-                  >
-                    <option defaultValue={""}>Choose...</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
+                    <label className="form__label" htmlFor="gender">
+                      Gender: </label>
+                    <select
+                      class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="gender"
+                      name="gender"
+                      type="text"
+                      autoComplete="off"
+                      value={gender}
+                      onChange={onGenderChanged}
+                    >
+                      <option defaultValue={""}>Choose...</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
 
-                  <label className="form__label" htmlFor="password">
-                    Password:</label>
-                  {passwordError && <p className="text-red-500">{passwordError}</p>}
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="4-12 chars incl. !@#$%"
-                    value={password}
-                    onChange={onPasswordChanged}
-                  />
+                    <label className="form__label" htmlFor="password">
+                      Password:</label>
+                    {passwordError && <p className="text-red-500">{passwordError}</p>}
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder="4-12 chars incl. !@#$%"
+                      value={password}
+                      onChange={onPasswordChanged}
+                    />
 
-                  <label className="form__label" htmlFor="roles">
-                    ASSIGNED ROLES:</label>
-                  <select
-                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="roles"
-                    name="roles"
-                    type="text"
-                    autoComplete="off"
-                    value={roles}
-                    onChange={onRolesChanged}
-                  >
-                    <option defaultValue={""}>Choose...</option>
-                    <option value="Client">Client</option>
-                    <option value="Admin">Admin</option>
-                  </select>
-                  <br />
-                  <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-2 px-3 rounded" type="submit">
-                    Sign Up
-                  </button>
-                </center>
-              </form>
-            </div>
-          </center>
+                    <label className="form__label" htmlFor="roles">
+                      ASSIGNED ROLES:</label>
+                    <select
+                      class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="roles"
+                      name="roles"
+                      type="text"
+                      autoComplete="off"
+                      value={roles}
+                      onChange={onRolesChanged}
+                    >
+                      <option defaultValue={""}>Choose...</option>
+                      <option value="Client">Client</option>
+                      <option value="Admin">Admin</option>
+                    </select>
+                    <br />
+                    <button class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-2 px-3 rounded" type="submit">
+                      Sign Up
+                    </button>
+                  </center>
+                </form>
+              </div>
+            </center>
+          </div>
         </div>
       </Layout>
     </>

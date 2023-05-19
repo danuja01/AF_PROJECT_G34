@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Layout from "../components/layout";
+import background from './auth/backgroundImage.jpg'
 
 function SearchProfile() {
 
@@ -16,54 +17,48 @@ function SearchProfile() {
     return (
         <>
             <Layout >
-                <div style={{ width: "90%", margin: "auto" }}>
+                <div style={{
+                    backgroundImage: `url(${background})`, height: "900px", backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}>
                     <br></br>
-                    <div style={{ width: "50%", margin: "auto" }}>
-                        <center>
-                            <form role="search" onSubmit={SearchProfile}>
-                                <div className="row">
-                                    <div className="col-8">
-                                        <input type="search" placeholder="Search" aria-label="Search" onChange={(e) => {
-                                            setKeyword(e.target.value);
-                                        }} required />
-                                    </div>
-                                    <div className="col-0">
-                                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit">Search</button>
-                                    </div>
-                                </div>
-                                <br></br>
-                                <div className="row">
-                                    <div className="col-2">
-                                        <b>Search By</b>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="searchby" id="flexRadioDefault1" value="username" onClick={(e) => {
-                                            setSearchBy(e.target.value);
-                                        }} required />
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Username
-                                        </label>
-                                    </div>
+                    <center>
+                        <br />
+                        <form role="search" onSubmit={SearchProfile}>
+                            <div>
+                                <div>
+                                    <input type="search" placeholder="Search" aria-label="Search" onChange={(e) => {
+                                        setKeyword(e.target.value);
+                                    }} required />
                                     &nbsp;&nbsp;&nbsp;
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="searchby" id="flexRadioDefault2" value="firstname" onClick={(e) => {
-                                            setSearchBy(e.target.value);
-                                        }} required />
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                            First Name
-                                        </label>
-                                    </div>
-                                    &nbsp;&nbsp;&nbsp;
-
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit">Search</button>
                                 </div>
+                            </div>
+                            <br></br>
+                            <div>
+                                <div>
+                                    <b>Search By</b> &nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="searchby" id="flexRadioDefault1" value="username" onClick={(e) => {
+                                        setSearchBy(e.target.value);
+                                    }} required /> &nbsp;
+                                    <label for="flexRadioDefault1">
+                                        Username
+                                    </label> &nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="searchby" id="flexRadioDefault2" value="firstname" onClick={(e) => {
+                                        setSearchBy(e.target.value);
+                                    }} required /> &nbsp;
+                                    <label for="flexRadioDefault2">
+                                        First Name
+                                    </label>
+                                </div>
+                            </div>
 
-                            </form>
-                        </center>
-                    </div>
+                        </form>
+                    </center>
 
                     <br></br>
-
                 </div>
+
             </Layout>
         </>
     )
