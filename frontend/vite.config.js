@@ -7,4 +7,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 10000,
   },
+  base: '/frontend/',
 })
