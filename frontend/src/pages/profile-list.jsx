@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Layout from '../components/layout'
 import background from './auth/backgroundImage.jpg'
+import { Navigate } from 'react-router-dom'
 
 function SearchProfileResults() {
   const { searchby, keyword } = useParams()
@@ -55,7 +56,7 @@ function SearchProfileResults() {
                       <button
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         onClick={() => {
-                          window.location.replace(`http://localhost:3000/view-public-profile/${user._id}`)
+                          Navigate(`/view-public-profile/${user._id}`)
                         }}
                       >
                         View <i class="fa fa-eye" />
