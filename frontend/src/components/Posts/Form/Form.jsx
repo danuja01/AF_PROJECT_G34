@@ -53,7 +53,7 @@ const Form = ({ currentId, setCurrentId, selectedPost }) => {
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-12 rounded-lg focus:outline-none focus:shadow-outline" type="submit">
           Submit
         </button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline" onClick={clear}>
+        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline" type='button' onClick={clear}>
           Clear
         </button>
       </form>
