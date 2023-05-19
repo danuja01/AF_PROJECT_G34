@@ -74,10 +74,6 @@ export const routes = [
         name: "Blogs",
         path: "/blogs",
         element: <Bookings />,
-        icon: <BookOpenIcon {...icon} />,
-        name: "Blogs",
-        path: "/blogs",
-        element: <Bookings />,
       },
 
       // {
