@@ -8,7 +8,7 @@ function SearchProfile() {
   const [searchby, setSearchBy] = useState('num')
   const [keyword, setKeyword] = useState('')
 
-  function SearchProfile(e) {
+  function searchProfile(e) {
     e.preventDefault()
     Navigate(`/find-profile/${searchby}/${keyword}`)
   }
@@ -27,7 +27,7 @@ function SearchProfile() {
           <br></br>
           <center>
             <br />
-            <form role="search" onSubmit={(e) => SearchProfile(e)}>
+            <form role="search" onSubmit={(e) => searchProfile(e)}>
               <div>
                 <div>
                   <input
@@ -40,7 +40,7 @@ function SearchProfile() {
                     required
                   />
                   &nbsp;&nbsp;&nbsp;
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit">
+                  <button onClick={(e) => searchProfile(e)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit">
                     Search
                   </button>
                 </div>
