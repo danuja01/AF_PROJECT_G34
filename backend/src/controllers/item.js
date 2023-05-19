@@ -1,5 +1,6 @@
 import Item from '../models/items'
 import { toSuccess } from '../utils'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
