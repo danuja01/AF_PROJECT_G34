@@ -111,104 +111,100 @@ export function Bookings() {
             Booking Requests
           </Typography>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-          <table className="w-full min-w-[640px] table-auto">
-            <thead>
-              <tr>
-                {["Name", "Tour", "status", "date", "budget", "", ""].map(
-                  (el) => (
-                    <th
-                      key={el + Math.random()}
-                      className="border-b border-blue-gray-50 py-3 px-5 text-left"
+        <table className="w-full min-w-[640px] table-auto">
+          <thead>
+            <tr>
+              {["Name", "Tour", "status", "date", "budget", "", ""].map(
+                (el) => (
+                  <th
+                    key={el + Math.random()}
+                    className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  >
+                    <Typography
+                      variant="small"
+                      className="text-[11px] font-bold uppercase text-blue-gray-400"
                     >
-                      <Typography
-                        variant="small"
-                        className="text-[11px] font-bold uppercase text-blue-gray-400"
-                      >
-                        {el}
-                      </Typography>
-                    </th>
-                  )
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {bookingRes &&
-                bookingRes
-                  .filter((booking) => booking.archived === value)
-                  .map(({ _id, name, email, tourId, date, status, budget }) => {
-                    const className = `py-3 px-5`;
-                    return (
-                      <tr key={_id}>
-                        <td className={className}>
-                          <div className="flex items-center gap-4">
-                            <div>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-semibold"
-                              >
-                                {name}
-                              </Typography>
-                              <Typography className="text-xs font-normal text-blue-gray-500">
-                                {email}
-                              </Typography>
-                            </div>
-                          </div>
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {tourId.tourName}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          <Chip
-                            variant="gradient"
-                            color={
-                              status === "Completed" ? "green" : "blue-gray"
-                            }
-                            value={status}
-                            className="py-0.5 px-2 text-[11px] font-medium"
-                          />
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {date.slice(0, 10)}
-                          </Typography>
-                        </td>
-                        <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {budget > 0 ? budget : "-"}
-                          </Typography>
-                        </td>
-                        {value ? null : (
-                          <td className={className}>
-                            <button
-                              className="text-xs font-semibold text-blue-gray-600 hover:text-green-500"
-                              onClick={() => {
-                                handleBookingBox(_id);
-                              }}
+                      {el}
+                    </Typography>
+                  </th>
+                )
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {bookingRes &&
+              bookingRes
+                .filter((booking) => booking.archived === value)
+                .map(({ _id, name, email, tourId, date, status, budget }) => {
+                  const className = `py-3 px-5`;
+                  return (
+                    <tr key={_id}>
+                      <td className={className}>
+                        <div className="flex items-center gap-4">
+                          <div>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-semibold"
                             >
-                              Send Quatation
-                            </button>
-                          </td>
-                        )}
+                              {name}
+                            </Typography>
+                            <Typography className="text-xs font-normal text-blue-gray-500">
+                              {email}
+                            </Typography>
+                          </div>
+                        </div>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {tourId.tourName}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Chip
+                          variant="gradient"
+                          color={status === "Completed" ? "green" : "blue-gray"}
+                          value={status}
+                          className="py-0.5 px-2 text-[11px] font-medium"
+                        />
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {date.slice(0, 10)}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {budget > 0 ? budget : "-"}
+                        </Typography>
+                      </td>
+                      {value ? null : (
                         <td className={className}>
                           <button
+                            className="text-xs font-semibold text-blue-gray-600 hover:text-green-500"
                             onClick={() => {
-                              value ? handleDelete(_id) : handleArchive(_id);
+                              handleBookingBox(_id);
                             }}
-                            className=" text-xs font-semibold text-red-600 hover:underline"
                           >
-                            {value ? "delete" : "archive"}
+                            Send Quatation
                           </button>
                         </td>
-                      </tr>
-                    );
-                  })}
-            </tbody>
-          </table>
-        </CardBody>
+                      )}
+                      <td className={className}>
+                        <button
+                          onClick={() => {
+                            value ? handleDelete(_id) : handleArchive(_id);
+                          }}
+                          className=" text-xs font-semibold text-red-600 hover:underline"
+                        >
+                          {value ? "delete" : "archive"}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+          </tbody>
+        </table>
       </Card>
 
       <Dialog open={open} handler={handleOpen}>
