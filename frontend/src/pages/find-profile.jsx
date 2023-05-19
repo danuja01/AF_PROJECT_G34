@@ -27,7 +27,7 @@ function SearchProfile() {
           <br></br>
           <center>
             <br />
-            <form role="search" onSubmit={SearchProfile}>
+            <form role="search" onSubmit={(e) => SearchProfile(e)}>
               <div>
                 <div>
                   <input
