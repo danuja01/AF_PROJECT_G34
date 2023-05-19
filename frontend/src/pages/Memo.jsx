@@ -94,9 +94,9 @@ const Memo = () => {
                   variant="outlined"
                 />
                 {/* Button to initiate the search */}
-                <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">
+                <button onClick={searchPost} className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-12 rounded-lg focus:outline-none focus:shadow-outline">
                   Search
-                </Button>
+                </button>
               </AppBar>
 
               {/* Form for creating/updating a post */}
