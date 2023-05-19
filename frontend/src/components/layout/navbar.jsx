@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Notification from '../../pages/Notification'
 
 function classNames(...classes) {
@@ -10,6 +10,13 @@ function classNames(...classes) {
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(0)
+  const navigate = useNavigate();
+
+  //signout
+  const accessToken = localStorage.getItem('accessToken')
+  // let loggedIn = false
+  // accessToken ? loggedIn = true : loggedIn
+  const loggedIn = !!accessToken;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,41 +87,57 @@ const Header = () => {
                   </div>
                   <Transition as={Fragment} enter="transition z-10 ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
                     <Menu.Items className="absolute  right-0  mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {!loggedIn && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a href="/sign-in" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                              Sign In
+                            </a>
+                          )}
+                        </Menu.Item>
+                      )}
+                      {!loggedIn && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a href="/sign-up" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                              Sign Up
+                            </a>
+                          )}
+                        </Menu.Item>
+                      )}
+                      {loggedIn && (
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a href="/view-profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                              Your Profile
+                            </a>
+                          )}
+                        </Menu.Item>
+                      )}
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="/sign-in" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Sign In
+                          <a href="/find-profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                            Find
                           </a>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a href="/sign-up" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Sign Up
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a href="/view-profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
+                      {loggedIn && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/tours"
+                              onClick={() => {
+                                localStorage.removeItem('accessToken');
+                                localStorage.removeItem('uid');
+                              }}
+                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            >
+                              Sign Out
+                            </a>
+                          )}
+                        </Menu.Item>
+                      )}
                     </Menu.Items>
                   </Transition>
                 </Menu>

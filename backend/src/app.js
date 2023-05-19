@@ -72,8 +72,10 @@ app.use(responseInterceptor)
 
 app.use(errorHandler)
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 3500
 
 app.listen(port, () => {
   consola.info(`server successfully started on port ${port}`)
 })
+
+export default app

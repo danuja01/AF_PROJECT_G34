@@ -9,12 +9,13 @@ import Items from '../pages/items'
 import Item from '../pages/item'
 import EditReview from '../pages/edit-review'
 import SignUp from '../pages/auth/sign-up'
-import ViewProfile   from '../pages/viewProfile'
+import ViewProfile from '../pages/viewProfile'
 import EditProfile from '../pages/edit-profile'
 import SearchProfile from '../pages/find-profile'
 import SearchProfileResults from '../pages/profile-list'
 import Login from '../pages/auth/sign-in'
 import ViewPublicProfile from '../pages/view-public-profile'
+import ProtectedRoutes from '../components/ProtectedRoutes'
 
 const AnimatedRoutes = () => {
   // useAuth()
@@ -27,10 +28,12 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path='/sign-in' element={<Login />} />
         <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/view-profile' element={<ViewProfile />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/view-profile' element={<ViewProfile />} />
+          <Route path='/edit-profile/:id' element={<EditProfile />} />
+        </Route >
         <Route path='/view-public-profile/:id' element={<ViewPublicProfile />} />
-        <Route path='/edit-profile/:id' element={<EditProfile />} />
-        <Route path='/find-profile/' element={<SearchProfile />} />
+        <Route path='/find-profile' element={<SearchProfile />} />
         <Route path='/find-profile/:searchby/:keyword' element={<SearchProfileResults />} />
         <Route path="/tours" element={<Tours />} />
         <Route path="/tour/:id" element={<Tour />} />

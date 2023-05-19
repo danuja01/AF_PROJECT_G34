@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
   },
 })
 
-export const apiRequest = async (request, showLoader = true, authRequired = false) => {
+export const apiRequest = async (request, showLoader = true, authRequired = true) => {
   store.dispatch(toggleLoader(showLoader))
 
   if (authRequired) {
