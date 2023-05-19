@@ -1,13 +1,17 @@
 import Item from '../models/items'
 import { toSuccess } from '../utils'
 
+dotenv.config()
+
+const baseUrl = process.env.BASE_URL || 'http://localhost:4000/'
+
 // Create a new Item
 export const createItem = async (req, res) => {
   const { itemName, category, price, description, cuisine, location } = req.body
   let imagePath = ''
 
   if (req.file) {
-    imagePath = `http://localhost:4000/item/image/${req.file.filename}`
+    imagePath = `${baseUrl}item/image/${req.file.filename}`
   }
 
   try {
