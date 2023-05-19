@@ -33,7 +33,6 @@ export function ViewPublicProfile() {
   // const uid = localStorage.getItem('uid')
 
   useEffect(() => {
-    axios
     // .get(`http://localhost:3500/api/users/${id}`)
     getUser(id)
       .then((res) => {
