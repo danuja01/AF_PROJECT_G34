@@ -145,7 +145,7 @@ export function Reviews() {
                             <StarRating rating={rating} />
                           </Typography>
                         </td>
-                        <td className={className}>
+                        {/* <td className={className}>
                           <Typography
                             as="a"
                             href="#"
@@ -153,7 +153,7 @@ export function Reviews() {
                           >
                             Reply
                           </Typography>
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   }
