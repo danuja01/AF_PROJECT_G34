@@ -5,13 +5,13 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.route('/').post(usersController.createNewUser)
 router.route('/:id').get(usersController.getSingleUser)
+router.route('/').get(usersController.getAllUsers)
 router.route('/search/username/:keyword').get(usersController.getSingleUserByUserName)
 router.route('/search/firstname/:keyword').get(usersController.getSingleUserByFirstName)
 
 router.use(verifyJWT)
 
 router.route('/')
-    .get(usersController.getAllUsers)
     .patch(usersController.updateUser)
     .delete(usersController.deleteUser)
 

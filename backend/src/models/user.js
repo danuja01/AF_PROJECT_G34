@@ -36,6 +36,16 @@ const userSchemea = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  image_link: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  about: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
-export const User = mongoose.models.User || mongoose.model('User', userSchemea)
+module.exports = mongoose.model('User', userSchemea)
