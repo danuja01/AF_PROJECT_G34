@@ -66,16 +66,16 @@ export const routes = [
         element: <Bookings />,
       },
       {
+        icon: <ChatBubbleBottomCenterTextIcon {...icon} />,
+        name: "Reviews",
+        path: "/reviews",
+        element: <Reviews />,
+      },
+      {
         icon: <UsersIcon {...icon} />,
         name: "User List",
         path: "/users",
         element: <Users />,
-      },
-      {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
       },
       {
         icon: <BookOpenIcon {...icon} />,

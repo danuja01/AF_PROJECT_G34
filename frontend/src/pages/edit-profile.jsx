@@ -144,7 +144,7 @@ export function EditProfile() {
     updateUser(updatedUser)
       .then(() => {
         alert('User Updated')
-        navigate('/home/')
+        navigate('/tours/')
       })
       .catch((err) => {
         alert(err)

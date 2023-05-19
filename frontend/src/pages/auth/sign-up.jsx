@@ -78,13 +78,13 @@ export function SignUp() {
       const response = createUser(newUser)
       if (response) {
         alert("User Added");
-        navigate('/home/')
+        navigate('/tours/')
       } else {
         alert("User ID Already Available")
       }
     } catch (error) {
       alert("User ID Already Available")
-      navigate('/home/')
+      navigate('/tours/')
     }
 
     // createUser(newUser).then(() => {
