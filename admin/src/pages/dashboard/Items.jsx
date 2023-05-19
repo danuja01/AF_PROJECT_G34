@@ -83,7 +83,6 @@ export function Items() {
       itemName.trim() === "" ||
       category.trim() === "" ||
       description.trim() === "" ||
-      price.trim() === ""||
       location.trim() === ""
     ) {
       // do

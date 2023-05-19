@@ -11,7 +11,7 @@ import {
 import { debounce } from "lodash";
 import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 
-import StarRating from './starRating';
+import StarRating from "./starRating";
 
 import { getAllReviews } from "../../services/reviews";
 
@@ -40,8 +40,11 @@ export function Reviews() {
             <Tab value="" onClick={() => setValue("")}>
               All
             </Tab>
-            <Tab value="archive" onClick={() => handleChange("archive")}>
-              Archived
+            <Tab value="tour" onClick={() => handleChange("tour")}>
+              Tours
+            </Tab>
+            <Tab value="hotel" onClick={() => handleChange("hotel")}>
+              Hotels/Restaurants
             </Tab>
           </TabsHeader>
         </Tabs>
@@ -83,6 +86,25 @@ export function Reviews() {
                 reviewRes.map(
                   ({ _id, user, tour, item, date, text, rating }) => {
                     const className = `py-3 px-5`;
+                    let displayData;
+
+                    if (value === "tour") {
+                      if (tour) {
+                        displayData = tour.tourName;
+                      } else {
+                        // Skip rendering if the tour data is not available
+                        return null;
+                      }
+                    } else if (value === "hotel") {
+                      if (item) {
+                        displayData = item.itemName;
+                      } else {
+                        // Skip rendering if the item data is not available
+                        return null;
+                      }
+                    } else {
+                      displayData = "";
+                    }
                     return (
                       <tr key={_id}>
                         <td className={className}>
@@ -98,7 +120,7 @@ export function Reviews() {
                             </div>
                           </div>
                         </td>
-                        <td className={className} style={{ width: '300px' }}>
+                        <td className={className} style={{ width: "300px" }}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
                             {tour && tour.tourName && tour.tourName}
                           </Typography>
@@ -108,7 +130,7 @@ export function Reviews() {
                             {item && item.itemName && item.itemName}
                           </Typography>
                         </td>
-                        <td className={className} style={{ width: '300px' }}>
+                        <td className={className} style={{ width: "300px" }}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
                             {text}
                           </Typography>
@@ -120,10 +142,10 @@ export function Reviews() {
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                          <StarRating rating={rating} />
+                            <StarRating rating={rating} />
                           </Typography>
                         </td>
-                        <td className={className}>
+                        {/* <td className={className}>
                           <Typography
                             as="a"
                             href="#"
@@ -131,7 +153,7 @@ export function Reviews() {
                           >
                             Reply
                           </Typography>
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   }

@@ -28,7 +28,7 @@ const itemSchema = new mongoose.Schema({
   },
   imagePath: {
     type: String,
-    required: false
+    required: true
   }
 })
 

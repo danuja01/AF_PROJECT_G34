@@ -18,23 +18,23 @@ const reviewSchema = new mongoose.Schema({
   },
   user: {
     type: String,
-    required: false
+    required: true
   },
   user_id: {
     type: String,
-    required: false
+    required: true
   },
   date: {
     type: Date,
-    required: false
+    required: true
   },
   text: {
     type: String,
-    required: false
+    required: true
   },
   rating: {
     type: Number,
-    required: false,
+    required: true,
     min: 1,
     max: 5
   }
