@@ -40,7 +40,7 @@ const Memo = () => {
       console.log({ search });
       dispatch(getPostsBySearch(search));
     } else {
-      navigate('/');
+      navigate('/posts');
     }
   };
 
