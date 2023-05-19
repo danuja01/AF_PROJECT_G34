@@ -66,10 +66,10 @@ const Form = ({ currentId, setCurrentId, selectedPost }) => {
         <TextField name="message" variant="outlined" label="Message" required fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <TextField name="tags" variant="outlined" label="Tags (comma separated)" required fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
         <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-12 rounded-lg focus:outline-none focus:shadow-outline" type="submit">
+        <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-12 rounded-lg focus:outline-none focus:shadow-outline" type="submit">
           Submit
         </button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline" type='button' onClick={clear}>
+        <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline" type='button' onClick={clear}>
           Clear
         </button>
       </form>
