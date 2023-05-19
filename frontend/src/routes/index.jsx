@@ -18,6 +18,7 @@ import SearchProfile from '../pages/find-profile'
 import SearchProfileResults from '../pages/profile-list'
 import Login from '../pages/auth/sign-in'
 import ViewPublicProfile from '../pages/view-public-profile'
+import ProtectedRoutes from '../routes/ProtectedRoutes'
 
 const AnimatedRoutes = () => {
   // useAuth()
@@ -30,9 +31,11 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Navigate to="/tours" />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/view-profile" element={<ViewProfile />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/view-profile" element={<ViewProfile />} />
+          <Route path="/edit-profile/:id" element={<EditProfile />} />
+        </Route>
         <Route path="/view-public-profile/:id" element={<ViewPublicProfile />} />
-        <Route path="/edit-profile/:id" element={<EditProfile />} />
         <Route path="/find-profile/" element={<SearchProfile />} />
         <Route path="/find-profile/:searchby/:keyword" element={<SearchProfileResults />} />
         <Route path="/tours" element={<Tours />} />

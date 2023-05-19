@@ -8,12 +8,14 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   MapPinIcon,
+  UsersIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import Tours from "./pages/dashboard/Tours";
 import Items from "./pages/dashboard/Items";
 import Bookings from "./pages/dashboard/bookings";
+import Users from "./pages/dashboard/users";
 import Reviews from "./pages/dashboard/reviews";
 
 const icon = {
@@ -68,6 +70,12 @@ export const routes = [
         name: "Reviews",
         path: "/reviews",
         element: <Reviews />,
+      },
+      {
+        icon: <UsersIcon {...icon} />,
+        name: "User List",
+        path: "/users",
+        element: <Users />,
       },
       {
         icon: <BookOpenIcon {...icon} />,
