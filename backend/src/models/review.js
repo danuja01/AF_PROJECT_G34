@@ -6,23 +6,15 @@ const reviewSchema = new mongoose.Schema({
     required: false,
     ref: 'Item'
   },
-  user_details: {
+  user: {
     type: mongoose.Types.ObjectId,
-    required: false,
+    required: true,
     ref: 'User'
   },
   tour: {
     type: mongoose.Types.ObjectId,
     required: false,
     ref: 'Tour'
-  },
-  user: {
-    type: String,
-    required: true
-  },
-  user_id: {
-    type: String,
-    required: true
   },
   date: {
     type: Date,
