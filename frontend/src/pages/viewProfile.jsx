@@ -51,24 +51,28 @@ export function ViewProfile() {
         setImageLink(res.users.image_link)
         setAbout(res.users.about)
       })
-      .catch((err) => { })
+      .catch((err) => {})
   }, [uid])
   console.log('imagelink', image_link)
 
   return (
     <>
       <Layout>
-        <div style={{
-          backgroundImage: `url(${background})`, height: "900px", backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}>
+        <div
+          style={{
+            backgroundImage: `url(${background})`,
+            height: '900px',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
           <div style={{ marginRight: '0px', marginLeft: 'auto', width: '30%' }}>
             <br />
             <button
               style={{ marginRight: '0px', marginLeft: '0px' }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
               onClick={() => {
-                window.location.replace(`http://localhost:3000/edit-profile/${uid}`)
+                navigate(`/edit-profile/${uid}`)
               }}
             >
               Manage Profile
@@ -78,7 +82,7 @@ export function ViewProfile() {
               style={{ marginRight: '0px', marginLeft: '10px' }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
               onClick={() => {
-                window.location.replace(`http://localhost:3000/find-profile/`)
+                navigate(`/find-profile/`)
               }}
             >
               Find Profile

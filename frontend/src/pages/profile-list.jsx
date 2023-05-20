@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Layout from '../components/layout'
 import background from './auth/backgroundImage.jpg'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function SearchProfileResults() {
   const { searchby, keyword } = useParams()
   const [users, setUsers] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     function getUsers() {
@@ -24,6 +25,11 @@ function SearchProfileResults() {
 
     getUsers()
   }, [])
+
+  const handleView = () => {
+    navigate(`/view-public-profile/${users._id}`)
+  }
+
   return (
     <>
       <Layout>
@@ -56,7 +62,7 @@ function SearchProfileResults() {
                       <button
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         onClick={() => {
-                          Navigate(`/view-public-profile/${user._id}`)
+                          navigate(`/view-public-profile/${user._id}`)
                         }}
                       >
                         View <i class="fa fa-eye" />

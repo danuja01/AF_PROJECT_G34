@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createUser } from '../../services/users'
-import axios from "axios";
-import Layout from "../../components/layout";
+import axios from 'axios'
+import Layout from '../../components/layout'
 import background from './backgroundImage.jpg'
-
+import { Navigate } from 'react-router-dom'
 
 export function SignUp() {
   const USER_REGEX = /^[A-z]{3,20}$/
@@ -16,51 +16,45 @@ export function SignUp() {
   const [validUsername, setValidUsername] = useState(false)
   const [password, setPassword] = useState('')
   const [validPassword, setValidPassword] = useState(false)
-  const [roles, setRoles] = useState("Client")
+  const [roles, setRoles] = useState('Client')
   const [first_name, setFirstName] = useState('')
   const [last_name, setLastName] = useState('')
   const [mobile, setMobile] = useState('')
   const [validMobile, setValidMobile] = useState(false)
   const [dob, setDOB] = useState('')
   const [gender, setGender] = useState('')
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [mobileError, setMobileError] = useState('');
+  const [usernameError, setUsernameError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [mobileError, setMobileError] = useState('')
 
   const navigate = useNavigate()
 
   useEffect(() => {
     setValidUsername(USER_REGEX.test(username))
-    setUsernameError(
-      USER_REGEX.test(username) ? '' : 'Username should be 3-20 (only letters A(a)-Z(z))'
-    );
+    setUsernameError(USER_REGEX.test(username) ? '' : 'Username should be 3-20 (only letters A(a)-Z(z))')
   }, [username])
 
   useEffect(() => {
     setValidPassword(PWD_REGEX.test(password))
-    setPasswordError(
-      PWD_REGEX.test(password) ? '' : 'Password should be "4-12 chars incl. !@#$%'
-    );
+    setPasswordError(PWD_REGEX.test(password) ? '' : 'Password should be "4-12 chars incl. !@#$%')
   }, [password])
 
   useEffect(() => {
     setValidMobile(MOBILE_REGEX.test(mobile))
-    setMobileError(
-      MOBILE_REGEX.test(mobile) ? '' : 'Enter Valid Mobile Number'
-    );
+    setMobileError(MOBILE_REGEX.test(mobile) ? '' : 'Enter Valid Mobile Number')
   }, [mobile])
 
-  const onUsernameChanged = e => setUsername(e.target.value)
-  const onPasswordChanged = e => setPassword(e.target.value)
-  const onRolesChanged = e => setRoles(e.target.value)
-  const onFirstNameChanged = e => setFirstName(e.target.value)
-  const onLastNameChanged = e => setLastName(e.target.value)
-  const onMobileChanged = e => setMobile(e.target.value)
-  const onDOBChanged = e => setDOB(e.target.value)
-  const onGenderChanged = e => setGender(e.target.value)
+  const onUsernameChanged = (e) => setUsername(e.target.value)
+  const onPasswordChanged = (e) => setPassword(e.target.value)
+  const onRolesChanged = (e) => setRoles(e.target.value)
+  const onFirstNameChanged = (e) => setFirstName(e.target.value)
+  const onLastNameChanged = (e) => setLastName(e.target.value)
+  const onMobileChanged = (e) => setMobile(e.target.value)
+  const onDOBChanged = (e) => setDOB(e.target.value)
+  const onGenderChanged = (e) => setGender(e.target.value)
 
   const sendData = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const newUser = {
       username,
@@ -70,49 +64,49 @@ export function SignUp() {
       last_name,
       mobile,
       dob,
-      gender
+      gender,
     }
     console.log(username, password, roles, first_name, last_name, mobile, dob, gender)
     // axios.post("http://localhost:3500/api/users/", newUser).then(() => {
     try {
       const response = createUser(newUser)
       if (response) {
-        alert("User Added");
-        navigate('/tours/')
+        alert('User Added')
+        navigate('/')
       } else {
-        alert("User ID Already Available")
+        alert('User ID Already Available')
       }
     } catch (error) {
-      alert("User ID Already Available")
-      navigate('/tours/')
+      alert('User ID Already Available')
     }
-
     // createUser(newUser).then(() => {
-
 
     // })
     // .catch((err) => {
     //   // alert(err)
 
     // })
-
   }
 
   return (
     <>
       <Layout>
-        <div style={{
-          backgroundImage: `url(${background})`, height: "900px", backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}>
+        <div
+          style={{
+            backgroundImage: `url(${background})`,
+            height: '900px',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
           <div>
-            <br /><br />
+            <br />
+            <br />
             <center>
               <div class="w-full max-w-xl">
                 <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{ opacity: 0.8 }} onSubmit={sendData}>
-                  <center className="container" >
-                    <label className="form__label">
-                      Username:</label>
+                  <center className="container">
+                    <label className="form__label">Username:</label>
                     {usernameError && <p className="text-red-500">{usernameError}</p>}
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -124,7 +118,8 @@ export function SignUp() {
                       onChange={onUsernameChanged}
                     />
                     <label className="form__label" htmlFor="first_name">
-                      First Name:</label>
+                      First Name:
+                    </label>
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="first_name"
@@ -135,7 +130,8 @@ export function SignUp() {
                       onChange={onFirstNameChanged}
                     />
                     <label className="form__label" htmlFor="last_name">
-                      Last Name: </label>
+                      Last Name:{' '}
+                    </label>
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="last_name"
@@ -146,7 +142,8 @@ export function SignUp() {
                       onChange={onLastNameChanged}
                     />
                     <label className="form__label" htmlFor="mobile">
-                      Mobile: </label>
+                      Mobile:{' '}
+                    </label>
                     {mobileError && <p className="text-red-500">{mobileError}</p>}
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -158,19 +155,13 @@ export function SignUp() {
                       onChange={onMobileChanged}
                     />
                     <label className="form__label" htmlFor="dob">
-                      Date of Birth: </label>
-                    <input
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                      id="dob"
-                      name="dob"
-                      type="date"
-                      autoComplete="off"
-                      value={dob}
-                      onChange={onDOBChanged}
-                    />
+                      Date of Birth:{' '}
+                    </label>
+                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="dob" name="dob" type="date" autoComplete="off" value={dob} onChange={onDOBChanged} />
 
                     <label className="form__label" htmlFor="gender">
-                      Gender: </label>
+                      Gender:{' '}
+                    </label>
                     <select
                       class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="gender"
@@ -180,13 +171,14 @@ export function SignUp() {
                       value={gender}
                       onChange={onGenderChanged}
                     >
-                      <option defaultValue={""}>Choose...</option>
+                      <option defaultValue={''}>Choose...</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
 
                     <label className="form__label" htmlFor="password">
-                      Password:</label>
+                      Password:
+                    </label>
                     {passwordError && <p className="text-red-500">{passwordError}</p>}
                     <input
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -199,7 +191,8 @@ export function SignUp() {
                     />
 
                     <label className="form__label" htmlFor="roles">
-                      ASSIGNED ROLES:</label>
+                      ASSIGNED ROLES:
+                    </label>
                     <select
                       class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="roles"
@@ -209,7 +202,7 @@ export function SignUp() {
                       value={roles}
                       onChange={onRolesChanged}
                     >
-                      <option defaultValue={""}>Choose...</option>
+                      <option defaultValue={''}>Choose...</option>
                       <option value="Client">Client</option>
                       <option value="Admin">Admin</option>
                     </select>
@@ -225,8 +218,7 @@ export function SignUp() {
         </div>
       </Layout>
     </>
-
-  );
+  )
 }
 
-export default SignUp;
+export default SignUp
