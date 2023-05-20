@@ -8,8 +8,6 @@ import storage from '../firebase'
 import background from './auth/backgroundImage.jpg'
 import { getUser, updateUser, deleteUser } from '../services/users'
 
-
-
 export function EditProfile() {
   const USER_REGEX = /^[A-z]{3,20}$/
   const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
@@ -34,7 +32,6 @@ export function EditProfile() {
   const [currentId, setCurrentID] = useState('')
   const [about, setAbout] = useState('')
   let [image_link, setImageLink] = useState('')
-
 
   const navigate = useNavigate()
 
@@ -91,7 +88,7 @@ export function EditProfile() {
         setAbout(res.users.about)
         setImageLink(res.users.image_link)
       })
-      .catch((err) => { })
+      .catch((err) => {})
   }, [])
 
   useEffect(() => {
@@ -144,7 +141,7 @@ export function EditProfile() {
     updateUser(updatedUser)
       .then(() => {
         alert('User Updated')
-        navigate('/tours/')
+        navigate('/')
       })
       .catch((err) => {
         alert(err)
@@ -156,7 +153,7 @@ export function EditProfile() {
     console.log('id: ', uid)
     const idu = uid
     const deletedUser = {
-      idu
+      idu,
     }
     // axios
     // .delete('http://localhost:3500/users/', deletedUser)
@@ -164,7 +161,7 @@ export function EditProfile() {
       .then(() => {
         localStorage.removeItem('accessToken')
         alert('User Deleted')
-        navigate("/tours")
+        navigate('/')
       })
       .catch((err) => {
         alert(err)
@@ -174,10 +171,14 @@ export function EditProfile() {
   return (
     <>
       <Layout>
-        <div style={{
-          backgroundImage: `url(${background})`, height: "900px", backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}>
+        <div
+          style={{
+            backgroundImage: `url(${background})`,
+            height: '900px',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
           <div>
             <center>
               <div>
