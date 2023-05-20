@@ -1,5 +1,10 @@
 import Item from '../models/items'
 import { toSuccess } from '../utils'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const baseUrl = process.env.BASE_URL || 'http://localhost:4000/'
 
 // Create a new Item
 export const createItem = async (req, res) => {
@@ -7,7 +12,7 @@ export const createItem = async (req, res) => {
   let imagePath = ''
 
   if (req.file) {
-    imagePath = `http://localhost:4000/item/image/${req.file.filename}`
+    imagePath = `${baseUrl}item/image/${req.file.filename}`
   }
 
   try {
