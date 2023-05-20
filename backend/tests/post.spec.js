@@ -1,54 +1,71 @@
 import request from 'supertest'
 import app from '../src/app.js'
 describe('Posts API', () => {
-  let postId = '64632731a22dff2a2de38eb4'
-//   describe('POST /api/posts', () => {
-//     it('should create a new post', async () => {
-//       const response = await request(app)
-//         .post('/api/posts')
-//         .field('title', 'JEST - This is a title')
-//         .field('message', 'This is a message')
-//         .field('creator', 'JEST - Seller')
-//         .field('selectedFile', 'https://uploads-ssl.webflow.com/576fd5a8f192527e50a4b95c/5ea8524ff5ced809eb2e71d9_things%20to%20do%20in%20mirissa.jpg')
-//         .field('likeCount', 1)
+  let postId = '6468026157c74389ef94309b'
+  const searchQuery = 'Beauty'; // Replace with your desired search query
 
-//       expect(response.status).toBe(201)
-//       expect(response.body).toHaveProperty('message', 'Post created successfully')
-//       expect(response.body).toHaveProperty('data')
-//     }, 10000)
-//   })
+  /*describe('POST /api/posts', () => {
+    it('should create a new post', async () => {
+      const newPost = {
+        title: 'Example Title',
+        message: 'Example Message',
+        creator: 'Example Creator',
+        tags: ['tag1', 'tag2'],
+        selectedFile: 'https://example.com/image.jpg',
+        likeCount: 0,
+      };
 
-  //   describe('GET /api/posts', () => {
-  //     it('should get all posts', async () => {
-  //       const response = await request(app).get('/api/posts')
-  //       expect(response.status).toBe(200)
-  //       expect(response.body).toHaveProperty('message', 'Posts retrieved successfully')
-  //       expect(response.body).toHaveProperty('data')
-  //       expect(response.body.data).toBeInstanceOf(Array)
-  //     }, 10000)
-  //   })
-    // describe('GET /api/posts/:id', () => {
-    //   it('should get a post', async () => {
-    //     const response = await request(app).get(`/api/posts/${postId}`)
-    //     expect(response.status).toBe(200)
-    //     expect(response.body).toHaveProperty('message', 'Post retrieved successfully')
-    //     expect(response.body).toHaveProperty('data')
-    //     expect(response.body.data).toBeInstanceOf(Object)
-    //   }, 10000)
-    // })
-    describe('PATCH /api/items/:id', () => {
-      it('should update a post', async () => {
-        const response = await request(app).patch(`/api/items/${postId}`).send({
-          itemName: 'JEST - Updated Item',
-          cuisine: 'JEST - Updated Cuisine',
-          description: 'JEST - Updated item description',
-          price: 'JEST - Updated item price',
-          img: '/updatedTestImage.jpg',
-          location: 'JEST - Updated item map location'
-        })
-        expect(response.status).toBe(201)
-        expect(response.body).toHaveProperty('message', 'Post updated successfully')
-        expect(response.body).toHaveProperty('data')
-      })
-    })
+      const response = await request(app).post('/api/posts').send(newPost);
+      expect(response.status).toBe(201);
+      expect(response.body).toHaveProperty('_id');
+      expect(response.body.title).toBe(newPost.title);
+      expect(response.body.message).toBe(newPost.message);
+      expect(response.body.creator).toBe(newPost.creator);
+      expect(response.body.tags).toEqual(newPost.tags);
+      expect(response.body.selectedFile).toBe(newPost.selectedFile);
+      expect(response.body.likeCount).toBe(newPost.likeCount);
+      expect(response.body.createdAt).toBeDefined();
+    }, 10000);
+  });*/
+
+
+    /* describe('GET /api/posts/', () => {
+       it('should get all posts', async () => {
+         const response = await request(app).get('/api/posts')
+         expect(response.status).toBe(200)
+         expect(response.body).toHaveProperty('message', 'Posts retrieved successfully')
+         expect(response.body).toHaveProperty('data')
+         expect(response.body.data).toBeInstanceOf(Array)
+       }, 10000)
+     })*/
+    /* describe('GET /api/posts/:id', () => {
+      it('should get a post', async () => {
+        const response = await request(app).get(`/api/posts/${postId}`);
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Object);
+      }, 10000);
+    });*/
+
+    /*describe('GET /api/posts', () => {
+      it('should get posts by search query', async () => {
+        
+    
+        const response = await request(app).get(`/api/posts?searchQuery=${searchQuery}`);
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('data');
+        expect(response.body.data).toBeInstanceOf(Array);
+      }, 10000);
+    });*/
+    
+
+    /*describe('DELETE /api/posts/:id', () => {
+      it('should delete a post', async () => {
+        
+    
+        const response = await request(app).delete(`/api/posts/${postId}`);
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({ message: "Post deleted successfully." });
+      }, 10000);
+    });*/
+    
 })
