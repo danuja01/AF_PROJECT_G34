@@ -2,15 +2,17 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import background from './auth/backgroundImage.jpg'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function SearchProfile() {
   const [searchby, setSearchBy] = useState('num')
   const [keyword, setKeyword] = useState('')
 
-  function searchProfile(e) {
+  const navigate = useNavigate()
+
+  const searchProfile = (e) => {
     e.preventDefault()
-    Navigate(`/find-profile/${searchby}/${keyword}`)
+    navigate(`/find-profile/${searchby}/${keyword}`)
   }
 
   return (
