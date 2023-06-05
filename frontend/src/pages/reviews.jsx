@@ -9,7 +9,6 @@ import { NIL } from 'uuid'
 import { Rating, TextField } from '@mui/material'
 
 const Reviews = ({ id, onReviewsData, source }) => {
-  const storedUserId = localStorage.getItem('uid')
   const [reviews, setReviews] = useState([])
   const [selectedReviewId, setSelectedReviewId] = useState(null)
   const [rating, setRating] = useState(null)
@@ -40,7 +39,8 @@ const Reviews = ({ id, onReviewsData, source }) => {
   const [reviewData, setReviewData] = useState({
     item: itemId,
     tour: tourId,
-    user: storedUserId,
+    user_id: 'admin',
+    user: 'admin',
     text: '',
     rating: NIL,
   })
@@ -95,32 +95,29 @@ const Reviews = ({ id, onReviewsData, source }) => {
               <option value="4">4 stars</option>
               <option value="5">5 stars</option>
             </select>
+            {/* <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M14.95 6.95a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L15.586 11H3a1 1 0 010-2h12.586l-1.646-1.646a1 1 0 010-1.414z" />
+              </svg>
+            </div> */}
           </div>
         </div>
 
         <div className="mt-4">
           <h2 className="text-2xl font-bold">Add a Review</h2>
-          {storedUserId === null ? (
-            <p>Please sign in to leave a review and share your experience with the wonderful Tours, Hotels and Restaurants!</p>
-          ) : filteredReviews.some((review) => review.user && review.user._id === storedUserId) ? (
-            <p>You have already submitted a review!</p>
-          ) : rating !== null ? (
-            <p>Please clear the rating filter to submit a review.</p>
-          ) : (
-            <form onSubmit={handleSubmit} className="mt-4">
-              <div className="mb-4">
-                <label className="block font-medium">Review Text:</label>
-                <TextField multiline rows={4} variant="outlined" className="w-full mt-2" value={reviewData.text} onChange={(event) => setReviewData({ ...reviewData, text: event.target.value })} />
-              </div>
-              <div className="mb-4">
-                <label className="block font-medium">Rating:</label>
-                <TextField type="number" inputProps={{ min: '1', max: '5' }} variant="outlined" className="w-full mt-2" value={reviewData.rating} onChange={(event) => setReviewData({ ...reviewData, rating: event.target.value })} />
-              </div>
-              <button type="submit" className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
-                Submit Review
-              </button>
-            </form>
-          )}
+          <form onSubmit={handleSubmit} className="mt-4">
+            <div className="mb-4">
+              <label className="block font-medium">Review Text:</label>
+              <TextField multiline rows={4} variant="outlined" className="w-full mt-2" value={reviewData.text} onChange={(event) => setReviewData({ ...reviewData, text: event.target.value })} />
+            </div>
+            <div className="mb-4">
+              <label className="block font-medium">Rating:</label>
+              <TextField type="number" inputProps={{ min: '1', max: '5' }} variant="outlined" className="w-full mt-2" value={reviewData.rating} onChange={(event) => setReviewData({ ...reviewData, rating: event.target.value })} />
+            </div>
+            <button type="submit" className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
+              Submit Review
+            </button>
+          </form>
         </div>
 
         <br />
@@ -128,50 +125,31 @@ const Reviews = ({ id, onReviewsData, source }) => {
         {filteredReviews.length === 0 ? (
           <p>No reviews found.</p>
         ) : (
-          <>
-            {filteredReviews
-              .filter((review) => review.user && review.user._id === storedUserId) // Filter the user's review
-              .map((review) => (
-                <div className="bg-white rounded-lg shadow-md mb-5" style={{ width: '60%' }} key={review._id}>
-                  {/* Render the user's review */}
-                  <div className="p-4">
-                    <p className="text-lg font-medium leading-tight mb-2 break-words">{review.text}</p>
-                    <p className="text-sm font-medium text-gray-500 mb-2">
-                      <span className="font-bold">User:</span> {review.user && review.user.first_name + ' ' + review.user.last_name}
-                      <br />
-                      <span className="font-bold">Date:</span> {Moment(review.updated_at).format('LLLL')}
-                    </p>
-                    <div className="flex items-center">
-                      <Rating name="read-only" value={review.rating} size="small" readOnly />
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 px-4 py-2 flex justify-between">
-                    <button onClick={() => handleEditReview(review._id)}>Edit</button>
-                    <button className="text-red-500 font-medium hover:text-red-800" onClick={() => deleteReviews(review._id)}>
-                      Delete Review
-                    </button>
+          filteredReviews
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map((review) => (
+              <div className="bg-white rounded-lg shadow-md mb-5" key={review._id}>
+                <div className="p-4">
+                  <p className="text-lg font-medium leading-tight mb-2 break-words">{review.text}</p>
+                  <p className="text-sm font-medium text-gray-500 mb-2">
+                    <span className="font-bold">User:</span> {review.user}
+                    <br />
+                    <span className="font-bold">Date:</span> {Moment(review.date).format('LLLL')}
+                  </p>
+                  <div className="flex items-center">
+                    <Rating name="read-only" value={review.rating} size="small" readOnly />
                   </div>
                 </div>
-              ))}
-            {filteredReviews
-              .filter((review) => review.user && review.user._id !== storedUserId) // Filter other users' reviews
-              .map((review) => (
-                <div className="bg-white rounded-lg shadow-md mb-5" style={{ width: '60%' }} key={review._id}>
-                  {/* Render other users' reviews */}
-                  <div className="p-4">
-                    <p className="text-lg font-medium leading-tight mb-2 break-words">{review.text}</p>
-                    <p className="text-sm font-medium text-gray-500 mb-2">
-                      <span className="font-bold">User:</span> {review.user && review.user.first_name}
-                      <br />
-                      <span className="font-bold">Date:</span> {Moment(review.updated_at).format('LLLL')}
-                    </p>
-                    <div className="flex items-center">
-                      <Rating name="read-only" value={review.rating} size="small" readOnly />
-                    </div>
-                  </div>
+                {/* {props.user && props.user.id === review.user_id && ( */}
+                <div className="bg-gray-100 px-4 py-2 flex justify-between">
+                  <button onClick={() => handleEditReview(review._id)}>Edit</button>
+                  <button className="text-red-500 font-medium hover:text-red-800" onClick={() => deleteReviews(review._id)}>
+                    Delete Review
+                  </button>
                 </div>
-              ))}
-          </>
+                {/* )} */}
+              </div>
+            ))
         )}
       </div>
     </div>
