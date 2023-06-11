@@ -47,12 +47,13 @@ const Hero = () => (
       ))}
     </Slider> */}
 
-    <div className="w-screen relative select-none slider-wrapper">
+    <div
+      className="w-full 
+
+      relative select-none slider-wrapper"
+    >
       <div className="inner">
-        <img className="slider-content" src="assets/images/tour-slider/culture.jpg" />
-        <h1>Sri Lankan Cultural Tours</h1>
-        <p>Experience the rich culture of Sri Lanka on this unforgettable tour. Visit ancient temples, explore bustling markets, and sample delicious local cuisine. This tour is perfect for those who want to immerse themselves in Sri Lanka's vibrant culture.</p>
-        <button className="bg-primary hover:bg-opacity-75 py-3 px-5 text-white">Learn More</button>
+        <img className="slider-content " src="assets/images/tour-slider/culture.jpg" />
       </div>
     </div>
   </div>

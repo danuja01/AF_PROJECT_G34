@@ -12,7 +12,7 @@ export const SearchDropdown = () => {
     <div className="  text-right ">
       <Menu as="div" className="relative inline-block text-left ">
         <div className="">
-          <Menu.Button className="inline-flex  h-12 items-center w-full justify-center rounded-md bg-primary opacity-90 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+          <Menu.Button className="inline-flex  h-10 md:h-12 items-center w-full justify-center rounded-md bg-primary opacity-90 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             {selected}
             <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100" aria-hidden="true" />
           </Menu.Button>
