@@ -6,7 +6,7 @@ import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 
 import { Card } from '../../common'
-SwiperCore.use([Pagination])
+SwiperCore.use([Pagination, Autoplay])
 
 const CardStack = ({ data }) => {
   return (
@@ -14,14 +14,12 @@ const CardStack = ({ data }) => {
       modules={[Pagination]}
       freeMode={true}
       spaceBetween={50}
-      slidesPerView={1}
-      centeredSlides={true}
       pagination={{ clickable: true }}
       className="h-full"
       breakpoints={{
+        // Modify the values as per your needs
         640: {
           slidesPerView: 1,
-          pagination: false,
         },
         768: {
           slidesPerView: 3,
