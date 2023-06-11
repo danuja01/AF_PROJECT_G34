@@ -86,7 +86,12 @@ const Reviews = ({ id, onReviewsData, source }) => {
           <label class="block text-gray-700 font-bold mb-2" for="rating">
             Select a rating:
           </label>
-          <div class="relative">
+          <div
+            class="relative
+            inline-block
+            w-40
+"
+          >
             <select id="rating" value={rating} onChange={handleRatingChange} class="block appearance-none w-40 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               <option value="">All reviews</option>
               <option value="1">1 star</option>
@@ -114,7 +119,7 @@ const Reviews = ({ id, onReviewsData, source }) => {
               <label className="block font-medium">Rating:</label>
               <TextField type="number" inputProps={{ min: '1', max: '5' }} variant="outlined" className="w-full mt-2" value={reviewData.rating} onChange={(event) => setReviewData({ ...reviewData, rating: event.target.value })} />
             </div>
-            <button type="submit" className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
+            <button type="submit" className="flex  text-white bg-primary border-0 py-2 px-6 justify-center w-full md:justify-start md:w-40 focus:outline-none hover:bg-secondary rounded">
               Submit Review
             </button>
           </form>

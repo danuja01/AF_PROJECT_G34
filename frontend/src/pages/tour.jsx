@@ -109,33 +109,35 @@ const Tour = () => {
   return (
     <Layout>
       {tourRes && (
-        <div className="container max-w-7xl py-10 mx-20 bg-white">
-          <h2 className="text-sm title-font text-gray-500 tracking-widest">TOUR NAME</h2>
-          <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-            {tourRes.tourName} |{' '}
-            <span className="bg-primary opacity-80 text-white text-[1.8rem] px-2 py-1 rounded">
-              {tourRes.duration} {tourRes.duration == 1 ? 'DAY' : 'DAYS'}
-            </span>
-          </h1>
-          <div className="w-full h-auto mt-10 flex flex-wrap">
-            <img alt="ecommerce" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={tourRes.imagePath} />
-            <div className="lg:w-1/2 w-full  pl-10 lg:pb-6 lg:pt-5  mt-6 lg:mt-0">
-              <p className="leading-relaxed">{tourRes.description}</p>
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+        <div className="container max-w-7xl py-4 md:py-10 px-2 md:px-20 lg:px-0 lg:mx-20 text-center md:text-left bg-white">
+          <div className="py-2 md:py-0">
+            <h2 className="text-sm title-font text-gray-500 tracking-widest">TOUR NAME</h2>
+            <h1 className="text-gray-900 text-2xl md:text-3xl title-font font-medium mb-1">
+              {tourRes.tourName} <span className="hidden md:inline"> | </span>
+              <span className="bg-primary opacity-80 block md:inline text-white text-sm  justify-center md:text-[1.8rem] mx-32 md:mx-0 md:px-2 py-1 md:py-1 rounded">
+                {tourRes.duration} {tourRes.duration == 1 ? 'DAY' : 'DAYS'}
+              </span>
+            </h1>
+          </div>
+          <div className="w-full h-auto mt-5 md:mt-10 flex flex-wrap">
+            <img alt="img" className="lg:w-[45%] shadow-md rounded-lg  w-full object-cover object-center  border border-gray-200" src={tourRes.imagePath} />
+            <div className="lg:w-1/2 w-full px-2  md:pl-10 lg:pb-6 lg:pt-5  mt-6 lg:mt-0">
+              <p className="leading-relaxed  ">{tourRes.description}</p>
+              <div className="flex mt-6 items-center justify-center md:justify-start pb-5 border-b-2 border-gray-200 mb-5">
                 <div className="flex mb-4">
                   <span className="flex items-center">
                     {starIcons}
                     <span className="text-gray-600 ml-3">{numRatings} Reviews</span>
                   </span>
-                  <div className="flex items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
+                  <div className="flex  items-center ml-3 pl-3 py-2 border-l-2 border-gray-200  ">
                     <GlobeAltIcon className="h-5 w-5 text-primary" />
-                    <a href={`https://www.google.com/search?q=${tourRes.tourName}`} target="_blank" className="ml-1 text-primary">
+                    <a href={`https://www.google.com/search?q=${tourRes.tourName}`} target="_blank" className="ml-1 text-primary text">
                       Explore More!
                     </a>
                   </div>
                 </div>
               </div>
-              <div className="flex">
+              <div className="flex justify-center md:justify-start">
                 <button onClick={handleClickOpen} className="flex  text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded">
                   Schedule Your Adventure Now!
                 </button>

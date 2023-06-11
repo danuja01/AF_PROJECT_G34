@@ -10,13 +10,13 @@ function classNames(...classes) {
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(0)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   //signout
   const accessToken = localStorage.getItem('accessToken')
   // let loggedIn = false
   // accessToken ? loggedIn = true : loggedIn
-  const loggedIn = !!accessToken;
+  const loggedIn = !!accessToken
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +80,7 @@ const Header = () => {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-full bg-primary text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary">
                       <span className="sr-only">Open user menu</span>
                       <img className="h-8 w-8 rounded-full" src="/assets/images/profile/blankProfilePic.png" alt="" />
                     </Menu.Button>
@@ -106,7 +106,6 @@ const Header = () => {
                         </Menu.Item>
                       )}
                       {loggedIn && (
-
                         <Menu.Item>
                           {({ active }) => (
                             <a href="/view-profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
@@ -128,8 +127,8 @@ const Header = () => {
                             <a
                               href="/tours"
                               onClick={() => {
-                                localStorage.removeItem('accessToken');
-                                localStorage.removeItem('uid');
+                                localStorage.removeItem('accessToken')
+                                localStorage.removeItem('uid')
                               }}
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                             >
@@ -152,9 +151,15 @@ const Header = () => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button key={item.name} as="a" href={item.href} className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium')} aria-current={item.current ? 'page' : undefined}>
-                  {item.name}
+              {navigation.map(({ id, name, href }) => (
+                <Disclosure.Button
+                  key={id}
+                  as="a"
+                  href={href}
+                  className={classNames(currentPath.startsWith(href) ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium')}
+                  aria-current={currentPath.startsWith(href) ? 'page' : undefined}
+                >
+                  {name}
                 </Disclosure.Button>
               ))}
             </div>
